@@ -30,9 +30,8 @@
             
     *Material Outward 
          
-           Sending returnable and non-returnable material  from inside organization with prior request and approvals from the 
-           
-           respective departments .
+           Sending returnable and non-returnable material  from inside organization with prior request and approvals from 
+           the  respective departments .
            
            Tracking of sended materials
            
