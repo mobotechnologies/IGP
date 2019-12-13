@@ -160,6 +160,73 @@ $(document).ready(function(){
             event.preventDefault(); 
         }
   });
+  	$(".in1edit").on("click",function(e){
+     
+        $(".email1").removeAttr("disabled");
+        $(".email2").attr("disabled","disabled");
+        $(".email3").attr("disabled","disabled");
+        e.preventDefault();
+	});
+    $(".in2edit").on("click",function(e){
+        $(".email2").removeAttr("disabled");
+         $(".email1").attr("disabled","disabled");
+        $(".email3").attr("disabled","disabled");
+        e.preventDefault();
+	});
+     $(".in3edit").on("click",function(e){
+         $(".email3").removeAttr("disabled");
+         $(".email1").attr("disabled","disabled");
+        $(".email2").attr("disabled","disabled");
+        e.preventDefault();
+	});
+	  $(".in1save").on("click",function(e){
+
+        var val=$(".email1").val();
+		var iid=$(this).parent().attr('class');
+        $(".email1").val(val);
+        $(".email1").attr("disabled","disabled");
+        $.ajax({
+           url:"<?php echo base_url() ?>Security/inward1update",
+            type:"post",
+            data:{level1:val,id:iid},
+            success:function(data)
+            {
+                 bootbox.alert("Success");
+            }
+        });
+    });
+    $(".in2save").on("click",function(){
+          var val=$(".email2").val();
+		  var iid=$(this).parent().attr('class');
+          $(".email2").val(val);
+          $(".email2").attr("disabled","disabled");
+        $.ajax({
+           url:"<?php echo base_url() ?>Security/inward2update",
+            type:"post",
+            data:{level2:val,id:iid},
+            success:function(data)
+            {
+                 bootbox.alert("Success");
+            }
+        });
+	});
+  $(".in3save").on("click",function(){
+          var val=$(".email3").val();
+		  var iid=$(this).parent().attr('class');
+		  console.log(iid);
+          $(".email3").val(val);
+          $(".email3").attr("disabled","disabled");
+        $.ajax({
+           url:"<?php echo base_url() ?>Security/inward3update",
+            type:"post",
+            data:{level3:val,id:iid},
+            success:function(data)
+            {
+                 bootbox.alert("Success");
+            }
+        });
+    
+    });
 	$(".l1edit").on("click",function(e){
      
         $(".level1").removeAttr("disabled");
@@ -177,6 +244,25 @@ $(document).ready(function(){
          $(".level3").removeAttr("disabled");
          $(".level1").attr("disabled","disabled");
         $(".level2").attr("disabled","disabled");
+        e.preventDefault();
+	});
+		$(".l4edit").on("click",function(e){
+     
+        $(".level4").removeAttr("disabled");
+        $(".level5").attr("disabled","disabled");
+        $(".level6").attr("disabled","disabled");
+        e.preventDefault();
+	});
+    $(".l5edit").on("click",function(e){
+        $(".level5").removeAttr("disabled");
+         $(".level4").attr("disabled","disabled");
+        $(".level6").attr("disabled","disabled");
+        e.preventDefault();
+	});
+     $(".l6edit").on("click",function(e){
+         $(".level6").removeAttr("disabled");
+         $(".level5").attr("disabled","disabled");
+        $(".level4").attr("disabled","disabled");
         e.preventDefault();
 	});
     $(".lsave").on("click",function(e){
@@ -223,6 +309,52 @@ $(document).ready(function(){
         });
     
     });
+	 $(".l4save").on("click",function(){
+          var val=$(".level4").val();
+          $(".level4").val(val);
+          $(".level4").attr("disabled","disabled");
+        $.ajax({
+           url:"<?php echo base_url() ?>Security/level4update",
+            type:"post",
+            data:{level1:val},
+            success:function(data)
+            {
+                 bootbox.alert("Success");
+            }
+        });
+    
+    });
+	  $(".l5save").on("click",function(){
+          var val=$(".level5").val();
+          $(".level5").val(val);
+          $(".level5").attr("disabled","disabled");
+        $.ajax({
+           url:"<?php echo base_url() ?>Security/level5update",
+            type:"post",
+            data:{level2:val},
+            success:function(data)
+            {
+                 bootbox.alert("Success");
+            }
+        });
+    
+    });
+	  $(".l6save").on("click",function()
+	  {
+          var val=$(".level6").val();
+          $(".level6").val(val);
+          $(".level6").attr("disabled","disabled");
+        $.ajax({
+           url:"<?php echo base_url() ?>Security/level6update",
+            type:"post",
+            data:{level3:val},
+            success:function(data)
+            {
+                 bootbox.alert("Success");
+            }
+        });
+    
+    });
 	    $(".e1save").on("click",function(e){
         var id=$(this).attr('data-value');
         var val=$(".level1").val();
@@ -241,6 +373,7 @@ $(document).ready(function(){
     });
     $(".e2save").on("click",function(e){
 		  var id=$(this).attr('data-value');
+		  console.log(id);
           var val=$(".level2").val();
           $(".level2").val(val);
           $(".level2").attr("disabled","disabled");
@@ -301,6 +434,7 @@ $(document).ready(function(){
 	{
 		var del=$(this).attr('data-value');
 		var id=$(this).parent().parent().attr('id');
+		
 		bootbox.confirm("Do you want to remove this record ?", function(result){
            if(result)
 		   {
@@ -308,11 +442,11 @@ $(document).ready(function(){
 				{
 					url:"<?php echo base_url(); ?>security/delete_stockin",
 					type:"Post",
-					data:{delv:del},
+					data:{delv:id},
 					success:function()
 					{
 						bootbox.alert("Deleted successfully");
-						$('#'.id).hide();
+						$('#'+id).hide();
 					}
 				});
 		   }
@@ -329,11 +463,11 @@ $(document).ready(function(){
 				{
 					url:"<?php echo base_url(); ?>security/delete_stockout",
 					type:"Post",
-					data:{delv:del},
+					data:{delv:id},
 					success:function()
 					{
 						bootbox.alert("Deleted successfully");
-						$('#'.id).hide();
+						$('#'+id).hide();
 					}
 				});
 		   }
@@ -350,11 +484,11 @@ $(document).ready(function(){
 				{
 					url:"<?php echo base_url(); ?>security/delete_visitor",
 					type:"Post",
-					data:{delv:del},
+					data:{delv:id},
 					success:function()
 					{
 						bootbox.alert("Deleted successfully");
-						$('#'.id).hide();
+						$('#'+id).hide();
 					}
 				});
 		   }
@@ -372,11 +506,11 @@ $(document).ready(function(){
 				{
 					url:"<?php echo base_url(); ?>security/delete_expense",
 					type:"Post",
-					data:{delv:del},
+					data:{delv:id},
 					success:function()
 					{
 						bootbox.alert("Deleted successfully");
-						$('#'.id).hide();
+						$('#'+id).hide();
 					}
 				});
 		   }
@@ -393,60 +527,141 @@ $(document).ready(function(){
 				{
 					url:"<?php echo base_url(); ?>security/delete_cab",
 					type:"Post",
-					data:{delv:del},
+					data:{delv:id},
 					success:function()
 					{
 						bootbox.alert("Deleted successfully");
-						$('#'.id).hide();
+						$("#"+id).hide();
 					}
 				});
 		   }
         });
 	});
-	$(".outapprove").on("click",function()
+	$(".outapprove1").on("click",function()
 	{
 		var appid=$(this).attr('data-value');
-		console.log(appid);
-		//var id=$(this).parent().parent().attr('id');
+		var  status="Yes";
 		bootbox.confirm("Are you sure ?", function(result){
 			console.log(result);
            if(result)
 		   {
 			    $.ajax(
 				{
-					url:"<?php echo base_url(); ?>security/stockout_approval",
+					url:"<?php echo base_url(); ?>security/stockout_approval1",
 					type:"post",
-					data:{id:appid},
+					data:{id:appid,stat:status},
 					success:function(data)
 					{
 						console.log(data);
 						bootbox.alert("Approved");
-						//$('#'.id).hide();
 					}
 				});
 		   }
         });
 	});
-		$(".outreject").on("click",function()
+	$(".outreject1").on("click",function()
 	{
 		var appid=$(this).attr('data-value');
-		//var id=$(this).parent().parent().attr('id');
+		var  status="No";
 		bootbox.confirm("Are You sure ?", function(result){
            if(result)
 		   {
 			    $.ajax(
 				{
-					url:"<?php echo base_url(); ?>security/stockout_reject",
+					url:"<?php echo base_url(); ?>security/stockout_approval1",
 					type:"Post",
-					data:{id:appid},
+					data:{id:appid,stat:status},
 					success:function()
 					{
-						bootbox.alert("Approved");
-						//$('#'.id).hide();
+						bootbox.alert("Rejected");
 					}
 				});
 		   }
         });
+	});
+	$(".outapprove2").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="Yes";
+		bootbox.confirm("Are you sure ?", function(result){
+			console.log(result);
+           if(result)
+		   {
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/stockout_approval2",
+					type:"post",
+					data:{id:appid,stat:status},
+					success:function(data)
+					{
+						console.log(data);
+						bootbox.alert("Approved");
+					}
+				});
+		   }
+        });
+	});
+	$(".outreject2").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="No";
+		bootbox.confirm("Are You sure ?", function(result){
+           if(result)
+		   {
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/stockout_approval2",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function()
+					{
+						bootbox.alert("Rejected");
+					}
+				});
+		   }
+        });
+		$(".outapprove3").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="Yes";
+		bootbox.confirm("Are you sure ?", function(result){
+			console.log(result);
+           if(result)
+		   {
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/stockout_approval3",
+					type:"post",
+					data:{id:appid,stat:status},
+					success:function(data)
+					{
+						console.log(data);
+						bootbox.alert("Approved");
+					}
+				});
+		   }
+        });
+	});
+	$(".outreject3").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="No";
+		bootbox.confirm("Are You sure ?", function(result){
+           if(result)
+		   {
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/stockout_approval3",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function()
+					{
+						bootbox.alert("Rejected");
+					}
+				});
+		   }
+        });
+	});
 	});
 $(".selectsearch").select2({
   tags: true
@@ -466,7 +681,7 @@ $(".selectsearch").select2({
 	    var prevclass=$(this).parent().parent().prev().attr("class");
 		var curclass=$(this).parent().parent().attr("class");
 		$("."+curclass).remove();
-		$("."+prevclass).children().last().append("<button class='btn btn-danger remove'>Remove</button><button class='btn btn-success add'>+</button>");
+		$("."+prevclass).children().last().append("<button class='btn btn-danger remove'>-</button><button class='btn btn-success add'>+</button>");
 	});
 
 	$(".check3").change(function()

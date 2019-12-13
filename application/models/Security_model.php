@@ -26,6 +26,10 @@
 		{
 			 $this->db->insert("inward_particules",$data);
 		}
+		public function inward_time($data)
+		{
+			 $this->db->insert("inward_time",$data);
+		}
 		public function insert_visitor($data)
 		{
 			$this->db->insert("visitor_management", $data);
@@ -76,6 +80,12 @@
              $result = $query->result();
              return $result;
 		} 
+	    public function selectconfig2()
+		{
+			 $query = $this->db->get('config2');
+             $result = $query->result();
+             return $result;
+		} 
 		public function selectvisitor()
 		{
 			$query = $this->db->get('visitor_management');
@@ -114,7 +124,7 @@
 		public function selectinmatdail($data)
 		{
 
-				  $sql = "SELECT * FROM stock_inward   WHERE id>0 AND ".$data["datetype"]." between '".$data["date1"]."' AND '".$data["date2"]."'";
+				  $sql = "SELECT * FROM stock_inward  WHERE id>0 AND ".$data["datetype"]." between '".$data["date1"]."' AND '".$data["date2"]."'";
 
               $query=$this->db->query($sql);
 
@@ -122,6 +132,24 @@
 			 
 	          return $result;
 		}
+		public function update_inward1($data,$id)
+		{
+
+           $this->db->where('id',$id);
+		   $this->db->update('stock_inward',$data); 
+		}	
+		  public function update_inward2($data,$id)
+		{
+
+           $this->db->where('id',$id);
+		   $this->db->update('stock_inward',$data); 
+		}	
+		public function update_inward3($data,$id)
+		{
+
+           $this->db->where('id',$id);
+		   $this->db->update('stock_inward',$data); 
+		}	
         public function update_level1($data,$id)
 		{
 
@@ -139,6 +167,24 @@
 
            $this->db->where('id',$id);
 		   $this->db->update('configuration',$data); 
+		}
+		 public function update_level4($data,$id)
+		{
+
+           $this->db->where('id',$id);
+		   $this->db->update('config2',$data); 
+		}
+		 public function update_level5($data,$id)
+		{
+
+           $this->db->where('id',$id);
+		   $this->db->update('config2',$data); 
+		}
+		 public function update_level6($data,$id)
+		{
+
+           $this->db->where('id',$id);
+		   $this->db->update('config2',$data); 
 		}
         public function update_email1($data,$id)
 		{
@@ -161,7 +207,7 @@
 		public function Update_ingat($id,$data)
 		{
 		$this->db->where('ipid', $id);
-		$this->db->update('inward_particules',$data);        
+		$this->db->update('inward_time',$data);        
         }
 		public function Update_outgat($id,$data)
 		{
@@ -212,6 +258,13 @@
         public function inmateriallist($id)
 		{
 			  $sql = "SELECT * FROM inward_particules   WHERE id='$id'";
+              $query=$this->db->query($sql);
+	          $result = $query->result();
+	          return $result;
+		}
+		  public function inmaterialpart($id)
+		{
+			  $sql = "SELECT * FROM inward_time   WHERE ipid='$id'";
               $query=$this->db->query($sql);
 	          $result = $query->result();
 	          return $result;

@@ -30,6 +30,7 @@
     <link href="<?php echo base_url(); ?>assets/js/plugins/nucleo/css/nucleo.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
+	<link href="<?php echo base_url(); ?>assets/css/argon-dashboard.css?v=1.1.0" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>assets/responsiveslide/responsetable.css" rel="stylesheet" />
 	<!-- menuplugin -->
    	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/menuplug/css/normalize.css" />
@@ -265,7 +266,7 @@
               <img src="../assets/img/icons/visit.png" alt="material.png" id="material"/> Visitor
             </a>
 			<div class="nav-link <?php if($this->uri->segment(2)=="visitor_view" ||  $this->uri->segment(2)=="visitor_form" ||  $this->uri->segment(2)=="visitor_report"){ echo "active"; } ?> hmenu  dropdown hidedrop">
-    <a class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/icons/visit.png" alt="material.png" id="material"/>Visitor Management</a>
+    <a class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/icons/visit.png" alt="material.png" id="material"/>Visitor</a>
     <span class="caret"></span></a>
     <ul class="dropdown-menu" style="
     width: 142px;

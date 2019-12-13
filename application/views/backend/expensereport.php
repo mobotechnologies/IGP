@@ -20,7 +20,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		<li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->security_model->countcomment();
@@ -31,20 +31,9 @@
             <div id="notification-latest"></div>
           </div>
         </li>
-		<li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
-            <span id="notification-count">
-			<?php 
-			  $count=$this->security_model->countcomment();
-			  echo $count;
-			?></span><img src="<?php echo base_url(); ?>assets/images/notify.png" style="width: 43px;"/>
-          </a>
-          <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right" style="padding-top:0px;padding-bottom: 0px;" aria-labelledby="navbar-default_dropdown_1">
-            <div id="notification-latest"></div>
-          </div>
-        </li>
+	
           <li class="nav-item dropdown">
-            <a class="hfont pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                                       <?php
@@ -143,21 +132,8 @@
 						   ?>
 											
 						</div>
-						<div class="form-group">
-								<label class="form-control-label">Report Type</label>
-								<select name="reporttype" class="form-control form-control-line reportdate">
-									<option name="daily">Daily</option>
-									<option name="weekly">Weekly</option>
-									<option name="monthly">Monthly</option>
-									<option name="yearly">Yearly</option>
-								</select>					
-						</div>
-						<div class="form-group date">
-							<label class="form-control-label" >Date</label>
-							<input type="date" class="form-control form-control-line" name="date" placeholder="Date"  />
-						</div>
-						<div class="daterange" hidden>
-							<div class="form-group">
+						<div>
+						   <div class="form-group">
 								<label class="form-control-label" >From</label>
 								<input type="date" class="form-control form-control-line" name="From" placeholder="From"  />
 							</div>

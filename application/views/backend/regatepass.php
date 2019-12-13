@@ -15,7 +15,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		<li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -27,7 +27,7 @@
           </div>
         </li>
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                     <?php
@@ -83,136 +83,18 @@
     <!-- Header -->
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">  
     </div>
-    <div class="container-fluid mt--7" id="bgcontain">
+    <div class="container-fluid mt--8" id="bgcontain">
 	   <h1>Materials List</h1>
       <!-- Table -->
           
           <div class="card shadow" class="ele1">
             <div class="card-header border-0" >
-              <h3 class="mb-0" style="font-weight: 900;color: white;"><img src="../assets/images/poc.jpg" alt="gatepass.png" id="materialdub" style=" margin-right: 8% !important;"/>REQUEST FORM FOR RETURNABLE  /  NON RETURNABLE GATE PASS<span style="margin-right: 0px;margin-left: 11%;">+<i class="fas fa-envelope" data-toggle="modal" data-target="#addemail"></i></span><i class="fas fa-closed-captioning" data-toggle="modal" data-target="#Matclose" style=" margin-left: 9px;"></i></h3>
-			    	<div class="modal fade" id="Matclose" role="dialog">
-												<div class="modal-dialog">
-												
-												  <!-- Modal content-->
-												  <div class="modal-content">
-													<div class="modal-header">
-													  <h4 class="modal-title" style="margin-left: 186px !important;"><img src="../assets/img/icons/closure.png" alt="closure.png" id="material"/>Material Closure</h4>
-													</div>
-													<div class="modal-body">
-                                                        <form method="post" action="<?php echo base_url(); ?>security/stockout_remark">
-													    <input type="mid" name="mid" value="<?php echo $materialin[0]->id; ?>" hidden />
-                                                        <div class="form-group">
-                                                         
-                                                           <input type="text" name="remark" class="form-control" placeholder="Remark" /> 
-                                                        </div>
-                                                        <div class="form-group">
-                                                         
-                                                        	<select   class=" form-control"  tabindex="1" name="status" required>
-																<option value="Opened">Opened</option>
-																<option value="Closed">Closed </option>
-															</select> 
-                                                         </div> 
-                                                         <div class="form-group"> 
-                                                            <input type="submit" name="submit" class="btn btn-primary" value="Submit" style="width: 116.991422px;margin-left: 149px;"/>                                                  
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 77.991422px;">Close</button>
-                                                         </div> 
-                                                        </form>
-												    </div>
-												  
-												</div>
-											  </div>
-                                        </div>
-    <div class="modal fade" id="addemail" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title"><img src="../assets/img/icons/addemail.png" alt="material.png" id="material"/>AddOn Email</h4>
-        </div>
-        <div class="modal-body">
-            <form>
-			   <table class="table table-bordered">
-				
-					    <tr>
-						   <td>
-						        <select class=" form-control level1"  tabindex="1" name="level1" disabled>
-								 <option value="">Select email</option>
-							      <?php
-							         foreach($employee as $value)
-							        {
-						                   ?>
-								 
-									     <option value="<?php echo $value->em_id ?>" <?php if($value->em_id==$materialin[0]->email1){ echo "selected"; }?>><?php echo $value->em_id."-".$value->first_name ?></option>
-								 
-						                 <?php
-							        }
-							     ?>
-							    </select>
-						   </td>
-						   <td class="levellabel">Level1</td>
-						   <td>
-						      <button class="btn btn-primary editbtn l1edit"><i class="fa fa-edit"></i></button>
-							  <button class="btn btn-primary editbtn e1save" data-value="<?php echo $materialin[0]->id ?>"><i class="fas fa-save"></i></button>
-						</td>
-						</tr>
-						 <tr>
-						   <td>
-						        <select class=" form-control level2"  tabindex="1" name="level2" disabled>
-								 <option value="">Select email</option>
-							      <?php
-							         foreach($employee as $value)
-							        {
-						                   ?>
-								 
-									     <option value="<?php echo $value->em_id ?>" <?php if($value->em_id==$materialin[0]->email3){ echo "selected"; }?>><?php echo $value->em_id."-".$value->first_name ?></option>
-								 
-						                 <?php
-							        }
-							     ?>
-							    </select>
-						   </td>
-						   <td class="levellabel">Level2</td>
-						   <td>
-						      <button class="btn btn-primary editbtn l2edit"><i class="fa fa-edit"></i></button>
-							  <button class="btn btn-primary editbtn e2save" data-value="<?php echo $materialin[0]->id ?>"><i class="fas fa-save"></i></button>
-						   </td>
-						</tr>
-						 <tr>
-						   <td>
-						       <select class=" form-control level3"  tabindex="1" name="level3" disabled>
-							    <option value="">Select email</option>
-							      <?php
-							         foreach($employee as $value)
-							        {
-						                   ?>
-								 
-									     <option value="<?php echo $value->em_id ?>" ><?php echo $value->em_id."-".$value->first_name ?></option>
-								 
-						                 <?php
-							        }
-							     ?>
-							    </select>
-						   </td>
-						   <td class="levellabel">Level3</td>
-						   <td>
-						      <button class="btn btn-primary editbtn l3edit"><i class="fa fa-edit"></i></button>
-							  <button class="btn btn-primary editbtn e3save" data-value="<?php echo $materialin[0]->id ?>"><i class="fas fa-save"></i></button>
-							</td>
-						</tr>
-						
-					</table>
-					 <button type="button" class="btn btn-default" data-dismiss="modal" style="
-    margin-top: 13px;
-    margin-left: 238px;
-">Close</button>
-			</form>
-      </div>
-      
-    </div>
-  </div>
-		   </div>
-            <div class="card-body">
+              <h3 class="mb-0" style="font-weight: 900;color: white;"><img src="../assets/images/poc.jpg" alt="gatepass.png" id="materialdub" style=" margin-right: 8% !important;"/>REQUEST FORM FOR RETURNABLE  /  NON RETURNABLE GATE PASS</h3>
+            
+			<div class="card-body">
+			     <div style="margin-left: 770px;">
+				   Date : <?php echo $materialin[0]->date; ?>
+				</div>
 			    <hr class="hr1">
 			    <div class="frto" style="width:826px !important;">
 					<div class="from" style="width: 215px  !important;margin-right: 414px  !important;">
@@ -220,14 +102,52 @@
 							<p>FROM : <?php echo $basicinfo->first_name; ?></p>
 						</div>
 						<div>
-							<p>DEPT : <?php echo "Logistic"; ?></p>
+							<p>DEPT : <?php echo $basicinfo->dep_name; ?></p>
 						</div>
 					</div>
 					<div class="to">
 						<div> 
-							<p>TO DEPT : <?php echo $materialin[0]->to_em;  ?></p>
+							<p>TO  : <?php echo $materialin[0]->to_em;  ?></p>
 						</div>
 						
+					</div>
+				</div>
+				<hr>
+				<div style="margin-left: 172px;">
+					<div class="form-group" style="display: flex;">
+					    <p class="check4">Category</p> 
+						<div style="display: inline-flex;">
+							<input type="checkbox" class="check" name="category1" value="Parts" <?php if($materialin[0]->category=="Parts"){  echo "checked disabled";  }else{ echo "disabled"; } ?>>Parts<br>
+							<input type="checkbox"  class="check " name="category2" value="Mro" <?php if($materialin[0]->category=="Mro"){  echo "checked disabled";  }else{ echo "disabled"; } ?>>Mro<br>
+						</div>
+					</div>
+					<div class="form-group"style="display: flex;">
+					    <p>Type</p>
+						<div style="display: inline-flex;">
+						  <input type="checkbox"  class="check check3" name="type" value="RGP" style="margin-left: 88px;"  <?php if($materialin[0]->type=="RGP"){  echo "checked disabled";  }else{ echo "disabled"; } ?>>RGP<br>
+                          <input type="checkbox"  class="check check3" name="type" value="NRGP"  <?php if($materialin[0]->type=="NRGP"){  echo "checked disabled";  }else{ echo "disabled"; } ?>>NRGP<br>
+						</div>
+					    <p style="margin-left: 220px;">Cost Center : <?php echo ucfirst($materialin[0]->costcenter); ?></p>
+					</div>
+					<div class="form-group rdate" >
+					   <p>(Expected date of return) :<?php 
+					                                      if($materialin[0]->type=="NRGP")
+														  {
+															   echo "Non Returnable Material";
+														  }
+														  else
+														  {
+					                                           echo $materialin[0]->returndate; 
+														  }
+													  ?>
+					   </p>
+				    </div>
+					<div class="form-group" style="display:flex;">
+					    <p class="check4" style="display: inherit;">Category</p>
+						<div style="display: inline-flex;">
+						<input type="checkbox" class="check" name="subcategory" value="OSP" style="margin-left: 3px;"  <?php if($materialin[0]->subcategory=="OSP"){  echo "checked disabled";  }else{ echo "disabled"; } ?>>OSP<br>
+                        <input type="checkbox" class="check" name="subcategory" value="NONOSP" style="margin-left: 6px;"  <?php if($materialin[0]->subcategory=="NONOSP"){  echo "checked disabled";  }else{ echo "disabled"; } ?>>NONOSP<br>
+						</div>
 					</div>
 				</div>
 				<hr class="hr2">
@@ -238,7 +158,8 @@
 				 <table class="table table-bordered">
 					       <tr>
 						       <th>Sno</th>
-							   <th>Material</th>
+							   <th>Particulars</th>
+							   <th>Quantity</th>
 							   <th>GateIn</th>
 							   <th>GateOut</th>
 						   </tr>
@@ -252,6 +173,7 @@
 						   <tr>
 						       <td><?php echo $count; ?></td>
 							   <td><?php echo $value->particulars; ?></td>
+							   <td>12</td>
 							   <td><button class="btn btn-success outgatein buttonsizing"  data-toggle="modal" data-target="#gateindet"><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button></td>
 							   <td><button class="btn btn-success outgateout buttonsizing" data-toggle="modal" data-target="#gateoutdet" ><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button></td>
 					        </tr>
@@ -273,6 +195,20 @@
 													<div class="modal-body">
                                                         <form method="post" action="<?php echo base_url(); ?>security/stockout_updatematerials">
 													    <input type="mid" name="mid" value="<?php echo $materialin[0]->id; ?>" hidden />
+														    <div class="form-group">
+						    <table class="table table-bordered" id="particules">
+							     <tr>
+								    <th>Particules</th>
+									<th>Quantity</th>
+									<th>Action</th>
+								 </tr>
+								 <tr class="part1" id="1">
+								    <td><input type='text' name='particules[]' class='parti charrestrict' placeholder='particules'/></td>
+									<td><input type='text' name='quantity[]' class='quanti norestrict'  placeholder='quantity'/></</td>
+									<td><button class='btn btn-success add'>+</button></td>
+								 </tr>
+							</table> 
+						</div>
                                                         			<div class="form-group" style="
     margin-left: 115px;
 ">
@@ -348,7 +284,7 @@ function saveSnap2(){
 					<div class="approvals" style="display:inline-flex">
 					    <div class="requested">
 						    <p style="font-size: 13px;">Requested By</p>
-						    <p style="font-size: 13px;">Name : test</p>
+						    <p style="font-size: 13px;">Name : <?php echo $basicinfo->first_name; ?></p>
 							<p style="font-size: 13px;">Emid : <?php echo $id ?></p>
 						</div>
 						<div class="checked45">
@@ -363,47 +299,79 @@ function saveSnap2(){
 				<hr>
 				 <p style="font-size: 13px;"><u>FOR WAREHOUSE USAGE</u></p>
 				 <p style="font-size: 13px;">Gate Pass No : <?php
-		    if($materialin[0]->approve1=="" || $materialin[0]->approve2=="" || $materialin[0]->approve3=="")
+
+		    if($materialin[0]->approve1 =="Yes" && $materialin[0]->approve2=="Yes" && $materialin[0]->approve3=="Yes")
+			{
+				
+				echo $materialin[0]->gatepass; 
+			}
+			else
 			{
 				echo "Pending";
 			}
 			?>
-</p>
-				  <p style="
-    font-size: 13px;
-">Gate Pass Date : <?php
-		    if($materialin[0]->approve1=="" || $materialin[0]->approve2=="" || $materialin[0]->approve3=="")
+            </p>
+		    <p style="font-size: 13px;">Gate Pass Date : <?php
+           if($materialin[0]->approve1 =="Yes" && $materialin[0]->approve2=="Yes" && $materialin[0]->approve3=="Yes")
 			{
-				echo "Pending";
+			     echo $materialin[0]->date; 
 			}
+			else
+			{
+				 
+				 echo "Pending";
+			}
+
 			?></p>
 				<hr>
-<?php
-		    if($this->session->userdata('designation')=="15" || $this->session->userdata('designation')=="16" )
+            <?php
+			if(($materialin[0]->approve1=="Yes" || $materialin[0]->approve1=="No")   && ($materialin[0]->approve2=="Yes" || $materialin[0]->approve2=="No" ) && ($materialin[0]->approve3=="Yes" || $materialin[0]->approve3=="No") )
 			{
-				 
-		    ?>
-			    
+			      
+			}
+			else
+			{
+            $config=$this->Security_model->selectconfig();    
+			foreach($config as $vales)
+			{	
+				if($this->session->userdata('user_login_id')==$vales->level1 )
+				{
+					 
+				?>
+					 <input type="submit" value="Approve"  class="btn btn-primary outapprove1" name="approve" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>" />
+					 <input type="submit" value="Reject" class="btn btn-danger outreject1" name="reject" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>"/>
+				<?php
+				}
+				if($this->session->userdata('user_login_id')==$vales->level2)
+				{
+					?>
+					 <input type="submit" value="Approve"  class="btn btn-primary outapprove2" name="approve" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>" />
+					 <input type="submit" value="Reject" class="btn btn-danger outreject2" name="reject" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>"/>
+					<?php
+				}
+				if($this->session->userdata('user_login_id')==$vales->level3)
+				{
+					?>
+					 <input type="submit" value="Approve"  class="btn btn-primary outapprove3" name="approve" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>" />
+					 <input type="submit" value="Reject" class="btn btn-danger outreject3" name="reject" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>"/>
+					<?php
+				}
 				
-				 <input type="submit" value="Approve"  class="btn btn-primary outapprove" name="approve" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>" />
-				
-				 <input type="submit" value="Reject" class="btn btn-danger outreject" name="reject" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>"/>
-				 
-	
-<?php
-}
-?>
-<?php
-		    if($materialin[0]->approve1!="" && $materialin[0]->approve2!="" && $materialin[0]->approve3!="")
+		    }
+			}
+           ?>
+      <?php
+        if(($materialin[0]->approve1=="Yes" || $materialin[0]->approve1=="No")   && ($materialin[0]->approve2=="Yes" || $materialin[0]->approve2=="No" ) && ($materialin[0]->approve3=="Yes" || $materialin[0]->approve3=="No") )
 			{
 			?>	
 			
-		    <input type="submit" value="Generate Pass" class="btn btn-primary" name="submit" style="
-    width: 204.977496px;
-    margin-bottom: 10px;
-"/>				
+		    <input type="submit" value="Generate Pass" class="btn btn-primary" name="submit" style="width: 204.977496px;margin-bottom: 10px;"/>				
 		<?php
-	}
+	       }
+		   else
+		   {
+			    echo "";
+		   }
 			?>		
       <div class="modal fade" id="gateindet" role="dialog">
     <div class="modal-dialog">
@@ -426,10 +394,7 @@ function saveSnap2(){
                                <button class="btn btn-danger resetcam"><i class="fas fa-undo"></i></button>
 								<input type=button class="btn btn-primary savesnap"  value="Save Snapshot" onClick="saveSnap()" hidden >
 							</div>
-				
-							
-
-	</div>
+	             </div>
                        <div class="form-group">
 						     <select name="mode" class="form-control mode" style="width: 302.991422px;margin-left: 0px;">
 							    <option name="Vechicle">Vehicle</option>
@@ -481,12 +446,9 @@ function saveSnap2(){
 						</div>
 						
 						<div class="form-group"> 
-														<input type="submit" name="submit" class="btn btn-primary" value="Submit" style="
-    width: 86.991422px;
-    margin-left: 62px;
-"/>                                                  
-														<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-													 </div>
+							<input type="submit" name="submit" class="btn btn-primary" value="Submit" style="width: 86.991422px;margin-left: 62px;"/>                                                  
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						 </div>
 			</form>
       </div>
       
@@ -578,12 +540,9 @@ function saveSnap2(){
 						</div>
 						
 					<div class="form-group"> 
-														<input type="submit" name="submit" class="btn btn-primary" value="Submit" style="
-    width: 86.991422px;
-    margin-left: 62px;
-"/>                                                  
-														<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-													 </div>
+						<input type="submit" name="submit" class="btn btn-primary" value="Submit" style="width: 86.991422px;margin-left: 62px;"/>                                                  
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					 </div>
 			</form>
       </div>
       
@@ -650,10 +609,24 @@ function saveSnap(){
 }
 
 	</script>
-		    <a href="<?php echo base_url(); ?>security/stockoutgenerate?I=<?php echo base64_encode($value->id); ?>" class="btn btn-primary " >Generate</a>
+
+
+	        <?php
+            if(($materialin[0]->approve1=="Yes" || $materialin[0]->approve1=="No")   && ($materialin[0]->approve2=="Yes" || $materialin[0]->approve2=="No" ) && ($materialin[0]->approve3=="Yes" || $materialin[0]->approve3=="No") )
+			{
+				?>
 				<button class="print-link no-print btn btn-success" onclick="jQuery('.ele1').print()">
                                         Print
                 </button>
+	       <?php
+			}
+			else
+		    {
+			?>
+			    <span style="color:red;font-weight:500">Note : You are able to generate pass or print when your request pass 3 levels of approval</span>
+			<?php
+			}
+			?>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		<li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->security_model->countcomment();
@@ -28,7 +28,7 @@
           </div>
         </li>
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                      <?php
@@ -108,7 +108,7 @@
 						   if($this->session->userdata('user_type')=='EMPLOYEE'){
 						 ?>
 						 <select class=" form-control form-control-alternative  selectsearch"  tabindex="1" name="emid" required>
-							 <option value="<?php echo $employee->id ?>"><?php echo $employee->first_name ?></option>
+							 <option value="<?php echo $employee->em_id ?>"><?php echo $employee->first_name ?></option>
 						 </select>
 						 <?php
 						   }
@@ -121,7 +121,7 @@
 							{
 						 ?>
 								 
-									 <option value="<?php echo $value->id ?>"><?php echo $value->first_name ?></option>
+									 <option value="<?php echo $value->em_id ?>"><?php echo $value->first_name ?></option>
 								 
 						 <?php
 							}

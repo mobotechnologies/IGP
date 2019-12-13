@@ -14,7 +14,7 @@
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		        <ul class="navbar-nav align-items-center d-none d-md-flex">
 		<li class="nav-item dropdown">
-          <a class=" nav-link-icon" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -26,7 +26,7 @@
           </div>
         </li>
           <li class="nav-item dropdown">
-            <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                     <?php
@@ -93,6 +93,7 @@
 					    <tr>
 						   <td>
 						        <select class=" form-control level1"  tabindex="1" name="level1" disabled>
+								  <option>Select employee</option>
 							      <?php
 							         foreach($employee as $value)
 							        {
@@ -114,6 +115,7 @@
 						 <tr>
 						   <td>
 						        <select class=" form-control level2"  tabindex="1" name="level2" disabled>
+								 <option>Select employee</option>
 							      <?php
 							         foreach($employee as $value)
 							        {
@@ -135,6 +137,7 @@
 						 <tr>
 						   <td>
 						       <select class=" form-control level3"  tabindex="1" name="level3" disabled>
+							   	 <option>Select employee</option>
 							      <?php
 							         foreach($employee as $value)
 							        {
@@ -164,12 +167,13 @@
 					<hr>
 					<table class="table table-bordered">
 					    <?php
-                            foreach($config as $vales)
+                            foreach($config2 as $vales)
 							{	
 						?>
 					    <tr>
 						   <td>
-						        <select class=" form-control level1"  tabindex="1" name="level1" disabled>
+						        <select class=" form-control level4"  tabindex="1" name="level1" disabled>
+								 <option>Select employee</option>
 							      <?php
 							         foreach($employee as $value)
 							        {
@@ -184,13 +188,14 @@
 						   </td>
 						   <td class="levellabel">GM</td>
 						   <td>
-						      <button class="btn btn-primary editbtn l1edit"><i class="fa fa-edit"></i></button>
-							  <button class="btn btn-primary editbtn lsave"><i class="fas fa-save"></i></button>
+						      <button class="btn btn-primary editbtn l4edit"><i class="fa fa-edit"></i></button>
+							  <button class="btn btn-primary editbtn l4save"><i class="fas fa-save"></i></button>
 						</td>
 						</tr>
 						 <tr>
 						   <td>
-						        <select class=" form-control level2"  tabindex="1" name="level2" disabled>
+						        <select class=" form-control level5"  tabindex="1" name="level2" disabled>
+                                 <option>Select employee</option>
 							      <?php
 							         foreach($employee as $value)
 							        {
@@ -205,13 +210,14 @@
 						   </td>
 						   <td class="levellabel">HR</td>
 						   <td>
-						      <button class="btn btn-primary editbtn l2edit"><i class="fa fa-edit"></i></button>
-							  <button class="btn btn-primary editbtn l2save"><i class="fas fa-save"></i></button>
+						      <button class="btn btn-primary editbtn l5edit"><i class="fa fa-edit"></i></button>
+							  <button class="btn btn-primary editbtn l5save"><i class="fas fa-save"></i></button>
 						   </td>
 						</tr>
 						 <tr>
 						   <td>
-						       <select class=" form-control level3"  tabindex="1" name="level3" disabled>
+						       <select class="form-control level6"  tabindex="1" name="level3" disabled>
+							   	<option>Select employee</option>
 							      <?php
 							         foreach($employee as $value)
 							        {
@@ -226,8 +232,8 @@
 						   </td>
 						   <td class="levellabel">Optional</td>
 						   <td>
-						      <button class="btn btn-primary editbtn l3edit"><i class="fa fa-edit"></i></button>
-							  <button class="btn btn-primary editbtn l3save"><i class="fas fa-save"></i></button>
+						      <button class="btn btn-primary editbtn l6edit"><i class="fa fa-edit"></i></button>
+							  <button class="btn btn-primary editbtn l6save"><i class="fas fa-save"></i></button>
 							</td>
 						</tr>
 						<?php

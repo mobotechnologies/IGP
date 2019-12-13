@@ -17,7 +17,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		<li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -30,7 +30,7 @@
         </li>
 	  
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                     <?php
@@ -109,7 +109,7 @@
 					<div class="tab">
 					    <input  type="text" name="mid"  value="<?php echo $Aid["sid"] ?>" hidden />
 						<div class="form-group">
-							<select   class=" form-control custom-select selectsearch"  tabindex="1" name="Type" required>
+							<select   class=" form-control custom-select"  tabindex="1" name="Type" required>
 								<option value="">Select MaterialType</option>
 								<option value="service">service parts</option>
 								<option value="spare_parts">spare parts </option>
@@ -117,7 +117,20 @@
 								
 							</select>
 					   </div>
-					
+					    <div class="form-group">
+						    <table class="table table-bordered" id="particules">
+							     <tr>
+								    <th>Particules</th>
+									<th>Quantity</th>
+									<th>Action</th>
+								 </tr>
+								 <tr class="part1" id="1">
+								    <td><input type='text' name='particules[]' class='parti charrestrict' placeholder='particules'/></td>
+									<td><input type='text' name='quantity[]' class='quanti norestrict'  placeholder='quantity'/></</td>
+									<td><button class='btn btn-success add'>+</button></td>
+								 </tr>
+							</table> 
+						</div>
 					</div>
 					<div class="tab">
 					    <div class="form-group">
@@ -140,7 +153,7 @@
 							 </select>
 						 </div>
 						<div class="form-group vechicletypes">
-							<select name="Vtype" class="form-control selectsearch">
+							<select name="Vtype" class="form-control">
 								<option>Vechicle type</option>
 								<option value="singleunit">Single unit</option>
 								<option value="singletraior">Single trailor</option>

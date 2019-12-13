@@ -1,3 +1,4 @@
+
 <?php
 
 	class Travel_model extends CI_Model
@@ -28,14 +29,14 @@
 		}
 		public function singlecab($id)
 		{
-		   $sql = "SELECT * FROM cab left join employee on employee.id=cab.id WHERE cab.cabid='$id'";
+		   $sql = "SELECT * FROM cab left join employee on employee.em_id=cab.id WHERE cab.cabid='$id'";
 		   $query=$this->db->query($sql);
 		   $result = $query->result();
 		   return $result;
 		}
 		public function singlecabyid($emid,$id)
 		{
-		   $sql = "SELECT * FROM cab right join employee on employee.id=cab.id WHERE cab.cabid='$id' AND  employee.id='$emid'";
+		   $sql = "SELECT * FROM cab right join employee on employee.em_id=cab.id WHERE cab.cabid='$id' AND  employee.id='$emid'";
 		   $query=$this->db->query($sql);
 		   $result = $query->result();
 		   return $result;
@@ -62,15 +63,15 @@
 		}
 		public function emcabByID($emid)
 		{
-		   $sql = "SELECT * FROM cab left join employee on employee.id=cab.id
-		   WHERE employee.id='$emid'";
+		   $sql = "SELECT * FROM cab left join employee on employee.em_id=cab.id
+		   WHERE employee.em_id='$emid'";
 		   $query=$this->db->query($sql);
 		   $result = $query->result();
 		   return $result;
 	    }
         public function emcab()
 	    {
-		   $sql = "SELECT * FROM cab left join employee on employee.id=cab.id";
+		   $sql = "SELECT * FROM cab left join employee on employee.em_id=cab.id";
 		   $query=$this->db->query($sql);
 		   $result = $query->result();
 		   return $result;

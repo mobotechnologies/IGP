@@ -89,6 +89,10 @@
 @media (max-width: 575.98px)
 {
 	
+	.insresponse
+	{
+		 margin-left: 15% !important;
+	}
 	.navbar-nav .nav-link {
    
     color: #8898aa !important;
@@ -509,27 +513,8 @@ a {
       padding-left: 15px !important;
       padding-right: 15px !important;
     }
-	.visitorcharts
-	{
-		height:60vh !important; 
-		width:70vw ;
-    }
 	
-	.hrcharts
-	{
-		
-      display: inline !important;
 
-	}
-	.cabchart
-	{
-		width: 517.9914220000001px !important;
-		margin-bottom: 23px !important;
-	}
-	.expensechart
-	{
-		width: 517.9914220000001px !important;
-	}
 	.h4 {
        font-size: 11px !important;
     }
@@ -835,6 +820,10 @@ a {
 		.mobilehide
 	{
 		display:none  !important;
+	}
+		.mobilehide2
+	{
+		display:block  !important;
 	}
 
 }
@@ -17098,7 +17087,7 @@ a.btn-icon-only {
 
 .chart {
   position: relative;
-  height: 350px;
+  
 }
 
 .chart-sm {
@@ -22356,4 +22345,20 @@ p{
   overflow: hidden;
   text-overflow: ellipsis;
   font-style:italic;
+}
+.mt--8{
+    margin-top: -16rem !important;
+}
+.select2-container--focus
+{
+	width: 304px !important;
+}
+.select2-selection__arrow
+{
+	
+    width: 0px !important;
+    margin-left: 0px  !important;
+    left: 278px  !important;
+    top: 6px  !important;
+
 }

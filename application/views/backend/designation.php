@@ -13,7 +13,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		<li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->security_model->countcomment();
@@ -25,7 +25,7 @@
           </div>
         </li>
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                     <?php
@@ -120,15 +120,12 @@
   </div>
   </div>
     <div class="row">
-        <div class="col-lg-2">
-		
-        </div>
-        <div class="col-7">
-            <div class="card card-outline-info">
-                <div class="card-header" id="descheader">
+        <div class="col">
+          <div class="card shadow">
+            <div class="card-header border-0">
                     <h4 style="padding-left: 33%;"><img src="<?php echo base_url(); ?>/assets/img/icons/designation.png" alt="material.png" style="width: 32px;margin-right: 10px;"/>Designation List<i class="fa fa-plus" aria-hidden="true" style="margin-left: 102px;"  data-toggle="modal" data-target="#adddesignation"></i></h4>
                 </div>
-                <div class="card-body">
+              
                     <div class="table-responsive ">
                         <table class="table align-items-center table-flush" cellspacing="0" width="100%" id="designer">
                             <thead role="rowgroup" >
@@ -184,7 +181,7 @@
 		
                     </div>
 					
-                </div>
+            
             </div>
         </div>
     </div>

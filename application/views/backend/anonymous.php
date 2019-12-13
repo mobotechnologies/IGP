@@ -17,7 +17,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		  <li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -29,7 +29,7 @@
           </div>
         </li>
          <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                     <?php
@@ -97,11 +97,11 @@
           <div class="card shadow">
 		   <div class="card-header border-0 gatepassheader" >
                 <h3 class="mb-0"><i class="fa fa-question-circle iconcss" aria-hidden="true"></i>Anonymous</h3>
-			    <p style="margin-left: 370px;margin-top: 9px;"><span style="color:red !important">*</span>Mandatory Fields</p>
+			 
             </div>
 			<div class="card-body stockinsform">
                 <form method="post" action="<?php echo base_url(); ?>Security/anonymous_insert"> 
-<div class="form-group">
+                    <div class="form-group">
 						  <p><span style="color:red !important">*</span>Note : Image is mandatory</p>
 						 	<input type="text" name="imgname" class="images" required />
 							<div id="my_camera"></div>
@@ -110,16 +110,17 @@
 								<button class="btn btn-primary takesnap"   onClick="take_snapshot()"><i class="fas fa-camera"></i></button>
                                <button class="btn btn-danger resetcam"><i class="fas fa-undo"></i></button>
 								<input type=button class="btn btn-primary savesnap"  value="Save Snapshot" onClick="saveSnap()" hidden >
-							</div>
+					</div>
 							
 		<!-- Webcam.min.js -->
 		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		  <script type="text/javascript" src="<?php echo base_url(); ?>assets/webcamjs/webcam.min.js"></script>
 		   <script>
 				  $( function() {
 					$( ".datepicker" ).datepicker();
 				  } );
 				  </script>
-    <script type="text/javascript" src="<?php echo base_url(); ?>assets/webcamjs/webcam.min.js"></script>
+   
 
 	<!-- Configure a few settings and attach camera -->
 	<script language="JavaScript">
@@ -196,6 +197,20 @@ function saveSnap2(){
 
 	</script>
 	
+						</div>
+						<div class="form-group">
+						    <table class="table table-bordered" id="particules">
+							     <tr>
+								    <th>Particules</th>
+									<th>Quantity</th>
+									<th>Action</th>
+								 </tr>
+								 <tr class="part1" id="1">
+								    <td><input type='text' name='particules[]' class='parti charrestrict' placeholder='particules'/></td>
+									<td><input type='text' name='quantity[]' class='quanti norestrict'  placeholder='quantity'/></</td>
+									<td><button class='btn btn-success add'>+</button></td>
+								 </tr>
+							</table> 
 						</div>
                     <div class="form-group">
 						     <select name="mode" class="form-control mode">

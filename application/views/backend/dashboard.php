@@ -19,7 +19,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 			  <li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->security_model->countcomment();
@@ -31,7 +31,7 @@
           </div>
         </li>
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                     <?php
@@ -97,7 +97,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Outward Completed</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Outward Complete</h5>
                        <?php foreach ($outwardcomplete as $key6 => $val6){
                        $outcomp= $val6->outcomp;
                        
@@ -111,6 +111,7 @@
                       </div>
                     </div>
                   </div>
+				   <span style="font-size:10px;color:#2dce89;font-weight:900">Overall</span>
                 </div>
               </div>
             </div>
@@ -119,7 +120,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Outward Not Completed</h5>
+                      <h6 class="card-title text-uppercase text-muted mb-0">Outward Partial</h6>
                        <?php foreach ($outwardnotcomplete as $key7 => $val7){
                        $outnotcomp= $val7->outnotcomp;
                        
@@ -133,6 +134,7 @@
                       </div>
                     </div>
                   </div>
+				   <span style="font-size:10px;color:#2dce89;font-weight:900">Overall</span>
                 </div>
               </div>
           </div>
@@ -141,7 +143,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">IGP Pending</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Outward Pending</h5>
                        <?php foreach ($inwardpending as $key8 => $val8){
                        $pending= $val8->pending;
                        
@@ -155,6 +157,7 @@
                       
                     </div>
                   </div>
+				   <span style="font-size:10px;color:#2dce89;font-weight:900">Overall</span>
                 </div>
               </div>
             </div>
@@ -164,7 +167,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                     <h5 class="card-title text-uppercase text-muted mb-0">Material Inward</h5>
+                     <h5 class="card-title text-uppercase text-muted mb-0">Total Inward</h5>
                       <?php foreach ($inward as $key1 => $val1){
                        $inwardcount= $val1->inward;
                        
@@ -178,6 +181,7 @@
                       </div>
                     </div>
                   </div>
+				  <span style="font-size:10px;color:#2dce89;font-weight:900">Today</span>
                 </div>
               </div>
             </div>
@@ -186,7 +190,7 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Material Outward</h5>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Total Outward</h5>
                        <?php foreach ($outward as $key2 => $val2){
                        $outwardcount= $val2->outward;
                        
@@ -200,6 +204,7 @@
                       
                     </div>
                   </div>
+				   <span style="font-size:10px;color:#2dce89;font-weight:900">Today</span>
                 </div>
               </div>
             </div>
@@ -222,6 +227,7 @@
                       </div>
                     </div>
                   </div>
+				   <span style="font-size:10px;color:#2dce89;font-weight:900">Today</span>
                 </div>
               </div>
             </div>
@@ -251,6 +257,7 @@
                       </div>
                     </div>
                   </div>
+				   <span style="font-size:10px;color:#2dce89;font-weight:900">Today</span>
                 </div>
               </div>
             </div>
@@ -273,6 +280,7 @@
                       </div>
                     </div>
                   </div>
+				   <span style="font-size:10px;color:#2dce89;font-weight:900">Today</span>
                 </div>
               </div>
             </div>
@@ -284,12 +292,15 @@
     </div>
 
     <div class="container-fluid mt--7">
-	     <div class="row">
+	<div>
+	     <div class="row" style="
+    margin-bottom: 10px;
+">
  <?php
 		    if($this->session->userdata('user_type')=="SECURITY"  || $this->session->userdata('designation')=="15" || $this->session->userdata('designation')=="16" || $this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
 			{
 		    ?>
-        <div class="col-12">
+        <div class="col-md-12">
 			<div class="card">
 				<div class="card-body">
 					<div class="chart " >
@@ -312,7 +323,6 @@
         labels:['Jan', 'Feb', 'Mar', 'April', 'May', 'June','July','Aug','Sept','Oct','Nov','Dec'],
         datasets:[{
           label:'Total Visitor',
-		   height: 260,
           data:cData.data,
           //backgroundColor:'green',
           backgroundColor:[
@@ -374,12 +384,14 @@
 ?>
       </div>
 
-	  <div class="row  hrcharts">
+	  <div class="row ">
         <?php
 		    if($this->session->userdata('designation')=="14"  || $this->session->userdata('user_type')=="ADMIN" || $this->session->userdata('user_type')=="SUPER ADMIN")
             {
             ?>
-	   <div class="col-12">
+	   <div class="col-md-12" style="
+    margin-bottom: 10px;
+">
 		   <div class="card " >
 				<div class="card-body">
 					<div class="chart">
@@ -441,8 +453,10 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="col-12">
+		
+		<div class="col-md-12" style="
+    margin-bottom: 10px;
+">
 		 <div class="card ">
 				<div class="card-body">
 					<div class="chart">
@@ -510,5 +524,5 @@
 ?>
 	  </div>
  
-
+</div>
 <?php $this->load->view('backend/footer'); ?>

@@ -11,7 +11,7 @@
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block mobilehide" href="../index.html"><img src="../assets/img/icons/mainmaterial2.png" alt="material.png" id="material"/>MATERIAL OUTWARD</a>
         <a  class="menu1 menuhide"  href="<?php echo base_url(); ?>Security/stockout_view"><i class="fas fa-home fa-lg iconcss"></i>Home</a>
-	    <a href="<?php echo base_url(); ?>Security/stockout_form" class="menu2 menuhide"><i class="fa fa-plus iconcss" aria-hidden="true"></i>Add</a>
+	    <a href="<?php echo base_url(); ?>Security/stockout_form" class="menu2 menuhide"><i class="fa fa-plus iconcss" aria-hidden="true"></i>Request_form</a>
 		<a class="menu3 menuhide"  href="<?php echo base_url(); ?>Security/stockout_report"><i class="fa fa-file iconcss" aria-hidden="true"></i>Report</a>		       
 	   <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto" >
@@ -20,7 +20,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
         <li class="nav-item dropdown">
-           <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+           <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -33,7 +33,7 @@
         </li>  
 
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                                        <?php
@@ -134,9 +134,127 @@
 					<td>
 					    <a href="<?php echo base_url(); ?>security/stockoutover?I=<?php echo base64_encode($value->id); ?>" id="view"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
 					    <a href="#" class="delstockout" id="view"><i class="fa fa-lg fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
-					    <i class="fas  fa-lg fa-envelope"></i>
-						<i class="fas  fa-lg fa-times"></i>
-						<i class="fas  fa-lg fa-ticket-alt"></i>
+					    <i class="fas  fa-lg fa-envelope" data-toggle="modal" data-target="#addemail"></i>
+						  <div class="modal fade" id="addemail" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title"><img src="../assets/img/icons/addemail.png" alt="material.png" id="material" data-toggle="modal" data-target="#addemail"/>AddOn Email</h4>
+        </div>
+        <div class="modal-body">
+            <form>
+			   <table class="table table-bordered">
+				
+					    <tr>
+						   <td>
+						        <select class=" form-control level1"  tabindex="1" name="level1" disabled>
+								 <option value="">Select email</option>
+							      <?php
+							         foreach($employee as $values)
+							        {
+						                   ?>
+								 
+									     <option value="<?php echo $values->em_id ?>" <?php if($values->em_id==$value->email1){ echo "selected"; }?>><?php echo $values->em_id."-".$values->first_name ?></option>
+								 
+						                 <?php
+							        }
+							     ?>
+							    </select>
+						   </td>
+						   <td class="levellabel">Email1</td>
+						   <td>
+						      <button class="btn btn-primary editbtn l1edit"><i class="fa fa-edit"></i></button>
+							  <button class="btn btn-primary editbtn e1save" data-value="<?php echo $value->id ?>"><i class="fas fa-save"></i></button>
+						</td>
+						</tr>
+						 <tr>
+						   <td>
+						        <select class=" form-control level2"  tabindex="1" name="level2" disabled>
+								 <option value="">Select email</option>
+							      <?php
+								  $email2=$value->email2;
+							         foreach($employee as $values)
+							        {
+						                   ?>
+								 
+									     <option value="<?php echo $values->em_id ?>" <?php if($values->em_id==$email2){ echo "selected"; }?> ><?php echo $values->em_id."-".$values->first_name ?></option>
+								 
+						                 <?php
+							        }
+							     ?>
+							    </select>
+						   </td>
+						   <td class="levellabel">Email2</td>
+						   <td>
+						      <button class="btn btn-primary editbtn l2edit"><i class="fa fa-edit"></i></button>
+							  <button class="btn btn-primary editbtn e2save" data-value="<?php echo $value->id ?>"><i class="fas fa-save"></i></button>
+						   </td>
+						</tr>
+						 <tr>
+						   <td>
+						       <select class=" form-control level3"  tabindex="1" name="level3" disabled>
+							    <option value="">Select email</option>
+							      <?php
+							         foreach($employee as $values)
+							        {
+						                  ?>
+	
+									      <option value="<?php echo $values->em_id ?>" ><?php echo $values->em_id."-".$values->first_name ?></option> 
+						                 <?php
+							        }
+							     ?>
+							    </select>
+						   </td>
+						   <td class="levellabel">Email3</td>
+						   <td>
+						      <button class="btn btn-primary editbtn l3edit"><i class="fa fa-edit"></i></button>
+							  <button class="btn btn-primary editbtn e3save" data-value="<?php echo $value->id ?>"><i class="fas fa-save"></i></button>
+							</td>
+						</tr>
+						
+					</table>
+					 <button type="button" class="btn btn-danger" data-dismiss="modal" style="margin-top:12px;margin-left: 210px;">Close</button>
+			</form>
+      </div>
+      
+    </div>
+  </div>
+		   </div>
+						<i class="fas  fa-lg fa-times"  data-toggle="modal" data-target="#Matclose"></i>
+							<div class="modal fade" id="Matclose" role="dialog">
+												<div class="modal-dialog">
+												
+												  <!-- Modal content-->
+												  <div class="modal-content">
+													<div class="modal-header">
+													  <h4 class="modal-title" style="margin-left: 186px !important;"><img src="../assets/img/icons/closure.png" alt="closure.png" id="material"/>Material Closure</h4>
+													</div>
+													<div class="modal-body">
+                                                        <form method="post" action="<?php echo base_url(); ?>security/stockout_remark">
+													    <input type="mid" name="mid" value="<?php echo $value->id; ?>" hidden />
+                                                        <div class="form-group">
+                                                         
+                                                           <input type="text" name="remark" class="form-control" placeholder="Remark" /> 
+                                                        </div>
+                                                        <div class="form-group">
+                                                         
+                                                        	<select   class=" form-control"  tabindex="1" name="status" required>
+																<option value="Opened">Opened</option>
+																<option value="Closed">Closed </option>
+															</select> 
+                                                         </div> 
+                                                         <div class="form-group"> 
+                                                            <input type="submit" name="submit" class="btn btn-primary" value="Submit" style="width: 116.991422px;margin-left: 149px;"/>                                                  
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal" style="width: 77.991422px;">Close</button>
+                                                         </div> 
+                                                        </form>
+												    </div>
+												  
+												</div>
+											  </div>
+                                        </div>
 					</td>
                   </tr>
 				  <?php

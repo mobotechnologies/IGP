@@ -16,7 +16,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		<li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -28,7 +28,7 @@
           </div>
         </li>
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                     <?php
@@ -160,6 +160,7 @@
 					<tr> 
 					   <td>Sno</td>
 					   <td>Particulars</td>
+					   <td>Quantity</td>
 					   <td>GateIn</td>
 					   <td>GateOut</td>
 					</tr>
@@ -173,6 +174,7 @@
 						   <tr>
 						      <td><?php echo $count; ?></td>
 							   <td><?php echo $value->particulars; ?></td>
+							   <td>12</td>
 							   <td><?php echo "2:23 am";  ?></td>
 							   <td><?php echo "6:30 pm"; ?></td>
 					        </tr>

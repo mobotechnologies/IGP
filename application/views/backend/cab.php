@@ -18,7 +18,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		  <li class="nav-item dropdown">
-          <a class=" nav-link-icon" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->security_model->countcomment();
@@ -30,7 +30,7 @@
           </div>
         </li>
           <li class="nav-item dropdown">
-            <a class="hfont pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                      <?php
@@ -89,7 +89,16 @@
     <!-- Header -->
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">  
 
-		
+	<?php 
+				       if($this->session->flashdata('feedback'))
+					   {
+					      ?>
+						    <script>
+						       $.notify("<?php  echo $this->session->flashdata('feedback'); ?>","success");
+						    </script>
+					     <?php
+						}
+			     ?>
     </div>
     <div class="container-fluid mt--7" id="bgcontain">
       <!-- Table -->

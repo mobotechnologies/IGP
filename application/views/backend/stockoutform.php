@@ -7,7 +7,7 @@
         <!-- Brand -->
           <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block mobilehide" href="../index.html"><img src="../assets/img/icons/mainmaterial2.png" alt="material.png" id="material"/>MATERIAL OUTWARD</a>
         <a  class="menu1 menuhide"  href="<?php echo base_url(); ?>Security/stockout_view"><i class="fas fa-home fa-lg iconcss"></i>Home</a>
-	    <a href="<?php echo base_url(); ?>Security/stockout_form" class="menu2 menuhide"><i class="fa fa-plus iconcss" aria-hidden="true"></i>Add</a>
+	    <a href="<?php echo base_url(); ?>Security/stockout_form" class="menu2 menuhide"><i class="fa fa-plus iconcss" aria-hidden="true"></i>Request_form</a>
 		<a class="menu3 menuhide"  href="<?php echo base_url(); ?>Security/stockout_report"><i class="fa fa-file iconcss" aria-hidden="true"></i>Report</a>		       
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto" >
@@ -17,7 +17,7 @@
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		        <ul class="navbar-nav align-items-center d-none d-md-flex">
 		  <li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -29,7 +29,7 @@
           </div>
         </li>
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                                        <?php
@@ -118,15 +118,15 @@
 					<div class="form-group" style="display:flex;">
 					    <p class="check4" style="display: inherit;">Category2 <span style="color:red !important">*</span></p>
 						<div style="display: inline-flex;">
-						<input type="checkbox" class="check" name="subcategory" value="OSP" style="margin-left: 3px;">OSP<br>
-                        <input type="checkbox" class="check" name="subcategory" value="NONOSP" style="margin-left: 6px;">NONOSP<br>
+						     <input type="checkbox" class="check" name="subcategory" value="OSP" style="margin-left: 3px;">OSP<br>
+                             <input type="checkbox" class="check" name="subcategory" value="NONOSP" style="margin-left: 6px;">NONOSP<br>
 						</div>
 					</div>
 					<div class="form-group"style="display: flex;">
 					    <p>Type <span style="color:red !important">*</span></p>
 						<div style="display: inline-flex;">
-						<input type="checkbox"  class="check check3 check2" name="type" value="RGP">RGP<br>
-                        <input type="checkbox"   class="check check3" name="type" value="NRGP">NRGP<br>
+						    <input type="checkbox"  class="check check3 check2" name="type" value="RGP">RGP<br>
+                            <input type="checkbox"   class="check check3" name="type" value="NRGP">NRGP<br>
 						</div>
 					</div>
 					<div class="form-group rdate" style="display:none">
@@ -172,37 +172,52 @@
 						Webcam.attach( '#my_camera2' );
 					</script>
 						<!-- Code to handle taking the snapshot and displaying it locally -->
-	<script language="JavaScript">
+						<script language="JavaScript">
 
 
- function take_snapshot2() {
-  
-  // take snapshot and get image data
-  Webcam.snap( function(data_uri) {
-  // display results in page
-  document.getElementById('results2').innerHTML = 
-   '<img id="imageprev" src="'+data_uri+'"/>';
-  } );
+					 function take_snapshot2() {
+					  
+					  // take snapshot and get image data
+					  Webcam.snap( function(data_uri) {
+					  // display results in page
+					  document.getElementById('results2').innerHTML = 
+					   '<img id="imageprev" src="'+data_uri+'"/>';
+					  } );
 
- 
- }
+					 
+					 }
 
 
 
-function saveSnap2(){
- // Get base64 value from <img id='imageprev'> source
- var base64image = document.getElementById("imageprev").src;
+					function saveSnap2(){
+					 // Get base64 value from <img id='imageprev'> source
+					 var base64image = document.getElementById("imageprev").src;
 
- Webcam.upload( base64image, '<?php echo base_url(); ?>security/imageupload', function(code, text) {
-  console.log('Save successfully');
-  $(".matimg").val(text);
-  console.log(text);
- });
+					 Webcam.upload( base64image, '<?php echo base_url(); ?>security/imageupload', function(code, text) {
+					  console.log('Save successfully');
+					  $(".matimg").val(text);
+					  console.log(text);
+					 });
 
-}
-</script>
+					}
+					</script>
 				</div>
-			
+			   	<div class="tab">
+					    <div class="form-group">
+						    <table class="table table-bordered" id="particules">
+							     <tr>
+								    <th>Particules</th>
+									<th>Quantity</th>
+									<th>Action</th>
+								 </tr>
+								 <tr class="part1" id="1">
+								    <td><input type='text' name='particules[]' class='parti charrestrict' placeholder='particules'/></td>
+									<td><input type='text' name='quantity[]' class='quanti norestrict'  placeholder='quantity'/></</td>
+									<td><button class='btn btn-success add'>+</button></td>
+								 </tr>
+							</table> 
+						</div>
+					</div>
 				<div class="tab">
 				    <div class="form-group">
 					    <div class="group">

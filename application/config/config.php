@@ -29,7 +29,7 @@ if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
 } else {
 	$ht = "http://";
 }
-$config['base_url'] = 'http://192.168.0.120/hrmsproduct';
+$config['base_url'] = 'http://localhost/hrmsproduct';
 
 /*
 |--------------------------------------------------------------------------

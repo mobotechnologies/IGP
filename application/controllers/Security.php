@@ -44,12 +44,12 @@ class Security extends CI_Controller
 		$id=$this->input->post('delv');
 	    $this->Security_model->stockin_del($id);
 	}
-	public function stockout_approval()
+	public function stockout_approval1()
 	{
 	       	    $id=$this->input->post('id');
 				
 			    $result=$this->Security_model->Getconfig();
-				$status="Yes";
+				$status=$this->input->post('stat');
 				    foreach($result as $value)
 	             	{
 							 $mail1=$value->level1;
@@ -62,7 +62,14 @@ class Security extends CI_Controller
 		                    $this->Security_model->Update_stockoutapprove($id,$data);
 							 
 					}
-					  foreach($result as $value)
+				
+	}
+	public function  stockout_approval2()
+	{
+		        $id=$this->input->post('id');
+			    $result=$this->Security_model->Getconfig();
+				$status=$this->input->post('stat');
+			  foreach($result as $value)
 	             	{
 						     $mail2=$value->level2;
 				             if($this->session->userdata('user_login_id')==$mail2)
@@ -73,7 +80,13 @@ class Security extends CI_Controller
 							 }
 							 $this->Security_model->Update_stockoutapprove($id,$data);
 					}
-					  foreach($result as $value)
+	}
+	public function stockout_approval3()
+	{
+		        $id=$this->input->post('id');
+			    $result=$this->Security_model->Getconfig();
+				$status=$this->input->post('stat');
+			    foreach($result as $value)
 	             	{
 						       $mail2=$value->level3;
 						    if($this->session->userdata('user_login_id')==$mail3)
@@ -85,47 +98,6 @@ class Security extends CI_Controller
 						$this->Security_model->Update_stockoutapprove($id,$data);
 					}
 	}
-	
-	public function stockout_reject()
-	{
-	       	    $id=$this->input->post('id');
-			    $result=$this->Security_model->Getconfig();
-				$status="No";
-				    foreach($result as $value)
-	             	{
-							 $mail1=$value->level1;
-							 if($this->session->userdata('user_login_id')==$mail1)
-							 {
-							    $data=array(
-								    'approve1'=>$status,
-								);
-							 }
-		                    $this->Security_model->Update_stockoutapprove($id,$data);
-							 
-					}
-					  foreach($result as $value)
-	             	{
-						     $mail2=$value->level2;
-				             if($this->session->userdata('user_login_id')==$mail2)
-							 {
-							    $data=array(
-								    'approve2'=>$status,
-								);
-							 }
-							 $this->Security_model->Update_stockoutapprove($id,$data);
-					}
-					  foreach($result as $value)
-	             	{
-						    if($this->session->userdata('user_login_id')==$mail3)
-							{
-							    $data=array(
-								    'approve3'=>$status,
-								);
-							}
-						$this->Security_model->Update_stockoutapprove($id,$data);
-					}
-	}
-	
     public function report()
 	{
 		$this->load->helper('download');
@@ -207,8 +179,20 @@ class Security extends CI_Controller
 	{
            $datetime=date('Y-m-d')." ".date('H:i:sa');
            $part=trim($this->input->post('matimg')," ");
-           $data2=array(
-				       'particules'=>$part,
+		    $particular=$this->input->post('particules');
+					 $quantity=$this->input->post('quantity');
+					for($count=0;$count<count($particular);$count++)
+					{
+							   $data2=array(
+								   'particules'=>$this->input->post('particules')[$count],
+								   'quantity'=>$this->input->post('quantity')[$count],
+								   'id'=>$this->input->post('mid'),
+							   );	
+							   
+						  $this->Security_model->inward_particules($data2);
+						  	$insert_id = $this->db->insert_id();	
+                   $data3=array(
+				       'part_image'=>$part,
                        'gatein'=>$datetime,
 					   'vechicle_no'=>$this->input->post('vechNo'),
 					   'driver_name'=>$this->input->post('Dname'),
@@ -219,12 +203,13 @@ class Security extends CI_Controller
 					   'driver_identity'=>trim($this->input->post('imgname')," "),
 					   'vechicle_type'=>$this->input->post('Vtype'),
                        'mode'=>$this->input->post('mode'),
-					   'id'=>$this->input->post('mid'),
-			);
-			$this->Security_model->inward_particules($data2);
-            $this->session->set_flashdata('feedback','Successfully Added');
-			
-		     redirect('security/stockin_view');  
+					   'ipid'=>$insert_id,
+				   );
+				   
+				    $this->Security_model->inward_time($data3);
+					}
+                   $this->session->set_flashdata('feedback','Successfully Added');
+		           redirect('security/stockin_view');  
 	}
 	public function stockinover()
 	{
@@ -404,12 +389,13 @@ class Security extends CI_Controller
 	}
 	public function stockin_view()
 	{
+		$data['employee']=$this->employee_model->emselect();
 		$data['materialall']=$this->Security_model->selectinmat();
 		$this->load->view('backend/stockin',$data);
 	}
 	public function stockout_view()
 	{
-		
+		$data['employee']=$this->employee_model->emselect();
 		$data['materialout']=$this->Security_model->selectoutmat();
 		$this->load->view('backend/stockout',$data);
 	}
@@ -417,6 +403,7 @@ class Security extends CI_Controller
 	{
 		$data['employee']=$this->employee_model->emselect();
 		$data['config']=$this->Security_model->selectconfig();
+		$data['config2']=$this->Security_model->selectconfig2();
 		$this->load->view('backend/config',$data);
 	}
 	public function visitor_view()
@@ -583,6 +570,7 @@ class Security extends CI_Controller
 	}
 	public function stockin_insert()
 	{
+		   
 		   $rid=$this->Security_model->getmaxid2();
 		  
 		   $datetime=date('Y-m-d')." ".date('H:i:sa');
@@ -619,29 +607,44 @@ class Security extends CI_Controller
 						'driver_name'=>$this->input->post('Dname'),
 						'driver_phone'=>$this->input->post('Dphone'),
 						'date'=>$datetime,
-						'driver_identity'=>trim($this->input->post('imgname')," "),
+                        'driver_identity'=>trim($this->input->post('imgname')," "),
 						'mode'=>$this->input->post('mode'),
 						'checkedby'=>$this->input->post('check'),
 			        );
-				   $this->Security_model->insert_materialin($data1);
-				   $part=trim($this->input->post('matimg')," ");
-				   $insert_id = $this->db->insert_id();
-                   $data2=array(
-				       'particules'=>$part,
-                       'gatein'=>$datetime,
-					   'vechicle_no'=>$this->input->post('vechNo'),
-					   'driver_name'=>$this->input->post('Dname'),
-					   'driver_phone'=>$this->input->post('Dphone'),
-                       'material_type'=>$this->input->post('Type'),
-                       'checkedby'=>$this->input->post('check'),
-                       'comp_name'=>$this->input->post('Cour'),
-					   'driver_identity'=>trim($this->input->post('imgname')," "),
-					   'vechicle_type'=>$this->input->post('Vtype'),
-                       'mode'=>$this->input->post('mode'),
-					   'id'=>$insert_id,
-				   );
+				     $this->Security_model->insert_materialin($data1);
+				     $part=trim($this->input->post('matimg')," ");
+				     $insert_id = $this->db->insert_id();
+					 $particular=$this->input->post('particules');
+					 $quantity=$this->input->post('quantity');
+					for($count=0;$count<count($particular);$count++)
+					{
+							   $data2=array(
+								   'particules'=>$this->input->post('particules')[$count],
+								   'quantity'=>$this->input->post('quantity')[$count],
+								   'id'=>$insert_id,
+							   );	
+							   
+						  $this->Security_model->inward_particules($data2);
+						  $insert_id = $this->db->insert_id();
+						 $data3=array(
+						   'part_image'=>$part,
+						   'gatein'=>$datetime,
+						   'vechicle_no'=>$this->input->post('vechNo'),
+						   'driver_name'=>$this->input->post('Dname'),
+						   'driver_phone'=>$this->input->post('Dphone'),
+						   'material_type'=>$this->input->post('Type'),
+						   'checkedby'=>$this->input->post('check'),
+						   'comp_name'=>$this->input->post('Cour'),
+						   'driver_identity'=>trim($this->input->post('imgname')," "),
+						   'vechicle_type'=>$this->input->post('Vtype'),
+						   'mode'=>$this->input->post('mode'),
+						   'ipid'=>$insert_id,
+				           );
 				   
-					$this->Security_model->inward_particules($data2);
+				          $this->Security_model->inward_time($data3);
+					}
+						
+                  
 					$comment="Material has been Arrived on".date('H:i:s');
 					$status=0;
 					$subject="Material inward Notify";
@@ -650,15 +653,107 @@ class Security extends CI_Controller
 						 'status'=>$status,
 						 'subject'=>$subject,
 					);
-					$this->Security_model->insert_comment($dc);
-					$result=$this->Security_model->Getconfig();
-					//$level=1;
+				    $this->Security_model->insert_comment($dc);
+				    $result=$this->Security_model->Getconfig();
+					$mina=trim($this->input->post('imgname'),"  ");
+					$msg="
+					    <html>
+						    <head>
+							     <head>
+									<style>
+									#customers {
+									  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+									  border-collapse: collapse;
+									  width: 100%;
+									}
+
+									#customers td, #customers th {
+									  border: 1px solid #ddd;
+									  padding: 8px;
+									}
+
+									#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+									#customers tr:hover {background-color: #ddd;}
+
+									#customers th {
+									  padding-top: 12px;
+									  padding-bottom: 12px;
+									  text-align: left;
+									  background-color: #f2f2f2 ;
+									  color: white;
+									}
+									</style>
+                            </head>
+                            <body>
+							          <div class='card shadow ele1'>
+         
+            <div class='table-responsive'>
+              <table border='1' id='customers'> 
+                <tbody>
+                    <tr>
+						<td style='width:50%;padding-left: 62px;'>
+						   
+							     <img src='./assets/images/poc.jpg'  id='printTable' /></br>
+							
+						</td>
+						<td style='width:50%;'>
+							 <p style=' font-size: 12px;font-weight: 900;margin-top: 11px;margin-left: 25px;'>
+								<span style='color:blue'>POCLAIN HYDRAULICS PVT LTD</span></br>
+								No: 131 / 2, Kothapurinatham Road
+								Mannadipet Commune Panchayat
+								Thiruvandarkoil
+								PONDICHERRY -  605 102
+								INDIA
+
+								Tel.: +91 413 2641455
+							</p>
+						</td>
+					</tr>
+					<tr>
+					   <td style='width:50%;padding-left: 77px;'>Gate Pass In   : ".$gatepass."</td>
+					   <td style='width:50%;padding-left: 77px;'>Gate Pass Date : ".$datetime."</td>
+					</tr>
+					<tr>
+					   <td style='width:50%'><img src='./assets/upload/".trim($this->input->post('imgname')," ")."'  style='width: 154px;margin-top: 10px;margin-left: 142px;margin-bottom: 26px;'/></td>
+					   <td style='width:50%'>
+							<table  style='width:100%'>
+								<tr>
+								   <td style='font-weight:900'>Invoice No </td>
+								   <td>:</td>
+								   <td style='font-weight:900'>".ucfirst($this->input->post('invoiceno'))."</td>
+								</tr>
+								<tr>
+								   <td style='font-weight:900'>Invoice Date </td>
+								   <td>:</td>
+								   <td style='font-weight:900'>".$this->input->post('invoicedate')."</td>
+								</tr>
+								<tr>
+								   <td style='font-weight:900'>Destination </td>
+								   <td>:</td>
+								   <td style='font-weight:900'>".ucfirst($this->input->post('Destination'))."</td>
+								</tr>
+								<tr>
+								   <td style='font-weight:900'>Purpose</td>
+								   <td>:</td>
+								   <td style='font-weight:900'>".ucfirst($this->input->post('purpose'))."</td>
+								</tr>
+							</table>
+					   </td>
+					</tr>					 
+                </tbody>
+              </table>
+            </div>
+           
+          </div>
+                            </body>							
+						</html>
+					";
 				    foreach($result as $value)
 	             	{
 						     $mail1=$value->level1;
 							 $mail=trim($this->Security_model->getmail($mail1)," ");
 		                     $sub="Material Inward";
-		                     $msg="Demo mail test";
 		                     $this->mail($sub,$msg,$mail);
 							 
 					}
@@ -667,7 +762,6 @@ class Security extends CI_Controller
 						     $mail2=$value->level2;
 				             $mail=trim($this->Security_model->getmail($mail2)," ");
 		                     $sub="Material Inward";
-		                     $msg="Demo mail test";
 		                     $this->mail($sub,$msg,$mail);
 							 
 					}
@@ -676,12 +770,11 @@ class Security extends CI_Controller
 						     $mail3=$value->level3;
 							 $mail=trim($this->Security_model->getmail($mail3)," ");
 		                     $sub="Material Inward";
-		                     $msg="Demo mail test";
 		                     $this->mail($sub,$msg,$mail);
 							
 					}
-					$this->session->set_flashdata('feedback','Successfully Added');
-					$this->load->view('backend/gatepass',$data);
+					  $this->session->set_flashdata('feedback','Successfully Added');
+					  $this->load->view('backend/gatepass',$data);
 				
 	}
 	public function stockin_gatein()
@@ -694,6 +787,30 @@ class Security extends CI_Controller
 		);
 		$this->Security_model->update_ingat($id,$data);
 	}
+	   public function inward1update()
+   {
+        $id=$this->input->post('id');
+        $data=array(
+               'email1'=>$this->input->post('level1'),
+          );
+        $this->Security_model->update_inward1($data,$id);
+   }
+   public function inward2update()
+   {
+        $id=$this->input->post('id');
+        $data=array(
+               'email2'=>$this->input->post('level2'),
+          );
+        $this->Security_model->update_inward2($data,$id);
+   }
+      public function inward3update()
+   {
+        $id=$this->input->post('id');
+        $data=array(
+               'email3'=>$this->input->post('level3'),
+          );
+        $this->Security_model->update_inward3($data,$id);
+   }
     public function level1update()
    {
         $id="1";
@@ -718,11 +835,35 @@ public function level3update()
           );
         $this->Security_model->update_level3($data,$id);
    }
+   public function level4update()
+   {
+        $id="1";
+        $data=array(
+               'level1'=>$this->input->post('level1'),
+          );
+        $this->Security_model->update_level4($data,$id);
+   }
+   public function level5update()
+   {
+        $id="1";
+        $data=array(
+               'level2'=>$this->input->post('level2'),
+          );
+        $this->Security_model->update_level5($data,$id);
+   }
+   public function level6update()
+   {
+        $id="1";
+        $data=array(
+               'level3'=>$this->input->post('level3'),
+          );
+        $this->Security_model->update_level6($data,$id);
+   }
        public function email1update()
    {
         $id=$this->input->post('id');
         $data=array(
-               'level1'=>$this->input->post('level1'),
+               'email1'=>$this->input->post('level1'),
           );
         $this->Security_model->update_email1($data,$id);
    }
@@ -730,7 +871,7 @@ public function level3update()
    {
         $id=$this->input->post('id');
         $data=array(
-               'level2'=>$this->input->post('level2'),
+               'email2'=>$this->input->post('level2'),
           );
         $this->Security_model->update_email2($data,$id);
    }
@@ -738,7 +879,7 @@ public function email3update()
    {
         $id=$this->input->post('id');
         $data=array(
-               'level3'=>$this->input->post('level3'),
+               'email3'=>$this->input->post('level3'),
           );
         $this->Security_model->update_email3($data,$id);
    }
@@ -875,6 +1016,7 @@ public function update_stockinward()
 						'vendor'=>$this->input->post('vendor'),
 						'GatePass'=>$this->input->post('gatepass'),
 						'destination'=>$this->input->post('Destination'),
+						'checkedby'=>$this->input->post('check'),
 						'date'=>$this->input->post('date'),
 	     );
 
@@ -897,28 +1039,43 @@ public function update_stockinward()
 						'vendor'=>$default,
 						'GatePass'=>$default,
 						'destination'=>$default,
+						'checkedby'=>$this->input->post('check'),
 						'date'=>$datetime,
 			        );
 		
 				   $this->Security_model->insert_materialin($data1);
-				  // $part=$this->input->post('matimg');
 				   $insert_id = $this->db->insert_id();
+				   $part=$this->input->post('matimg');
+				   $particular=$this->input->post('particules');
+				   $quantity=$this->input->post('quantity');
+					for($count=0;$count<count($particular);$count++)
+					{
+							   $data3=array(
+								   'particules'=>$this->input->post('particules')[$count],
+								   'quantity'=>$this->input->post('quantity')[$count],
+								   'id'=>$insert_id,
+							   );	
+							   
+						  $this->Security_model->inward_particules($data3);
+					}
+					$insert_id = $this->db->insert_id();	
+				
                    $data2=array(
-				       'particules'=>$default,
+				       'part_image'=>$part,
                        'gatein'=>$datetime,
 					   'vechicle_no'=>$this->input->post('vechNo'),
 					   'driver_name'=>$this->input->post('Dname'),
 					   'driver_phone'=>$this->input->post('Dphone'),
-                        'comp_name'=>$this->input->post('Cour'),
+                       'comp_name'=>$this->input->post('Cour'),
                        'material_type'=>$this->input->post('Type'),
 					   'driver_identity'=>trim($this->input->post('imgname')," "),
 					   'vechicle_type'=>$this->input->post('Vtype'),
                        'mode'=>$this->input->post('mode'),
                        'checkedby'=>$this->input->post('check'),
-					   'id'=>$insert_id,
+					   'ipid'=>$insert_id,
 				   );
 				   
-					$this->Security_model->inward_particules($data2);
+					$this->Security_model->inward_time($data2);
 					$comment="Material has been Arrived on".date('H:i:s');
 					$status=0;
 					$subject="Material inward Notify";
@@ -929,13 +1086,104 @@ public function update_stockinward()
 					);
 					$this->Security_model->insert_comment($dc);
 					$result=$this->Security_model->Getconfig();
-					//$level=1;
+					$msg="
+					    <html>
+						    <head>
+							     <head>
+									<style>
+									#customers {
+									  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+									  border-collapse: collapse;
+									  width: 100%;
+									}
+
+									#customers td, #customers th {
+									  border: 1px solid #ddd;
+									  padding: 8px;
+									}
+
+									#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+									#customers tr:hover {background-color: #ddd;}
+
+									#customers th {
+									  padding-top: 12px;
+									  padding-bottom: 12px;
+									  text-align: left;
+									  background-color: #f2f2f2 ;
+									  color: white;
+									}
+									</style>
+                            </head>
+                            <body>
+							          <div class='card shadow ele1'>
+         
+            <div class='table-responsive'>
+              <table border='1' id='customers'> 
+                <tbody>
+                    <tr>
+						<td style='width:50%;padding-left: 62px;'>
+						   
+							     <img src='./assets/images/poc.jpg'  id='printTable' /></br>
+							
+						</td>
+						<td style='width:50%;'>
+							 <p style=' font-size: 12px;font-weight: 900;margin-top: 11px;margin-left: 25px;'>
+								<span style='color:blue'>POCLAIN HYDRAULICS PVT LTD</span></br>
+								No: 131 / 2, Kothapurinatham Road
+								Mannadipet Commune Panchayat
+								Thiruvandarkoil
+								PONDICHERRY -  605 102
+								INDIA
+
+								Tel.: +91 413 2641455
+							</p>
+						</td>
+					</tr>
+					<tr>
+					   <td style='width:50%;padding-left: 77px;'>Gate Pass In   : ".$gatepass."</td>
+					   <td style='width:50%;padding-left: 77px;'>Gate Pass Date : ".$datetime."</td>
+					</tr>
+					<tr>
+					   <td style='width:50%'><img src='./assets/upload/".trim($this->input->post('imgname')," ")."'  style='width: 154px;margin-top: 10px;margin-left: 142px;margin-bottom: 26px;'/></td>
+					   <td style='width:50%'>
+							<table  style='width:100%'>
+								<tr>
+								   <td style='font-weight:900'>Invoice No </td>
+								   <td>:</td>
+								   <td style='font-weight:900'>".ucfirst($this->input->post('invoiceno'))."</td>
+								</tr>
+								<tr>
+								   <td style='font-weight:900'>Invoice Date </td>
+								   <td>:</td>
+								   <td style='font-weight:900'>".$this->input->post('invoicedate')."</td>
+								</tr>
+								<tr>
+								   <td style='font-weight:900'>Destination </td>
+								   <td>:</td>
+								   <td style='font-weight:900'>".ucfirst($this->input->post('Destination'))."</td>
+								</tr>
+								<tr>
+								   <td style='font-weight:900'>Purpose</td>
+								   <td>:</td>
+								   <td style='font-weight:900'>".ucfirst($this->input->post('purpose'))."</td>
+								</tr>
+							</table>
+					   </td>
+					</tr>					 
+                </tbody>
+              </table>
+            </div>
+           
+          </div>
+                            </body>							
+						</html>
+					";
 				    foreach($result as $value)
 	             	{
 						     $mail1=$value->level1;
 							 $mail=trim($this->Security_model->getmail($mail1)," ");
 		                     $sub="Material Inward";
-		                     $msg="Demo mail test";
 		                     $this->mail($sub,$msg,$mail);
 							 
 					}
@@ -944,7 +1192,6 @@ public function update_stockinward()
 						     $mail2=$value->level2;
 				             $mail=trim($this->Security_model->getmail($mail2)," ");
 		                     $sub="Material Inward";
-		                     $msg="Demo mail test";
 		                     $this->mail($sub,$msg,$mail);
 							 
 					}
@@ -953,7 +1200,6 @@ public function update_stockinward()
 						     $mail3=$value->level3;
 							 $mail=trim($this->Security_model->getmail($mail3)," ");
 		                     $sub="Material Inward";
-		                     $msg="Demo mail test";
 		                     $this->mail($sub,$msg,$mail);
 							
 					}

@@ -85,19 +85,66 @@ $styleArray = array(
 						->setcellvalue('K8','Vendor')
 						->setCellValue('L8','GatePass')
 						->setCellValue('M8','GateDate')
-						->setCellValue('N8','Return Type')
-						->setCellValue('O8','Charge Type')
-						->setcellvalue('P8','Purpose')
-						->setcellvalue('Q8','Remark')
-						->setcellvalue('R8','Checkedby')
-						->setcellvalue('S8','Status');
+						->setcellvalue('N8','Purpose')
+						->setcellvalue('O8','Remark')
+						->setcellvalue('P8','Checkedby')
+						->setcellvalue('Q8','Status');
+			$n=9;
+			$s=1;
+            foreach ($materialall as $key => $value)
+			{
+				  $spreadsheet->getActiveSheet()->getStyle('E'.$n.':J'.$n)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('6666ff');
+				 $spreadsheet->setActiveSheetIndex(0)
+                 ->setCellValue('B'.$n,$s)
+				 ->setCellValue('C'.$n,$value->invoice_no)
+				 ->setcellvalue('D'.$n,$value->invoice_date)
+				 ->setcellvalue('E'.$n,'Particules')
+				 ->setcellvalue('F'.$n,'Quantity')
+				 ->setcellvalue('G'.$n,'Timein')
+				 ->setcellvalue('H'.$n,'Timeout')
+				 ->setcellvalue('I'.$n,'checkedby')
+				 ->setcellvalue('J'.$n,'test')
+				 ->setcellvalue('K'.$n,$value->vendor)
+				 ->setCellValue('L'.$n,$value->GatePass)
+				 ->setCellValue('M'.$n,$value->date)
+				 ->setcellvalue('N'.$n,$value->purpose)
+				 ->setcellvalue('O'.$n,$value->remark)
+				 ->setcellvalue('P'.$n,$value->checkedby)
+				 ->setcellvalue('Q'.$n,$value->status); 
+                 $result=$this->Security_model->inmateriallist($value->id);
+				 foreach($result as $particules)
+                 {
+					  $n++;
+					  $spreadsheet->setActiveSheetIndex(0)
+					  ->setcellvalue('E'.$n,$particules->particules)
+				      ->setcellvalue('F'.$n,$particules->quantity);
+					  $resulttime=$this->Security_model->inmaterialpart($particules->ipid);		
+                      foreach($resulttime as $time)
+                      {
+						   $spreadsheet->setActiveSheetIndex(0)
+						  ->setcellvalue('G'.$n,$time->gatein)
+						  ->setcellvalue('H'.$n,$time->gateout)
+						  ->setcellvalue('I'.$n,$time->checkedby)
+						  ->setcellvalue('J'.$n,'test');
+					  }
+				 }
+				 $n+2;
+		         $s++;				 
+			}
 			$spreadsheet->getActiveSheet()->setTitle('Report');
 			$spreadsheet->setActiveSheetIndex(0);
 			$writer = new Xlsx($spreadsheet);
 			
-			$writer->save(getcwd().'\application\views\backend\rkmvc.xlsx');
+			$writer->save(getcwd().'\application\views\backend\poclain_report.xlsx');
    
-    ?>
-	<center><a href="<?php echo base_url(); ?>application/views/backend/rkmvc.xlsx" download ><button class="btn btn-lg btn-primary">Download the Report</button></a></center>
+    ?>   
+	  <h1 style="font-color:green">Your download will start automatically........</h1>
       </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	  <script>
+	     $(document).ready(function(){
+             window.location.href ="<?php echo base_url(); ?>application/views/backend/poclain_report.xlsx";
+             setTimeout(function() {window.location.href ="<?php echo base_url(); ?>security/stockin_report"},1000);
+});
+	  </script>
   </html>

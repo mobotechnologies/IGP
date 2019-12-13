@@ -12,7 +12,7 @@
         <!-- Brand -->
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block mobilehide" href="../index.html"><img src="../assets/img/icons/mainmaterial.png" alt="material.png" id="material"/>MATERIAL INWARD </a>
         <a  class="menu1 menuhide"  href="<?php echo base_url(); ?>Security/stockin_view"><i class="fas fa-home fa-lg iconcss"></i>Home</a>
-		<a href="<?php echo base_url(); ?>Security/stockin_form" class="menu2 menuhide"><i class="fa fa-plus iconcss" aria-hidden="true"></i>Add</a>
+		<a href="<?php echo base_url(); ?>Security/stockin_form" class="menu2 menuhide"><i class="fa fa-plus iconcss" aria-hidden="true"></i>Gatepass</a>
 		<a class="menu3 menuhide"  href="<?php echo base_url(); ?>Security/stockin_report"><i class="fa fa-file iconcss" aria-hidden="true"></i>Report</a>		       
 		<a class="menu3 menuhide"  href="<?php echo base_url(); ?>Security/anonymous"><i class="fa fa-question-circle iconcss" aria-hidden="true"></i>Anonymous</a>	
 		<!-- Form -->
@@ -23,7 +23,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 	    <li class="nav-item dropdown">
-            <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+            <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -36,7 +36,7 @@
         </li>
 	   
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                     <?php
@@ -106,7 +106,7 @@
         <div class="col">
           <div class="card shadow blacky">
             <div class="card-header border-0">
-              <h3 class="mb-0"><img src="<?php echo base_url(); ?>assets/images/materialins.png" alt="home.png" style="width: 28px;margin-left:25%"/>Material Inward Report</h3>
+              <h3 class="mb-0"><img src="<?php echo base_url(); ?>assets/images/materialins.png" alt="home.png"  class="insresponse" style="width: 28px;margin-left:25%"/>Material Inward Report</h3>
             </div>
 			<div class="card-body">
 			   <div class="container">

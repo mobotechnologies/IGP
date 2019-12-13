@@ -5,7 +5,7 @@
       <div class="container-fluid">
        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block mobilehide" href="../index.html"><img src="../assets/img/icons/mainmaterial.png" alt="material.png" id="material"/>MATERIAL INWARD </a>
         <a  class="menu1 menuhide"  href="<?php echo base_url(); ?>Security/stockin_view"><i class="fas fa-home fa-lg iconcss"></i>Home</a>
-		<a href="<?php echo base_url(); ?>Security/stockin_form" class="menu2 menuhide"><i class="fa fa-plus iconcss" aria-hidden="true"></i>Add</a>
+		<a href="<?php echo base_url(); ?>Security/stockin_form" class="menu2 menuhide"><i class="fa fa-plus iconcss" aria-hidden="true"></i>Gatepass</a>
 		<a class="menu3 menuhide"  href="<?php echo base_url(); ?>Security/stockin_report"><i class="fa fa-file iconcss" aria-hidden="true"></i>Report</a>		       
 	   	<a class="menu3 menuhide" href="<?php echo base_url(); ?>Security/anonymous"><i class="fa fa-question-circle iconcss" aria-hidden="true"></i>Anonymous</a>	
 	   <!-- Form -->
@@ -15,7 +15,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 		<li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -27,7 +27,7 @@
           </div>
         </li>
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                     <?php
@@ -99,39 +99,7 @@
           
           <div class="card shadow" class="ele1">
             <div class="card-header border-0" >
-              <h3 class="mb-0" style="font-weight: 900;color: white;"><img src="../assets/images/poc.jpg" alt="gatepass.png" id="materialdub"/><span style="margin-left: 16%;">Material Inward Information</span><span style="margin-right: 0px;margin-left: 312px;"><i class="fas fa-closed-captioning" data-toggle="modal" data-target="#Matclose"></i></span></h3>
-               	<div class="modal fade" id="Matclose" role="dialog">
-												<div class="modal-dialog">
-												
-												  <!-- Modal content-->
-												  <div class="modal-content">
-													<div class="modal-header">
-													  <h4 class="modal-title" style="margin-left: 186px !important;"><img src="../assets/img/icons/closure.png" alt="closure.png" id="material"/>Material Closure</h4>
-													</div>
-													<div class="modal-body">
-                                                        <form method="post" action="<?php echo base_url(); ?>security/stockin_remark">
-													    <input type="mid" name="mid" value="<?php echo $stockin[0]->id; ?>" hidden />
-                                                        <div class="form-group">
-                                                           <label>Remark</label>
-                                                           <input type="text" name="remark" class="form-control charrestrict" placeholder="Remark" /> 
-                                                        </div>
-                                                        <div class="form-group">
-                                                             <label>Status</label>
-                                                        	<select   class=" form-control"  tabindex="1" name="status" required>
-																<option value="Opened">Opened</option>
-																<option value="Closed">Closed </option>
-															</select> 
-                                                         </div> 
-                                                         <div class="form-group"> 
-                                                            <input type="submit" name="submit" class="btn btn-primary" value="Submit"  style="width: 116.991422px;margin-left: 149px;" />                                                  
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                         </div> 
-                                                        </form>
-												    </div>
-												  
-												</div>
-											  </div>
-                                        </div>
+              <h3 class="mb-0" style="font-weight: 900;color: white;"><img src="../assets/images/poc.jpg" alt="gatepass.png" id="materialdub"/><span style="margin-left: 16%;">Material Inward Information</span></h3>
              <hr> 
 		   </div>
             <div class="card-body">
@@ -189,71 +157,43 @@
                      <div class="form-group" style="margin-left: 263px;">
                         <input type="submit" name="submit" class="btn btn-primary" value="submit" />
                         <a href="<?php echo base_url(); ?>security/in_addmat?I=<?php echo base64_encode($stockin[0]->id); ?>" class="btn btn-primary">+ Materials</a>
-						 <a href="<?php echo base_url(); ?>security/inrepass?I=<?php echo base64_encode($stockin[0]->id); ?>" class="btn btn-primary">Generate</a>
+			
                     </div>
                     </form>
 					<hr>
 					<table class="table table-bordered" style="margin-bottom: 36px;margin-top: 16px;">
                         <?php $result=$this->Security_model->inmateriallist($stockin[0]->id)?>
 						<tr>
-                            <th></th>
-							<th>Material List</th>
-							<th>Vno/Lno</th>
-							<th>Name</th>
-							<th>Phone</th>
-							<th>Gate In</th>
-							<th>Gate Out</th>
+                          
+							<th>Particular</th>
+							<th>Quantity</th>
+						    <th>Vechicle_no</th>
+							<th>Driver name</th>
+							<th>Driver phone</th>
+							<th>Time in</th>
+							<th>Time out</th>
 						</tr>
 						<?php 
                             foreach($result as $value)
                             {
 								?>   
                                 <tr>
-                                    <td> 
-                                       <a href="#" class="btn btn-primary buttonsizing" id="view" data-toggle="modal" data-target="#inp<?PHP echo $value->ipid; ?>"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
-                                       	<div class="modal fade" id="inp<?PHP echo $value->ipid; ?>" role="dialog">
-												<div class="modal-dialog">
-												
-												  <!-- Modal content-->
-												  <div class="modal-content">
-													<div class="modal-header">
-													  <h4 class="modal-title" style="margin-left: 186px !important;">Transportation</h4>
-													</div>
-													<div class="modal-body">
-													    <img src="../assets/upload/<?php echo $value->particules; ?>" alt="None.jpf" style="width: 142px;margin-left: 174px;" />     
-												        <p>Mode : <?php echo $value->mode; ?></p>
-                                                        <?php 
-                                                            if($value->mode=="Onhand")
-                                                            {
-																?>
-                                                                 <p>Courier : <?php echo $value->comp_name; ?></p>
-                                                                 <p>Locket : <?php echo $value->locket; ?></p>
-																<?php
-                                                            }
-                                                            else
-                                                            {
-                                                              ?>
-                                                               <p>vechicle_type : <?php echo $value->vechicle_type; ?></p>
-                                                          
-                                                              <?php
-                                                            }
-                                                        ?>
-                                                         <p>CheckedBy : <?php echo $value->checkedby; ?></p>
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-												    </div>
-												  
-												</div>
-											  </div>
-                                        </div>
-                                    </td>
-                                    <td><a href="<?php echo base_url(); ?>assets/upload/<?php echo $value->particules; ?>"><?php echo trim($value->particules," "); ?></a></td>
-									<td><?php echo $value->vechicle_no; ?></td>
-									<td><?php echo $value->driver_name; ?></td>
-									<td><?php echo $value->driver_phone; ?> </td>
-									<td><?php echo $value->gatein; ?></td>
-									<td id="<?php echo $value->ipid; ?>">
+                          
+                                    <td><?php echo $value->particules; ?></a></td>
+									<td><?php echo $value->quantity; ?></a></td>
+									 <?php 
+									    $resulttime=$this->Security_model->inmaterialpart($value->ipid);
+									
+                            foreach($resulttime as $time)
+                            {
+									 ?>
+									<td><?php echo $time->vechicle_no; ?></td>
+									<td><?php echo $time->driver_name; ?></td>
+									<td><?php echo $time->driver_phone; ?> </td>
+									<td><?php echo $time->gatein; ?></td>
+									<td id="<?php echo $time->ipid; ?>">
                                        	<?php 
-											if($value->gateout=="") 
+											if($time->gateout=="") 
 											{ 
 											  ?>
 										  <a class="btn btn-success ingout buttonsizing"  ><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
@@ -261,10 +201,13 @@
 									}
 									else
 									{
-										echo $value->gateout;						
+										echo $time->gateout;						
 									}
 									?>
                                    </td>
+								   <?php
+							}
+							?>
                                 </tr>
 								<?php
                             } 

@@ -5,7 +5,7 @@
     <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block mobilehide" href="../index.html"><img src="../assets/img/icons/mainvisit.png" alt="material.png" id="material"/>VISITOR MANAGEMENT</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block mobilehide mobilehide2" href="../index.html"><img src="../assets/img/icons/mainvisit.png" alt="material.png" id="material"/>VISITOR MANAGEMENT</a>
 	    <a  class="menu1 menuhide"  href="<?php echo base_url(); ?>Security/visitor_view"><i class="fas fa-home fa-lg iconcss"></i>Home</a>
 		<a href="<?php echo base_url(); ?>Security/visitor_form" class="menu2 menuhide"><i class="fa fa-plus iconcss" aria-hidden="true"></i>Add</a>
 		<a class="menu3 menuhide"  href="<?php echo base_url(); ?>Security/visitor_report"><i class="fa fa-file iconcss" aria-hidden="true"></i>Report</a>		
@@ -16,7 +16,7 @@
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
 			  <li class="nav-item dropdown">
-          <a class=" nav-link-icon mobilehide" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
+          <a class=" nav-link-icon mobilehide mobilehide2" href="#" id="notification-icon" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  onclick="myFunction()">
             <span id="notification-count">
 			<?php 
 			  $count=$this->Security_model->countcomment();
@@ -29,7 +29,7 @@
         </li>
 
           <li class="nav-item dropdown">
-            <a class="hfont pr-0 mobilehide" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="hfont pr-0 mobilehide mobilehide2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
                                       <?php
