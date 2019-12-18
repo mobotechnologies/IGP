@@ -115,6 +115,8 @@
 					<th role="columnheader">Type</th>
 				    <th role="columnheader">From</th>
 				    <th role="columnheader">To</th>
+					<th role="columnheader">Remark</th>
+				    <th role="columnheader">Status</th>
 					<th role="columnheader">Action</th>
                   </tr>
                 </thead>
@@ -131,6 +133,34 @@
 					<td class="stockouttab"><?php echo ucfirst($value->type);	?></td>
 				    <td class="stockouttab"><?php echo ucfirst($value->from_em);	?></td>
 				    <td class="stockouttab"><?php echo ucfirst($value->to_em);	?></td>
+					<td class="stockouttab">
+					<?php
+						  if($value->remark==" ")
+						  {
+						   echo ucfirst($value->remark); 
+						  }
+						  else
+						  {
+							  echo "None";
+						  }
+					?>
+					</td>
+				    <td class="stockouttab">
+					 <?php
+							    if($value->status=="Opened")
+							    {
+ 							        echo "Opened";
+								}
+								elseif($value->status==NULL)
+								{
+									echo "Opened";
+								}
+								else
+								{
+									  echo "Closed";
+								}
+							   ?>
+					</td>
 					<td>
 					    <a href="<?php echo base_url(); ?>security/stockoutover?I=<?php echo base64_encode($value->id); ?>" id="view"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
 					    <a href="#" class="delstockout" id="view"><i class="fa fa-lg fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
@@ -149,7 +179,7 @@
 				
 					    <tr>
 						   <td>
-						        <select class=" form-control level1"  tabindex="1" name="level1" disabled>
+						        <select class=" form-control level1 stkoutmail1"  tabindex="1" name="level1" disabled>
 								 <option value="">Select email</option>
 							      <?php
 							         foreach($employee as $values)
@@ -171,7 +201,7 @@
 						</tr>
 						 <tr>
 						   <td>
-						        <select class=" form-control level2"  tabindex="1" name="level2" disabled>
+						        <select class=" form-control level2 stkoutmail2"  tabindex="1" name="level2" disabled>
 								 <option value="">Select email</option>
 							      <?php
 								  $email2=$value->email2;
@@ -194,14 +224,14 @@
 						</tr>
 						 <tr>
 						   <td>
-						       <select class=" form-control level3"  tabindex="1" name="level3" disabled>
+						       <select class=" form-control level3 stkoutmail3"  tabindex="1" name="level3" disabled>
 							    <option value="">Select email</option>
 							      <?php
 							         foreach($employee as $values)
 							        {
 						                  ?>
 	
-									      <option value="<?php echo $values->em_id ?>" ><?php echo $values->em_id."-".$values->first_name ?></option> 
+									      <option value="<?php echo $values->em_id ?>"  <?php if($values->em_id==$value->email3){ echo "selected"; }?>><?php echo $values->em_id."-".$values->first_name ?></option> 
 						                 <?php
 							        }
 							     ?>
@@ -241,8 +271,8 @@
                                                         <div class="form-group">
                                                          
                                                         	<select   class=" form-control"  tabindex="1" name="status" required>
-																<option value="Opened">Opened</option>
-																<option value="Closed">Closed </option>
+																<option value="Opened" <?php if($value->status=="Opened"){ echo "selected"; } ?>>Opened</option>
+																<option value="Closed" <?php if($value->status=="Closeds"){ echo "selected"; } ?>>Closed </option>
 															</select> 
                                                          </div> 
                                                          <div class="form-group"> 

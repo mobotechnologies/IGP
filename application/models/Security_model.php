@@ -30,6 +30,10 @@
 		{
 			 $this->db->insert("inward_time",$data);
 		}
+		public function outward_time($data)
+		{
+			 $this->db->insert("outward_time",$data);
+		}
 		public function insert_visitor($data)
 		{
 			$this->db->insert("visitor_management", $data);
@@ -234,6 +238,20 @@
 		   $this->db->where('id', $id);
 		   $this->db->update('visitor_management',$data);        
         }
+		public function  getaddmails($id)
+		{
+			  $sql = "SELECT email1,email2,email3,GatePass FROM stock_inward   WHERE id='$id'";
+              $query=$this->db->query($sql);
+	          $result = $query->result();
+	          return $result;
+		}
+		public function emmailcode($code)
+		{
+			  $sql = "SELECT em_email FROM employee  WHERE em_code='$code'";
+              $query=$this->db->query($sql);
+	          $result = $query->result();
+	          return $result;
+		}
 		public function singlestockin($id)
 		{
 			  $sql = "SELECT * FROM stock_inward   WHERE id='$id'";

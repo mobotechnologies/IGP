@@ -104,9 +104,20 @@
 			<div class="card-body stockinsform2">
             <form method="post" action="<?php echo base_url(); ?>Security/stockout_insert">
 				<div class="tab">			
-					<div class="form-group"> 
+				<div class="form-group"> 
 					     <p>To</p>
-					  	 <input type="text" name="to" class="form-control" value="Logistic"  />
+					  		<select class="form-control" name="to">
+								 <?php
+								foreach($employee as $value)
+								{
+							 ?>
+									 
+										 <option value="<?php echo $value->id ?>"><?php echo $value->first_name."-".$value->dep_name; ?></option>
+									 
+							 <?php
+								}
+								?>
+						</select>
 					</div>
 					<div class="form-group" style="display: flex;">
 					    <p class="check4">Category1 <span style="color:red !important">*</span></p> 
@@ -150,8 +161,10 @@
 							<input type=button class="btn btn-primary savesnap2"  value="Save Snapshot" onClick="saveSnap2()" hidden >
 						</div>
 					</div>
+					
 					<script type="text/javascript" src="<?php echo base_url(); ?>assets/webcamjs/webcam.min.js"></script>
 					<script language="JavaScript">
+					
 						Webcam.set({
 							width: 320,
 							height: 240,

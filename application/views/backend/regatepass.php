@@ -99,18 +99,29 @@
 			    <div class="frto" style="width:826px !important;">
 					<div class="from" style="width: 215px  !important;margin-right: 414px  !important;">
 						<div> 
-							<p>FROM : <?php echo $basicinfo->first_name; ?></p>
+						  <?php
+                        $fid = $materialin[0]->from_em;
+                       $basicin = $this->employee_model->GetBasic2($fid); 					   
+				    ?>
+							<p>FROM : <?php echo $basicin->first_name; ?></p>
 						</div>
 						<div>
-							<p>DEPT : <?php echo $basicinfo->dep_name; ?></p>
+							<p>DEPT : <?php echo $basicin->dep_name; ?></p>
 						</div>
 					</div>
 					<div class="to">
+
 						<div> 
-							<p>TO  : <?php echo $materialin[0]->to_em;  ?></p>
+						  <?php
+                        $fid1 = $materialin[0]->to_em;
+                       $basicin1 = $this->employee_model->GetBasic2($fid); 					   
+				    ?>
+							<p>To : <?php echo $basicin1->first_name; ?></p>
 						</div>
-						
-					</div>
+						<div>
+							<p>DEPT : <?php echo $basicin1->dep_name; ?></p>
+						</div>
+						</div>
 				</div>
 				<hr>
 				<div style="margin-left: 172px;">
@@ -160,8 +171,8 @@
 						       <th>Sno</th>
 							   <th>Particulars</th>
 							   <th>Quantity</th>
-							   <th>GateIn</th>
 							   <th>GateOut</th>
+							   <th>GateIn</th>
 						   </tr>
 				    <?php
 					$count=0;
@@ -173,17 +184,208 @@
 						   <tr>
 						       <td><?php echo $count; ?></td>
 							   <td><?php echo $value->particulars; ?></td>
-							   <td>12</td>
-							   <td><button class="btn btn-success outgatein buttonsizing"  data-toggle="modal" data-target="#gateindet"><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button></td>
-							   <td><button class="btn btn-success outgateout buttonsizing" data-toggle="modal" data-target="#gateoutdet" ><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button></td>
-					        </tr>
+							   <td><?php echo $value->quantity; ?></td>
+							   <td>
+								   <button class="btn btn-success outgateout buttonsizing" data-toggle="modal" data-target="#gateoutdet" ><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
+							   </td>
+					        
+		         <div class="modal fade" id="gateoutdet" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+		  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/inputs.css" />
+            <h4 class="modal-title"><img src="../assets/img/icons/transportation.png" alt="material.png" id="material" style="margin-right: 19px;"/>Transportation Details</h4>
+        </div>
+        <div class="modal-body">
+            <form style="margin-left: 140px;" action="security/updateoutgatetime">
+				<div class="form-group">
+						
+						 	<input type="text" name="imgname" class="images" required />
+							<div id="my_camera3"></div>
+							<div id="results" ></div>
+							<div class="cambut" style="margin-left: 100px;">
+								<button class="btn btn-primary takesnap"   onClick="take_snapshot()"><i class="fas fa-camera"></i></button>
+                               <button class="btn btn-danger resetcam"><i class="fas fa-undo"></i></button>
+								<input type=button class="btn btn-primary savesnap"  value="Save Snapshot" onClick="saveSnap()" hidden >
+							</div>
+									<script type="text/javascript" src="<?php echo base_url(); ?>assets/webcamjs/webcam.min.js"></script>
+					
+					<script language="JavaScript">
+						Webcam.set({
+							width: 320,
+							height: 240,
+							image_format: 'jpeg',
+							jpeg_quality: 90,
+							
+						});
+						Webcam.attach( '#my_camera3' );
+					</script>
+	             </div>
+                       <div class="form-group">
+						     <select name="mode" class="form-control mode" style="width: 302.991422px;margin-left: 0px;">
+							    <option name="Vechicle">Vehicle</option>
+							    <option name="Onhand">Onhand</option>
+							 </select>
+						 </div>
+						<div class="form-group vechicletypes">
+							<select name="Vtype" class="form-control selectsearch">
+								<option>Vechicle type</option>
+								<option value="singleunit">Single unit</option>
+								<option value="singletraior">Single trailor</option>
+								<option value="multitrailor">Multi trailor</option>
+								<option value="semitrailor">Semi trailor</option>
+								<option value="passengercar">Passenger cars</option>
+								<option value="motorcycle">Motorcycle</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<div class="group">      
+							  <input type="text" name="vechNo" required>
+							  <span class="highlight"></span>
+							  <span class="bar"></span>
+							  <label class="vechicleno">Vechicle No<span style="color:red !important">*</span></label>
+						     </div>								
+						</div>
+						 <div class="form-group">
+							<div class="group">      
+							  <input type="text" name="Dname"class="charrestrict" maxlength="10" required>
+							  <span class="highlight"></span>
+							  <span class="bar"></span>
+							  <label class="dname">Driver Name<span style="color:red !important">*</span></label>
+						    </div>								
+						</div>
+						<div class="form-group">
+							<div class="group">      
+							  <input type="text" name="Dphone" class="norestrict" maxlength="10" required>
+							  <span class="highlight"></span>
+							  <span class="bar"></span>
+							  <label class="dphones">Driver Phone<span style="color:red !important">*</span></label>
+						     </div>								
+						</div>
+						<div class="form-group cour" style="display:none">
+							<div class="group">      
+							  <input type="text" name="Cour">
+							  <span class="highlight"></span>
+							  <span class="bar"></span>
+							  <label>Courier<span style="color:red !important">*</span></label>
+						    </div>								
+						</div>
+						
+					<div class="form-group"> 
+						<input type="submit" name="submit" class="btn btn-primary" value="Submit" style="width: 86.991422px;margin-left: 62px;"/>                                                  
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					 </div>
+			</form>
+      </div>
+      
+    </div>
+  </div>
+		   </div>
+	<td>
+	     <button class="btn btn-success outgatein buttonsizing"  data-toggle="modal" data-target="#gateindet"><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
+	</td>
+							   <div class="modal fade" id="gateindet" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+		  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/inputs.css" />
+            <h4 class="modal-title"><img src="../assets/img/icons/transportation.png" alt="material.png" id="material" style="margin-right: 19px;"/>Transportation Details</h4>
+        </div>
+        <div class="modal-body">
+            <form style="margin-left: 120px;" action="security/updateingatetime">
+				<div class="form-group">
+						
+						 	<input type="text" name="imgname" class="images" required />
+							<div id="my_camera"></div>
+							<div id="results" ></div>
+							<div class="cambut" style="margin-left: 100px;">
+								<button class="btn btn-primary takesnap"   onClick="take_snapshot()"><i class="fas fa-camera"></i></button>
+                               <button class="btn btn-danger resetcam"><i class="fas fa-undo"></i></button>
+								<input type=button class="btn btn-primary savesnap"  value="Save Snapshot" onClick="saveSnap()" hidden >
+							</div>
+	             </div>
+                       <div class="form-group">
+						     <select name="mode" class="form-control mode" style="width: 302.991422px;margin-left: 0px;">
+							    <option name="Vechicle">Vehicle</option>
+							    <option name="Onhand">Onhand</option>
+							 </select>
+						 </div>
+						<div class="form-group vechicletypes">
+							<select name="Vtype" class="form-control selectsearch">
+								<option>Vechicle type</option>
+								<option value="singleunit">Single unit</option>
+								<option value="singletraior">Single trailor</option>
+								<option value="multitrailor">Multi trailor</option>
+								<option value="semitrailor">Semi trailor</option>
+								<option value="passengercar">Passenger cars</option>
+								<option value="motorcycle">Motorcycle</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<div class="group">      
+							  <input type="text" name="vechNo" required>
+							  <span class="highlight"></span>
+							  <span class="bar"></span>
+							  <label class="vechicleno">Vechicle No<span style="color:red !important">*</span></label>
+						     </div>								
+						</div>
+						 <div class="form-group">
+							<div class="group">      
+							  <input type="text" name="Dname" class="charrestrict" maxlength="10" required>
+							  <span class="highlight"></span>
+							  <span class="bar"></span>
+							  <label class="dname">Driver Name<span style="color:red !important">*</span></label>
+						    </div>								
+						</div>
+						<div class="form-group">
+							<div class="group">      
+							  <input type="text" name="Dphone" class="norestrict" maxlength="10" required>
+							  <span class="highlight"></span>
+							  <span class="bar"></span>
+							  <label class="dphones">Driver Phone<span style="color:red !important">*</span></label>
+						     </div>								
+						</div>
+						<div class="form-group cour" style="display:none">
+							<div class="group">      
+							  <input type="text" name="Cour">
+							  <span class="highlight"></span>
+							  <span class="bar"></span>
+							  <label>Courier<span style="color:red !important">*</span></label>
+						    </div>								
+						</div>
+						
+						<div class="form-group"> 
+							<input type="submit" name="submit" class="btn btn-primary" value="Submit" style="width: 86.991422px;margin-left: 62px;"/>                                                  
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						 </div>
+			</form>
+      </div>
+      
+    </div>
+  </div>
+		   </div>	
+							
+							</tr>
 					<?php
 					  }
 					  ?>
 				</table>
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addmat" style="
-    margin-top: 11px;
-">+ Add</button>
+				<?php 
+					  if($materialin[0]->type=="NRGP")
+					  {
+						   echo "Non Returnable Material";
+					  }
+					  else
+					  {
+						  ?>
+						  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addmat" style="margin-top: 11px;">+ Add</button>
+					      <?php
+					 }
+				?>
 				<div class="modal fade" id="addmat" role="dialog">
 												<div class="modal-dialog">
 												
@@ -338,22 +540,22 @@ function saveSnap2(){
 				{
 					 
 				?>
-					 <input type="submit" value="Approve"  class="btn btn-primary outapprove1" name="approve" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>" />
-					 <input type="submit" value="Reject" class="btn btn-danger outreject1" name="reject" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>"/>
+					 <button  class="btn btn-primary outapprove1" name="approve"  data-value="<?php echo $materialin[0]->id ?>" >Approve</button>
+					 <button  class="btn btn-danger outreject1" name="reject"     data-value="<?php echo $materialin[0]->id ?>">Reject</button>
 				<?php
 				}
 				if($this->session->userdata('user_login_id')==$vales->level2)
 				{
 					?>
-					 <input type="submit" value="Approve"  class="btn btn-primary outapprove2" name="approve" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>" />
-					 <input type="submit" value="Reject" class="btn btn-danger outreject2" name="reject" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>"/>
+					 <button  class="btn btn-primary outapprove2" name="approve" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>" >Approve</button>
+					 <button  class="btn btn-danger outreject2" name="reject" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>">Reject</button>
 					<?php
 				}
 				if($this->session->userdata('user_login_id')==$vales->level3)
 				{
 					?>
-					 <input type="submit" value="Approve"  class="btn btn-primary outapprove3" name="approve" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>" />
-					 <input type="submit" value="Reject" class="btn btn-danger outreject3" name="reject" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>"/>
+					 <button class="btn btn-primary outapprove3" name="approve" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>">Approve</button>
+					 <button class="btn btn-danger outreject3" name="reject" style="width: 204.977496px;margin-bottom: 10px;" data-value="<?php echo $materialin[0]->id ?>">Reject</button>
 					<?php
 				}
 				
@@ -373,182 +575,7 @@ function saveSnap2(){
 			    echo "";
 		   }
 			?>		
-      <div class="modal fade" id="gateindet" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-		  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/inputs.css" />
-            <h4 class="modal-title"><img src="../assets/img/icons/transportation.png" alt="material.png" id="material" style="margin-right: 19px;"/>Transportation Details</h4>
-        </div>
-        <div class="modal-body">
-            <form style="margin-left: 120px;">
-				<div class="form-group">
-						
-						 	<input type="text" name="imgname" class="images" required />
-							<div id="my_camera"></div>
-							<div id="results" ></div>
-							<div class="cambut" style="margin-left: 100px;">
-								<button class="btn btn-primary takesnap"   onClick="take_snapshot()"><i class="fas fa-camera"></i></button>
-                               <button class="btn btn-danger resetcam"><i class="fas fa-undo"></i></button>
-								<input type=button class="btn btn-primary savesnap"  value="Save Snapshot" onClick="saveSnap()" hidden >
-							</div>
-	             </div>
-                       <div class="form-group">
-						     <select name="mode" class="form-control mode" style="width: 302.991422px;margin-left: 0px;">
-							    <option name="Vechicle">Vehicle</option>
-							    <option name="Onhand">Onhand</option>
-							 </select>
-						 </div>
-						<div class="form-group vechicletypes">
-							<select name="Vtype" class="form-control selectsearch">
-								<option>Vechicle type</option>
-								<option value="singleunit">Single unit</option>
-								<option value="singletraior">Single trailor</option>
-								<option value="multitrailor">Multi trailor</option>
-								<option value="semitrailor">Semi trailor</option>
-								<option value="passengercar">Passenger cars</option>
-								<option value="motorcycle">Motorcycle</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<div class="group">      
-							  <input type="text" name="vechNo" required>
-							  <span class="highlight"></span>
-							  <span class="bar"></span>
-							  <label class="vechicleno">Vechicle No<span style="color:red !important">*</span></label>
-						     </div>								
-						</div>
-						 <div class="form-group">
-							<div class="group">      
-							  <input type="text" name="Dname" class="charrestrict" maxlength="10" required>
-							  <span class="highlight"></span>
-							  <span class="bar"></span>
-							  <label class="dname">Driver Name<span style="color:red !important">*</span></label>
-						    </div>								
-						</div>
-						<div class="form-group">
-							<div class="group">      
-							  <input type="text" name="Dphone" class="norestrict" maxlength="10" required>
-							  <span class="highlight"></span>
-							  <span class="bar"></span>
-							  <label class="dphones">Driver Phone<span style="color:red !important">*</span></label>
-						     </div>								
-						</div>
-						<div class="form-group cour" style="display:none">
-							<div class="group">      
-							  <input type="text" name="Cour">
-							  <span class="highlight"></span>
-							  <span class="bar"></span>
-							  <label>Courier<span style="color:red !important">*</span></label>
-						    </div>								
-						</div>
-						
-						<div class="form-group"> 
-							<input type="submit" name="submit" class="btn btn-primary" value="Submit" style="width: 86.991422px;margin-left: 62px;"/>                                                  
-							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						 </div>
-			</form>
-      </div>
-      
-    </div>
-  </div>
-		   </div>			
-		         <div class="modal fade" id="gateoutdet" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-		  <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/inputs.css" />
-            <h4 class="modal-title"><img src="../assets/img/icons/transportation.png" alt="material.png" id="material" style="margin-right: 19px;"/>Transportation Details</h4>
-        </div>
-        <div class="modal-body">
-            <form style="margin-left: 140px;">
-				<div class="form-group">
-						
-						 	<input type="text" name="imgname" class="images" required />
-							<div id="my_camera3"></div>
-							<div id="results" ></div>
-							<div class="cambut" style="margin-left: 100px;">
-								<button class="btn btn-primary takesnap"   onClick="take_snapshot()"><i class="fas fa-camera"></i></button>
-                               <button class="btn btn-danger resetcam"><i class="fas fa-undo"></i></button>
-								<input type=button class="btn btn-primary savesnap"  value="Save Snapshot" onClick="saveSnap()" hidden >
-							</div>
-									<script type="text/javascript" src="<?php echo base_url(); ?>assets/webcamjs/webcam.min.js"></script>
-					
-					<script language="JavaScript">
-						Webcam.set({
-							width: 320,
-							height: 240,
-							image_format: 'jpeg',
-							jpeg_quality: 90,
-							
-						});
-						Webcam.attach( '#my_camera3' );
-					</script>
-	             </div>
-                       <div class="form-group">
-						     <select name="mode" class="form-control mode" style="width: 302.991422px;margin-left: 0px;">
-							    <option name="Vechicle">Vehicle</option>
-							    <option name="Onhand">Onhand</option>
-							 </select>
-						 </div>
-						<div class="form-group vechicletypes">
-							<select name="Vtype" class="form-control selectsearch">
-								<option>Vechicle type</option>
-								<option value="singleunit">Single unit</option>
-								<option value="singletraior">Single trailor</option>
-								<option value="multitrailor">Multi trailor</option>
-								<option value="semitrailor">Semi trailor</option>
-								<option value="passengercar">Passenger cars</option>
-								<option value="motorcycle">Motorcycle</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<div class="group">      
-							  <input type="text" name="vechNo" required>
-							  <span class="highlight"></span>
-							  <span class="bar"></span>
-							  <label class="vechicleno">Vechicle No<span style="color:red !important">*</span></label>
-						     </div>								
-						</div>
-						 <div class="form-group">
-							<div class="group">      
-							  <input type="text" name="Dname"class="charrestrict" maxlength="10" required>
-							  <span class="highlight"></span>
-							  <span class="bar"></span>
-							  <label class="dname">Driver Name<span style="color:red !important">*</span></label>
-						    </div>								
-						</div>
-						<div class="form-group">
-							<div class="group">      
-							  <input type="text" name="Dphone" class="norestrict" maxlength="10" required>
-							  <span class="highlight"></span>
-							  <span class="bar"></span>
-							  <label class="dphones">Driver Phone<span style="color:red !important">*</span></label>
-						     </div>								
-						</div>
-						<div class="form-group cour" style="display:none">
-							<div class="group">      
-							  <input type="text" name="Cour">
-							  <span class="highlight"></span>
-							  <span class="bar"></span>
-							  <label>Courier<span style="color:red !important">*</span></label>
-						    </div>								
-						</div>
-						
-					<div class="form-group"> 
-						<input type="submit" name="submit" class="btn btn-primary" value="Submit" style="width: 86.991422px;margin-left: 62px;"/>                                                  
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					 </div>
-			</form>
-      </div>
-      
-    </div>
-  </div>
-		   </div>
+    		
 		   <!-- Webcam.min.js -->
 		 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		  
@@ -606,7 +633,7 @@ function saveSnap(){
 }
 
 
-}
+
 
 	</script>
 
@@ -623,7 +650,9 @@ function saveSnap(){
 			else
 		    {
 			?>
-			    <span style="color:red;font-weight:500">Note : You are able to generate pass or print when your request pass 3 levels of approval</span>
+			  <div>
+			    <span style="color:red;font-weight:500">Note : You are unable to generate or print the pass until </span>
+			 </div>
 			<?php
 			}
 			?>

@@ -1,0 +1,19 @@
+Docker file
+
+From : os
+
+Run : os
+
+entry point 
+
+Add : source
+
+env cmd
+
+Expose : port
+
+maintainer :  author
+
+user : user exceute particular docker container
+
+volume cmd : custom volume

@@ -147,6 +147,85 @@ class Security extends CI_Controller
 	{
         
 	    $id=$this->input->post('mid');
+		$employeeemail=$this->Security_model->getaddmails($id);
+		foreach($employeeemail as $value)
+		{
+			 
+			 	$sub="Material Closure alert";
+					$msg="
+					    <html>
+						    <head>
+							     <head>
+									<style>
+									#customers {
+									  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+									  border-collapse: collapse;
+									  width: 100%;
+									}
+
+									#customers td, #customers th {
+									  border: 1px solid #ddd;
+									  padding: 8px;
+									}
+
+									#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+									#customers tr:hover {background-color: #ddd;}
+
+									#customers th {
+									  padding-top: 12px;
+									  padding-bottom: 12px;
+									  text-align: left;
+									  background-color: #f2f2f2 ;
+									  color: white;
+									}
+									</style>
+                            </head>
+                            <body>
+							          <div class='card shadow ele1'>
+         
+            <div class='table-responsive'>
+              <table border='1' id='customers'> 
+                <tbody>
+                    <tr>
+						<td style='width:50%;padding-left: 62px;'>
+						   
+							     <img src='./assets/images/poc.jpg'  id='printTable' /></br>
+							
+						</td>
+						<td style='width:50%;'>
+							 <p style=' font-size: 12px;font-weight: 900;margin-top: 11px;margin-left: 25px;'>
+								<span style='color:blue'>POCLAIN HYDRAULICS PVT LTD</span></br>
+								No: 131 / 2, Kothapurinatham Road
+								Mannadipet Commune Panchayat
+								Thiruvandarkoil
+								PONDICHERRY -  605 102
+								INDIA
+
+								Tel.: +91 413 2641455
+							</p>
+						</td>
+					</tr>
+					<tr>
+					   <td style='width:50%;padding-left: 77px;'>Gate Pass   : ".$value->GatePass."</td>
+					   <td style='width:50%;padding-left: 77px;'>Materials to received are received successfully.</td>
+					</tr>				 
+                </tbody>
+              </table>
+            </div>
+           
+          </div>
+                            </body>							
+						</html>
+					";
+						$getmail1=$this->Security_model->emmailcode($value->email1);	
+	                    $this->mail($sub,$msg,$getmail1[0]->em_email);
+						$getmail1=$this->Security_model->emmailcode($value->email2);	
+	                    $this->mail($sub,$msg,$getmail1[0]->em_email);
+						$getmail1=$this->Security_model->emmailcode($value->email3);	
+	                    $this->mail($sub,$msg,$getmail1[0]->em_email);
+				
+		}
 		$data=array(
 		    'remark'=>$this->input->post('remark'), 
             'status'=>$this->input->post('status'),
@@ -154,6 +233,88 @@ class Security extends CI_Controller
 		$this->Security_model->update_stockinremark($id,$data);
         $this->session->set_flashdata('feedback','Material closed Sucessfully');
 	    redirect('security/stockin_view');
+	}
+	public function sensitivemailalert_send()
+	{
+		$id=$this->input->post('id');
+		$emcode1=$this->input->post('em1');
+		$emcode2=$this->input->post('em2');
+		$emcode3=$this->input->post('em3');
+		$sub="Sensitive material alert";
+					$msg="
+					    <html>
+						    <head>
+							     <head>
+									<style>
+									#customers {
+									  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+									  border-collapse: collapse;
+									  width: 100%;
+									}
+
+									#customers td, #customers th {
+									  border: 1px solid #ddd;
+									  padding: 8px;
+									}
+
+									#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+									#customers tr:hover {background-color: #ddd;}
+
+									#customers th {
+									  padding-top: 12px;
+									  padding-bottom: 12px;
+									  text-align: left;
+									  background-color: #f2f2f2 ;
+									  color: white;
+									}
+									</style>
+                            </head>
+                            <body>
+							          <div class='card shadow ele1'>
+         
+            <div class='table-responsive'>
+              <table border='1' id='customers'> 
+                <tbody>
+                    <tr>
+						<td style='width:50%;padding-left: 62px;'>
+						   
+							     <img src='./assets/images/poc.jpg'  id='printTable' /></br>
+							
+						</td>
+						<td style='width:50%;'>
+							 <p style=' font-size: 12px;font-weight: 900;margin-top: 11px;margin-left: 25px;'>
+								<span style='color:blue'>POCLAIN HYDRAULICS PVT LTD</span></br>
+								No: 131 / 2, Kothapurinatham Road
+								Mannadipet Commune Panchayat
+								Thiruvandarkoil
+								PONDICHERRY -  605 102
+								INDIA
+
+								Tel.: +91 413 2641455
+							</p>
+						</td>
+					</tr>
+					<tr>
+					   <td style='width:50%;padding-left: 77px;'>Gate Pass In   : ".$id."</td>
+					   <td style='width:50%;padding-left: 77px;'>A Sensitive material has been arrived.</td>
+					</tr>				 
+                </tbody>
+              </table>
+            </div>
+           
+          </div>
+                            </body>							
+						</html>
+					";
+		$getmail1=$this->Security_model->emmailcode($emcode1);	
+	    $this->mail($sub,$msg,$getmail1[0]->em_email);
+		$getmail2=$this->Security_model->emmailcode($emcode2);
+		$this->mail($sub,$msg,$getmail2[0]-em_email);
+		$getmail3=$this->Security_model->emmailcode($emcode3);
+		$this->mail($sub,$msg,$getmail3[0]->em_email);
+		//$this->session->set_flashdata('feedback','Material closed Sucessfully');
+	    //redirect('security/stockin_view');
 	}
 	public function stockout_remark()
 	{
@@ -932,15 +1093,26 @@ public function email3update()
 		    $this->Security_model->insert_materialout($data1);
 			$insert_id = $this->db->insert_id();
 			$part=$this->input->post('matimg');
-          
-                   $data2=array(
-				       'particulars'=>$part,
-					   'id'=>$insert_id,
-				   );	
+			 $particular=$this->input->post('particules');
+			 $quantity=$this->input->post('quantity');
+					for($count=0;$count<count($particular);$count++)
+					{
+							   $data2=array(
+								   'particulars'=>$this->input->post('particules')[$count],
+								   'quantity'=>$this->input->post('quantity')[$count],
+								   'id'=>$insert_id,
+							   );	
+							   
+						 $this->Security_model->insert_particules($data2);
+						  $insert_id = $this->db->insert_id();
+						 $data3=array(
+						   'part_image'=>$part,
+						   'id'=>$insert_id,
+				           );
 				   
-           $this->Security_model->insert_particules($data2);
-			
-		   	$comment="Material  has sending has been requested on".date('H:i:s');
+				          $this->Security_model->outward_time($data3);
+					}
+		         	$comment="Material  has sending has been requested on".date('H:i:s');
 					$status=0;
 					$subject="Material outward Notify";
 					$dc=array(

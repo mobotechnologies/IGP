@@ -45,7 +45,51 @@
 	<script src="<?php echo base_url(); ?>assets/jqueryvalid/dist/jquery.validate.js"></script>
 	<script>
 	    $(document).ready(function(){
-			
+			$(".sendsense").on("click",function()
+			{
+				var id=$(".stock_inwardid").val();
+				var mail1=$(".stkinmail1").val();
+				var mail2=$(".stkinmail2").val();
+				var mail3=$(".stkinmail13").val();
+				$.ajax({
+					url:"<?php echo base_url(); ?>security/sensitivemailalert_send",
+					type:"Post",
+					data:{id:id,em1:mail1,em2:mail2,em3:mail3},
+					success:function(data)
+					{
+						//console.log(data);
+						bootbox.alert("Mail sent successfully");
+					}
+				});
+			});
+    $(".stkinmail1").on("change",function(){
+		$(".in1save").trigger("click");
+	 
+	//	e.preventDefault();
+	});
+	$(".stkinmail2").on("change",function(){
+		$(".in2save").trigger("click");
+	//	e.preventDefault();
+	});
+    $(".stkinmail3").on("change",function(){
+		$(".in3save").trigger("click");
+		//e.preventDefault();
+	});
+	 $(".stkoutmail1").on("change",function(){
+		$(".e1save").trigger("click");
+	 
+	//	e.preventDefault();
+	});
+	 $(".stkoutmail2").on("change",function(){
+		$(".e2save").trigger("click");
+	 
+	//	e.preventDefault();
+	});
+	 $(".stkoutmail3").on("change",function(){
+		$(".e3save").trigger("click");
+	 
+	//	e.preventDefault();
+	});
 	$("#materialinward").DataTable({
        "aaSorting": [[2,'desc']],
     });
@@ -115,6 +159,48 @@ $('#designer').DataTable({
 	 }
 	 
 	 $(document).ready(function() {
+		 		$(".outapprove3").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="Yes";
+		bootbox.confirm("Are you sure ?", function(result){
+			console.log(result);
+           if(result)
+		   {
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/stockout_approval3",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function(data)
+					{
+						console.log(data);
+						bootbox.alert("Approved");
+					}
+				});
+		   }
+        });
+	});
+	$(".outreject3").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="No";
+		bootbox.confirm("Are You sure ?", function(result){
+           if(result)
+		   {
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/stockout_approval3",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function()
+					{
+						bootbox.alert("Rejected");
+					}
+				});
+		   }
+        });
+	});
 		 	$('.mode').on('change', function() {
        if(this.value=="Onhand")
 	   {
@@ -390,7 +476,9 @@ $(document).ready(function(){
 	});
   $(".e3save").on("click",function(e){
 	      var id=$(this).attr('data-value');
+		  console.log('id'+id);
           var val=$(".level3").val();
+		   console.log('id'+val);
           $(".level3").val(val);
           $(".level3").attr("disabled","disabled");
         $.ajax({
@@ -590,7 +678,7 @@ $(document).ready(function(){
 			    $.ajax(
 				{
 					url:"<?php echo base_url(); ?>security/stockout_approval2",
-					type:"post",
+					type:"Post",
 					data:{id:appid,stat:status},
 					success:function(data)
 					{
@@ -620,48 +708,7 @@ $(document).ready(function(){
 				});
 		   }
         });
-		$(".outapprove3").on("click",function()
-	{
-		var appid=$(this).attr('data-value');
-		var  status="Yes";
-		bootbox.confirm("Are you sure ?", function(result){
-			console.log(result);
-           if(result)
-		   {
-			    $.ajax(
-				{
-					url:"<?php echo base_url(); ?>security/stockout_approval3",
-					type:"post",
-					data:{id:appid,stat:status},
-					success:function(data)
-					{
-						console.log(data);
-						bootbox.alert("Approved");
-					}
-				});
-		   }
-        });
-	});
-	$(".outreject3").on("click",function()
-	{
-		var appid=$(this).attr('data-value');
-		var  status="No";
-		bootbox.confirm("Are You sure ?", function(result){
-           if(result)
-		   {
-			    $.ajax(
-				{
-					url:"<?php echo base_url(); ?>security/stockout_approval3",
-					type:"Post",
-					data:{id:appid,stat:status},
-					success:function()
-					{
-						bootbox.alert("Rejected");
-					}
-				});
-		   }
-        });
-	});
+
 	});
 $(".selectsearch").select2({
   tags: true

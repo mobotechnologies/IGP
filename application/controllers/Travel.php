@@ -69,14 +69,13 @@ class Travel extends CI_Controller
 	{
 		
 			$data["status"]=$this->input->post('status');
-		    $data["district"]=$this->input->post('district');
-			$data["state"]=$this->input->post('state');
-			$data["date"]=$this->input->post('date');
 			$data["date1"]=$this->input->post('From');
 			$data["date2"]=$this->input->post('To');
 			$data["emid"]=$this->input->post('emid');
 			$data['cabreport']=$this->travel_model->selectcabdail($data);
-		    $this->load->view('backend/cabreportgen',$data);
+			print_r($data['cabreport']);
+			die();
+		  //  $this->load->view('backend/cabreportgen',$data);
 		
 	}
 	public function expense_report()

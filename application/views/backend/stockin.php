@@ -162,24 +162,39 @@
 								  }
 							   ?></td>
 						  	<th  class="stockintab"><?php
-							    if($value->remark==" " || $value->remark=="Opened")
+							    if($value->status=="Opened")
 							    {
- 							        echo ucfirst($value->status); 
+ 							        echo "Opened";
+								}
+								elseif($value->status==NULL)
+								{
+									echo "Opened";
 								}
 								else
 								{
-									  echo "Opened";
+									  echo "Closed";
 								}
 							   ?></th>
 							<td  id="<?php echo $value->id; ?>" class="stockintab">
+
 						      <a href="<?php echo base_url(); ?>security/stockinover?I=<?php echo base64_encode($value->id); ?>"  id="view"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
-							  <a href="#" class="delstockin" id="view"><i class="fa fa-lg fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
-                            <?php
+								<?php
+							    if($value->status!="Closed")
+							    {
+									?>						
+							<a href="#" class="delstockin" id="view"><i class="fa fa-lg fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
+                          <?php
+								}
+								?>
+						  <?php
 					        if($this->session->userdata('user_type')=='ADMIN' || $this->session->userdata('user_type')=='SUPER ADMIN' )
 							{
+								 if($value->status!="Closed")
+							    {
                             ?>								
 							<i class="fas  fa-lg fa-envelope"  data-toggle="modal" data-target="#addemail"></i>
 							<?php
+								}
 							}
 							?>
 							      <div class="modal fade" id="addemail" role="dialog">
@@ -191,11 +206,12 @@
             <h4 class="modal-title"><img src="../assets/img/icons/addemail.png" alt="material.png" id="material"/>AddOn Email</h4>
         </div>
         <div class="modal-body">
+		  
 			   <table class="table table-bordered">
-				        <input type="text" name="gatepass"  value="<?php echo strtoupper($value->GatePass); ?>" hidden />
+				        <input type="text" name="stkinid"  class="stock_inwardid" value="<?php echo strtoupper($value->GatePass); ?>" hidden />
 					    <tr>
 						   <td>
-						        <select class=" form-control email1"  tabindex="1" name="level1" disabled>
+						        <select class=" form-control email1 stkinmail1"  tabindex="1" name="level1" disabled>
 								 <option value="">Select email</option>
 							      <?php
 							         foreach($employee as $values)
@@ -212,12 +228,12 @@
 						   <td class="levellabel">email1</td>
 						   <td class="<?php echo $value->id; ?>">
 						      <button class="btn btn-primary editbtn in1edit"><i class="fa fa-edit"></i></button>
-							  <button class="btn btn-primary editbtn in1save" data-value="<?php echo $value->id ?>"><i class="fas fa-save"></i></button>
-						</td>
+							  <button class="btn btn-primary editbtn in1save" data-value="<?php echo $value->id ?>" hidden ><i class="fas fa-save"></i></button>
+						    </td>
 						</tr>
 						 <tr>
 						   <td>
-						        <select class=" form-control email2"  tabindex="1" name="level2" disabled>
+						        <select class=" form-control email2  stkinmail2"  tabindex="1" name="level2" disabled>
 								 <option value="">Select email</option>
 							      <?php
 							         foreach($employee as $values)
@@ -234,12 +250,12 @@
 						   <td class="levellabel">email2</td>
 						   <td class="<?php echo $value->id; ?>">
 						      <button class="btn btn-primary editbtn in2edit"><i class="fa fa-edit"></i></button>
-							  <button class="btn btn-primary editbtn in2save" data-value="<?php echo $value->id ?>"><i class="fas fa-save"></i></button>
+							  <button class="btn btn-primary editbtn in2save" data-value="<?php echo $value->id ?>" hidden ><i class="fas fa-save"></i></button>
 						   </td>
 						</tr>
 						 <tr>
 						   <td>
-						       <select class=" form-control email3"  tabindex="1" name="level3" disabled>
+						       <select class=" form-control email3  stkinmail3"  tabindex="1" name="level3" disabled>
 							    <option value="">Select email</option>
 							      <?php
 							         foreach($employee as $values)
@@ -256,7 +272,7 @@
 						   <td class="levellabel">email3</td>
 						   <td class="<?php echo $value->id; ?>">
 						      <button class="btn btn-primary editbtn in3edit"><i class="fa fa-edit"></i></button>
-							  <button class="btn btn-primary editbtn in3save" data-value="<?php echo $value->id ?>"><i class="fas fa-save"></i></button>
+							  <button class="btn btn-primary editbtn in3save" data-value="<?php echo $value->id ?>" hidden><i class="fas fa-save"></i></button>
 							</td>
 						</tr>
 						
@@ -287,8 +303,8 @@
 											<div class="form-group">
 												 <label>Status</label>
 												<select   class=" form-control"  tabindex="1" name="status" required>
-													<option value="Opened">Opened</option>
-													<option value="Closed">Closed </option>
+													<option value="Opened" <?php if($value->status=="Opened"){ echo "selected"; } ?>>Opened</option>
+													<option value="Closed" <?php if($value->status=="Closed"){ echo "selected"; } ?>>Closed </option>
 												</select> 
 											 </div> 
 											 <div class="form-group"> 
@@ -301,8 +317,16 @@
 									</div>
 								  </div>
 							</div>
+							<?php
+							
+							 if($value->status!="Closed")
+							    {
+									?>
 							  <a  href="<?php echo base_url(); ?>security/inrepass?I=<?php echo base64_encode($value->id); ?>"><i class="fas  fa-lg fa-ticket-alt"></i></a>
-							</td>
+                           <?php 
+								}
+                           ?>								
+						</td>
 						  
 						</tr>
 					<?php

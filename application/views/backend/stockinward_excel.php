@@ -34,8 +34,9 @@
    $drawing = new \PhpOffice\PhpSpreadsheet\Worksheet\Drawing();
    $drawing->setName('Paid');
    $drawing->setDescription('Paid');
-   $drawing->setPath(getcwd().'/assets/images/poc.jpg'); // put your path and image here
-   $drawing->setCoordinates('C2');
+   $drawing->setPath(getcwd().'/assets/images/poc.png'); // put your path and image here
+   $drawing->setHeight(50);
+   $drawing->setCoordinates('A1');
    $drawing->getShadow()->setVisible(true);
    $drawing->getShadow()->setDirection(45);
    $drawing->setWorksheet($spreadsheet->getActiveSheet());
@@ -50,25 +51,26 @@
 $styleArray = array(
     'font'  => array(
         'bold'  => true,
-        'color' => array('rgb' => 'Blue'),
+        'color' => array('rgb' => 'Black'),
         'size'  => 15,
         'name'  => 'Bold'
     ));
-	         $spreadsheet->getActiveSheet()->getStyle('E8:I8')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-	         $spreadsheet->getActiveSheet()->getStyle('B8:S8')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('6666ff');
-	         $spreadsheet->getActiveSheet()->mergeCells("E8:I8");
-			 $spreadsheet->getActiveSheet()->getCell('F4')->setValue('Stock Inward Report');
-			 $spreadsheet->setActiveSheetIndex(0)->getStyle('F4')->applyFromArray($styleArray);
-             $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(10);
-		     $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+	         $spreadsheet->getActiveSheet()->getStyle('D4:H4')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+	         $spreadsheet->getActiveSheet()->getStyle('A4:O4')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('6666ff');
+	         $spreadsheet->getActiveSheet()->mergeCells("D4:H4");
+			 $spreadsheet->getActiveSheet()->getCell('G1')->setValue('Stock Inward Report');
+			 $spreadsheet->setActiveSheetIndex(0)->getStyle('G1')->applyFromArray($styleArray);
+             $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(10);
+		     $spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(15);
+			 $spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(15);
 			 $spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(15);
 			 $spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(15);
-			 $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(15);
+		     $spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(15);
 		     $spreadsheet->getActiveSheet()->getColumnDimension('G')->setWidth(15);
 		     $spreadsheet->getActiveSheet()->getColumnDimension('H')->setWidth(15);
 		     $spreadsheet->getActiveSheet()->getColumnDimension('I')->setWidth(15);
 		     $spreadsheet->getActiveSheet()->getColumnDimension('J')->setWidth(15);
-		     $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(15);
+			 $spreadsheet->getActiveSheet()->getColumnDimension('K')->setWidth(15);
 			 $spreadsheet->getActiveSheet()->getColumnDimension('L')->setWidth(15);
 			 $spreadsheet->getActiveSheet()->getColumnDimension('M')->setWidth(15);
 			 $spreadsheet->getActiveSheet()->getColumnDimension('N')->setWidth(15);
@@ -76,59 +78,56 @@ $styleArray = array(
 			 $spreadsheet->getActiveSheet()->getColumnDimension('P')->setWidth(15);
 			 $spreadsheet->getActiveSheet()->getColumnDimension('Q')->setWidth(15);
 			 $spreadsheet->getActiveSheet()->getColumnDimension('R')->setWidth(15);
-			 $spreadsheet->getActiveSheet()->getColumnDimension('S')->setWidth(15);
 			 $spreadsheet->setActiveSheetIndex(0)          
-						->setCellValue('B8','Sl.No')
-						->setCellValue('C8','Invoice No')
-						->setcellvalue('D8','Invoice Date')
-						->setcellvalue('E8','Material List')
-						->setcellvalue('K8','Vendor')
-						->setCellValue('L8','GatePass')
-						->setCellValue('M8','GateDate')
-						->setcellvalue('N8','Purpose')
-						->setcellvalue('O8','Remark')
-						->setcellvalue('P8','Checkedby')
-						->setcellvalue('Q8','Status');
-			$n=9;
+						->setCellValue('A4','Sl.No')
+						->setCellValue('B4','Invoice No')
+						->setcellvalue('C4','Invoice Date')
+						->setcellvalue('D4','Material List')
+						->setcellvalue('I4','Vendor')
+						->setCellValue('J4','GatePass')
+						->setCellValue('K4','GateDate')
+						->setcellvalue('L4','Purpose')
+						->setcellvalue('M4','Remark')
+						->setcellvalue('N4','Checkedby')
+						->setcellvalue('O4','Status');
+			$n=5;
 			$s=1;
             foreach ($materialall as $key => $value)
 			{
-				  $spreadsheet->getActiveSheet()->getStyle('E'.$n.':J'.$n)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('6666ff');
+				  $spreadsheet->getActiveSheet()->getStyle('D'.$n.':H'.$n)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setARGB('ffff99');
 				 $spreadsheet->setActiveSheetIndex(0)
-                 ->setCellValue('B'.$n,$s)
-				 ->setCellValue('C'.$n,$value->invoice_no)
-				 ->setcellvalue('D'.$n,$value->invoice_date)
-				 ->setcellvalue('E'.$n,'Particules')
-				 ->setcellvalue('F'.$n,'Quantity')
-				 ->setcellvalue('G'.$n,'Timein')
-				 ->setcellvalue('H'.$n,'Timeout')
-				 ->setcellvalue('I'.$n,'checkedby')
-				 ->setcellvalue('J'.$n,'test')
-				 ->setcellvalue('K'.$n,$value->vendor)
-				 ->setCellValue('L'.$n,$value->GatePass)
-				 ->setCellValue('M'.$n,$value->date)
-				 ->setcellvalue('N'.$n,$value->purpose)
-				 ->setcellvalue('O'.$n,$value->remark)
-				 ->setcellvalue('P'.$n,$value->checkedby)
-				 ->setcellvalue('Q'.$n,$value->status); 
+                 ->setCellValue('A'.$n,$s)
+				 ->setCellValue('B'.$n,$value->invoice_no)
+				 ->setcellvalue('C'.$n,$value->invoice_date)
+				 ->setcellvalue('D'.$n,'Particules')
+				 ->setcellvalue('E'.$n,'Quantity')
+				 ->setcellvalue('F'.$n,'Timein')
+				 ->setcellvalue('G'.$n,'Timeout')
+				 ->setcellvalue('H'.$n,'checkedby')
+				 ->setcellvalue('I'.$n,$value->vendor)
+				 ->setCellValue('J'.$n,$value->GatePass)
+				 ->setCellValue('K'.$n,$value->date)
+				 ->setcellvalue('L'.$n,$value->purpose)
+				 ->setcellvalue('M'.$n,$value->remark)
+				 ->setcellvalue('N'.$n,$value->checkedby)
+				 ->setcellvalue('O'.$n,$value->status); 
                  $result=$this->Security_model->inmateriallist($value->id);
 				 foreach($result as $particules)
                  {
 					  $n++;
 					  $spreadsheet->setActiveSheetIndex(0)
-					  ->setcellvalue('E'.$n,$particules->particules)
-				      ->setcellvalue('F'.$n,$particules->quantity);
+					  ->setcellvalue('D'.$n,$particules->particules)
+				      ->setcellvalue('E'.$n,$particules->quantity);
 					  $resulttime=$this->Security_model->inmaterialpart($particules->ipid);		
                       foreach($resulttime as $time)
                       {
 						   $spreadsheet->setActiveSheetIndex(0)
-						  ->setcellvalue('G'.$n,$time->gatein)
-						  ->setcellvalue('H'.$n,$time->gateout)
-						  ->setcellvalue('I'.$n,$time->checkedby)
-						  ->setcellvalue('J'.$n,'test');
+						  ->setcellvalue('F'.$n,$time->gatein)
+						  ->setcellvalue('G'.$n,$time->gateout)
+						  ->setcellvalue('H'.$n,$time->checkedby);
 					  }
 				 }
-				 $n+2;
+				 $n++;
 		         $s++;				 
 			}
 			$spreadsheet->getActiveSheet()->setTitle('Report');

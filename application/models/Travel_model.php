@@ -110,10 +110,6 @@
 		public function selectcabdail($data)
 		{
 			  $sql = "SELECT * FROM cab left join employee  on employee.id=cab.id  WHERE cab.cabid>0";
-			  if($data["date"]!="")
-			  {
-				$sql.=" AND cab.date='".$data["date"]."'";
-			  }
 			  if($data["date1"]!="")
 			  {
 				    $sql.=" AND cab.date>='".$data["date1"]."'";
@@ -122,15 +118,6 @@
 			  {
 				 $sql.=" AND cab.date<='".$data["date2"]."'";
 			  }
-			  if($data["state"]!="all")
-			  {
-				   $sql.=" AND cab.StCode='".$data["state"]."'";
-			  }
-			  if($data["district"]!="all")
-			  {
-				   $sql.=" AND cab.DistCode='".$data["district"]."'";
-			  }
-			 
 			  if($data["emid"]!="all")
 			  {
 				   $sql.=" AND cab.id='".$data["emid"]."'";

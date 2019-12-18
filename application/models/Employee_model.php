@@ -210,6 +210,16 @@
     public function Add($data){
         $this->db->insert('employee',$data);
     }
+	 public function GetBasic2($id){
+      $sql = "SELECT *
+      FROM employee
+      LEFT JOIN designation ON employee.des_id=designation.id
+      LEFT JOIN department ON employee.dep_id=department.id
+      WHERE employee.id='$id'";
+        $query=$this->db->query($sql);
+		$result = $query->row();
+		return $result;          
+    }
     public function GetBasic($id){
       $sql = "SELECT *
       FROM employee
