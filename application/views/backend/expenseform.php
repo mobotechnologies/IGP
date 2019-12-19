@@ -92,7 +92,7 @@
 			 
             </div>
 			<div class="card-body">
-			<form  method="post" action="expense_insert" enctype='multipart/form-data'>
+			<form  method="post" action="expense_insert" enctype="multipart/form-data">
                   <div class="form-group">
 					<label class="control-label">Employee_name<span style="color:red !important">*</span></label>
 					 <select class="form-control"  tabindex="1" name="emid" required>
@@ -105,7 +105,7 @@
 					        foreach($employe as $value)
 							{
 								?>
-								    <option value="<?php echo $value->id ?>"><?php echo $value->first_name; ?></option> 
+								    <option value="<?php echo $value->em_code ?>"><?php echo $value->first_name; ?></option> 
 								<?php
 							}								
 						}
@@ -138,7 +138,7 @@
 				</div>
 				<div class="form-group">
 					<label class="control-label">Attachment<span style="color:red !important">*</span></label>
-					<input type="file" name="bill" class="form-control " value="" multiple="" >
+					<input type="file" name="bill[]" class="form-control " value="" multiple >
 					<span style="color: blue;font-size: 14px;font-weight: 900;font-color: blue;">Note : Mutiple files can be uploaded on mutiple selection</span>
 				</div> 											
 					

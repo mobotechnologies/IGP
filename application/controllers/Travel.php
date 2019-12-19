@@ -23,43 +23,63 @@ class Travel extends CI_Controller
     }
 	public function filter_expense()
 	{
-		$data["date"]=$this->input->post('date');
+		
 		$data["date1"]=$this->input->post('From');
 		$data["date2"]=$this->input->post('To');
-		$data["pay"]=$this->input->post('Pay_status');
-		$data["status"]=$this->input->post('status');
+		
 	    $data["expreport"]=$this->travel_model->selectexpdail($data);
 		
 		$this->load->view('backend/expensereportdown',$data);
 	}
 	public function expense_insert()
-	{
-		 // $file_name = $_FILES['bill']['name'];
-			
-			// $fileSize = $_FILES["bill"]["size"]/1024;
-			// $fileType = $_FILES["bill"]["type"];
-			// $new_file_name='';
-            // $new_file_name .= $file_name;
-            // $config = array(
-                // 'file_name' => $new_file_name,
-                // 'upload_path' => "./assets/images/",
-                // 'allowed_types' => "gif|jpg|png|jpeg|pdf|doc|docx",
-                // 'overwrite' => False,
-                // 'max_size' => "50720000"
-            // );
-            // $this->load->library('Upload', $config);
-			// $this->upload->initialize($config);      
-			// $path = $this->upload->data();
-            // $img_url = $path['file_name'];
-            // $this->upload->initialize($config); 
-			
+	{ 
+
+    $filearray=array();
+	  $cpt = count($_FILES['bill']['name']);
+    for($i=0; $i<$cpt; $i++)
+    {     		
+	        $lname = "expense"; 
+	        $emrand = substr($lname,0,3).rand(1000,2000);
+		    $file_name = $_FILES['bill']['name'][$i];
+		    $fileSize = $_FILES["bill"]["size"][$i]/1024;
+			$fileType = $_FILES["bill"]["type"][$i];
+            $str=explode("/",$fileType);
+			$new_file_name='';
+            $new_file_name .= $emrand;
+			echo $new_file_name;
+           
+            $config = array(
+                'file_name' => $new_file_name,
+                'upload_path' => "./assets/images/users/expense",
+                'allowed_types' => "gif|jpg|png|jpeg|pdf|doc|docx|txt",
+                'overwrite' => False,
+                'max_size' => "50720000"
+            );
+            $this->load->library('Upload', $config);
+			$this->upload->initialize($config);      
+	     
+           
+			print_r($this->upload->do_upload());
+            if (!$this->upload->do_upload('bill')) {
+                echo $this->upload->display_errors();
+				//die;
+			}
+   
+			else {
+                $path = $this->upload->data();
+                $img_url = $path['file_name'];
+			}	
+ //array_push($filearray,$emrand.".".$str[1]);			
+
+	}
+	die;
 					 $data = array(
 						'id' => $this->input->post('emid'),
 						'exp_category'=>$this->input->post('category'),
 						'currency'=>$this->input->post('currency'),
 						'purpose' => $this->input->post('purpose'),
 						'amount' => $this->input->post('amount'),
-						'bill_document'=>$this->input->post('bill'),
+						'Bill_document'=>$filearray(),
 						
 			        );
 			$this->travel_model->Add_expense($data);
@@ -73,10 +93,20 @@ class Travel extends CI_Controller
 			$data["date2"]=$this->input->post('To');
 			$data["emid"]=$this->input->post('emid');
 			$data['cabreport']=$this->travel_model->selectcabdail($data);
-			print_r($data['cabreport']);
-			die();
-		  //  $this->load->view('backend/cabreportgen',$data);
-		
+		    $count = sizeof($data['cabreport']);
+			if($count>0)
+			{
+				
+				$this->load->view('backend/cab_excel.php',$data);
+				
+			}
+			else
+			{
+				echo "<script type='text/javascript'>alert('No Data On Your Choosen day');
+				window.location.href = 'http://localhost/hrmsproduct/Travel/cab_report';
+				</script>";
+			}
+			
 	}
 	public function expense_report()
 	{

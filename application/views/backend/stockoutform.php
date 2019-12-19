@@ -146,6 +146,7 @@
 				    </div>
 				</div>
 				<div class="tab">
+				<div class="tab">
                     <div class="form-group">
 					     <p>Shipping Address<span style="color:red !important">*</span></p>
 					    <textarea name="shippingaddress" class="form-control"></textarea>

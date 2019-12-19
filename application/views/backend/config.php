@@ -162,7 +162,7 @@
 					</table>
 				    <hr>
 					
-				    <h4>Travel Approval Configuration</h4>
+				    <h4>Hr Approval Configuration</h4>
 					
 					<hr>
 					<table class="table table-bordered">

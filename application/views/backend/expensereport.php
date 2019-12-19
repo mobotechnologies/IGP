@@ -143,22 +143,6 @@
 							</div>
 						</div>
 						<div class="form-group">
-						    <label class="form-control-label" >Payment Status</label>
-							<select name="Pay_status"  class="form-control form-control-line">
-							    <option value="all">All</option>
-								<option value="Paid">Paid</option>
-								<option value="Unpaid">Unpaid</option>
-							</select>
-						</div>
-						<div class="form-group">
-						    <label class="form-control-label" >Status</label>
-							<select name="status"  class="form-control form-control-line">
-							    <option value="all">All</option>
-								<option value="Approved">Approved</option>
-								<option value="Rejected">Rejected</option>
-							</select>
-						</div>
-						<div class="form-group">
 						    <input type="submit" name="Cancel" value="Cancel" class="btn btn-danger"/>
 							<input type="submit" name="Generate" value="Generate" class="btn btn-primary"/>
 						</div>

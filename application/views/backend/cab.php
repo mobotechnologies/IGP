@@ -147,16 +147,23 @@
 					   <td class="cabtable" role="cell"><?php echo ucfirst($value->location); ?></td>
 					   <td class="cabtable" role="cell"><?php echo $value->Travel_date; ?></td>
 					   <td class="cabtable" role="cell">
-					        <?php
-                               	if($value->cab_status!="")
-								{									
-						          echo ucfirst($value->cab_status); 
-								}
-								else
-								{
-									echo "requested";
-								}
-							?>
+					       <?php
+											    if(($value->approve1=="Yes" || $value->approve1=="No")   && ($value->approve2=="Yes" ||$value->approve2=="No" ) && ($value->approve3=="Yes" || $value->approve3=="No") )
+			                                    {
+													 if($value->approve1 =="Yes" && ($value->approve2=="Yes" || $value->approve3=="Yes"))
+			                                          {
+														  echo "Approved";
+													  }
+													  else
+												      {
+														  echo "Rejected";
+													  }
+												}
+                                                else
+												{
+													echo "Requested";
+												}													
+											?>
 					   </td>
 					    <?php
 					        if($this->session->userdata('user_type')=='EMPLOYEE')
@@ -170,10 +177,40 @@
 							else
 							{
 					    ?>
-					    <td class="cabtable" role="cell">
+					    <td class="cabtable" role="cell"  id="<?php echo $value->cabid; ?>" >
 					        <a href="<?php echo base_url(); ?>travel/cabsingleview?I=<?php echo base64_encode($value->cabid); ?>" class="btn btn-primary buttonsizing" id="view"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
 						    <a href="#" class="btn btn-danger buttonsizing delcab" id="view"><i class="fa fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
-                        </td>
+                            <?php
+                                  $config=$this->Security_model->selectcabmails();  
+								  foreach($config as $vales)
+								  {	
+									if($this->session->userdata('user_login_id')==$vales->level1 )
+									{								  
+										 ?> 							 
+										<button class="btn btn-primary cabapprove1 buttonsizing" data-value="<?php echo  $value->cabid; ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
+										<button class="btn btn-danger  cabreject1 buttonsizing"  data-value="<?php echo  $value->cabid; ?>"><i class="fa fa-ban" aria-hidden="true"></i></button>
+										<?php
+									}
+									if($this->session->userdata('user_login_id')==$vales->level2)
+									{
+										?>
+										<button class="btn btn-primary cabapprove2 buttonsizing"  data-value="<?php echo  $value->cabid; ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
+										<button class="btn btn-danger  cabreject2 buttonsizing"   data-value="<?php echo  $value->cabid; ?>"><i class="fa fa-ban" aria-hidden="true"></i></button>
+										<?php
+									}
+									if($this->session->userdata('user_login_id')==$vales->level3)
+									{
+										if(($value->approve1=="Yes" || $value->approve1=="No") && ($value->approve2=="Yes" || $value->approve2=="No"))
+			                             {
+										?>
+										<button class="btn btn-primary cabapprove3 buttonsizing"  data-value="<?php echo  $value->cabid; ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
+										<button class="btn btn-danger  cabreject3 buttonsizing"   data-value="<?php echo  $value->cabid; ?>"><i class="fa fa-ban" aria-hidden="true"></i></button>
+										<?php
+										 }
+									}
+								  }
+							?>
+					 </td>
 						<?php
 							}
 						?>

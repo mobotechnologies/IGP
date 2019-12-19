@@ -134,7 +134,7 @@
 						   }
 						   ?>					
 						</div>
-						<div class="daterange" hidden>
+						<div class="daterange" >
 							<div class="form-group">
 								<label class="form-control-label" >From</label>
 								<input type="date" class="form-control form-control-line" name="From" placeholder="From"  />
@@ -143,14 +143,6 @@
 								<label class="form-control-label" >To</label>
 								<input type="date" class="form-control form-control-line" name="To" placeholder="To"  />
 							</div>
-						</div>
-						<div class="form-group">
-						    <label class="form-control-label" >Status</label>
-							<select name="status"  class="form-control form-control-line">
-							    <option value="all">All</option>
-								<option value="Approved">Approved</option>
-								<option value="Rejected">Rejected</option>
-							</select>
 						</div>
 						<div class="form-group">
 						    <input type="submit" name="Cancel" value="Cancel" class="btn btn-danger"/>

@@ -104,6 +104,7 @@
 						  <th role="columnheader">Purpose</th>
 						  <th role="columnheader">Attachment</th>
 						  <th role="columnheader">PaymentStatus</th>
+						  <th>status</th>
 						   <?php if($this->session->userdata('user_type')=='EMPLOYEE')
 						   {
 							   ?>
@@ -127,9 +128,13 @@
                                                 <td class="expensetable" role="cell"><?php echo ucfirst($employee[$key]->first_name); ?></td>
                                                 <td class="expensetable" role="cell"><?php echo ucfirst($employee[$key]->exp_category); ?></td>
 												<td class="expensetable" role="cell"><?php echo ucfirst($employee[$key]->purpose); ?></td>
-                                                <td class="expensetable" role="cell"><?php echo $employee[$key]->Bill_document; ?></td>
+                                                <td class="expensetable" role="cell"><a href="<?php echo base_url(); ?>assets/images/users/expense/<?php echo $employee[$key]->Bill_document; ?>" ><?php echo $employee[$key]->Bill_document; ?></a></td>
 												<td id="text" class="expensetable" role="cell">
 												    <?php 
+                                                    if(($employee[$key]->approve1=="Yes" || $employee[$key]->approve1=="No")   && ($employee[$key]->approve2=="Yes" ||$employee[$key]->approve2=="No" ) && ($employee[$key]->approve3=="Yes" || $employee[$key]->approve3=="No") )
+			                                         {
+													 if($employee[$key]->approve1 =="Yes" && ($employee[$key]->approve2=="Yes" || $employee[$key]->approve3=="Yes"))
+			                                          {
                                                          if($employee[$key]->exp_status=="")
 														 {
 															 if($this->session->userdata('user_type')=='EMPLOYEE')
@@ -189,10 +194,37 @@
 														 {
 															echo "Paid";
 														 }
-		
+													  }
+													  else
+													  {
+														  "Rejected";
+													  }
+													 }
+													 else
+													 {
+														  echo "Requested";
+													 }
 												    ?>
 											    </td>
-											
+											<td>
+											<?php
+											    if(($employee[$key]->approve1=="Yes" || $employee[$key]->approve1=="No")   && ($employee[$key]->approve2=="Yes" ||$employee[$key]->approve2=="No" ) && ($employee[$key]->approve3=="Yes" || $employee[$key]->approve3=="No") )
+			                                    {
+													 if($employee[$key]->approve1 =="Yes" && ($employee[$key]->approve2=="Yes" || $employee[$key]->approve3=="Yes"))
+			                                          {
+														  echo "Approved";
+													  }
+													  else
+												      {
+														  echo "Rejected";
+													  }
+												}
+                                                else
+												{
+													echo "Requested";
+												}													
+											?>
+											</td>
 												<?php
    												    if($this->session->userdata('user_type')=='EMPLOYEE')
 												    {
@@ -205,9 +237,36 @@
                                                     else
 													{														
 												       ?>
-														<td class="expensetable" role="cell">
+														<td class="expensetable"  id="<?php echo $value->yid; ?>" role="cell">
 														        <a href="<?php echo base_url(); ?>travel/expsingleview?I=<?php echo base64_encode($employee[$key]->yid); ?>" class="btn btn-primary buttonsizing" id="view"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
-																 <a href="#" class="btn btn-danger buttonsizing delexpense" id="view" value="<?php echo $employee[$key]->yid; ?>"><i class="fa fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
+																<a href="#" class="btn btn-danger buttonsizing delexpense" id="view" value="<?php echo $employee[$key]->yid; ?>"><i class="fa fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
+														         <?php
+																	  $config=$this->Security_model->selectcabmails();  
+																	  foreach($config as $vales)
+																	  {	
+																		if($this->session->userdata('user_login_id')==$vales->level1 )
+																		{	
+																	?>
+															    <button class="btn btn-primary buttonsizing expapprove1" data-value="<?php echo  $value->yid; ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
+															    <button class="btn btn-danger buttonsizing expreject1"   data-value="<?php echo  $value->yid; ?>"><i class="fa fa-ban" aria-hidden="true"></i></button>
+														       <?php
+																		}
+																		if($this->session->userdata('user_login_id')==$vales->level2)
+																		{
+																			  ?>
+																			 <button class="btn btn-primary buttonsizing expapprove2"  data-value="<?php echo  $value->yid; ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
+															                 <button class="btn btn-danger buttonsizing expreject2"    data-value="<?php echo  $value->yid; ?>"><i class="fa fa-ban" aria-hidden="true"></i></button>
+																			  <?php
+																		}
+																		if($this->session->userdata('user_login_id')==$vales->level3)
+																		{
+																			 ?>
+																			  <button class="btn btn-primary buttonsizing expapprove3"  data-value="<?php echo  $value->yid; ?>" ><i class="fa fa-check" aria-hidden="true"></i></button>
+															                 <button class="btn btn-danger buttonsizing expreject3"     data-value="<?php echo  $value->yid; ?>" ><i class="fa fa-ban" aria-hidden="true"></i></button>
+																			 <?php
+																		}
+																	  }
+																		?>
 														</td>
 														<?php
 													}

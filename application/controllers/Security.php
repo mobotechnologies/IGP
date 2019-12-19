@@ -44,6 +44,132 @@ class Security extends CI_Controller
 		$id=$this->input->post('delv');
 	    $this->Security_model->stockin_del($id);
 	}
+	public function cab_approval1()
+	{
+	       	    $id=$this->input->post('id');
+				
+			    $result=$this->Security_model->Getconfig();
+				$status=$this->input->post('stat');
+				    foreach($result as $value)
+	             	{
+							 $mail1=$value->level1;
+							 if($this->session->userdata('user_login_id')==$mail1)
+							 {
+							    $data=array(
+								    'approve1'=>$status,
+									'reject_remark1'=>$this->input->post('remark'),
+								);
+							 }
+		                    $this->Security_model->Update_cabapprove($id,$data);
+							 
+					}
+				
+	}
+		public function cab_approval2()
+	{
+	       	    $id=$this->input->post('id');
+				
+			    $result=$this->Security_model->Getconfig();
+				$status=$this->input->post('stat');
+				    foreach($result as $value)
+	             	{
+							 $mail1=$value->level1;
+							 if($this->session->userdata('user_login_id')==$mail1)
+							 {
+							    $data=array(
+								    'approve2'=>$status,
+									'reject_remark2'=>$this->input->post('remark'),
+								);
+							 }
+		                    $this->Security_model->Update_cabapprove($id,$data);
+							 
+					}
+				
+	}
+		public function cab_approval3()
+	{
+	       	    $id=$this->input->post('id');
+				
+			    $result=$this->Security_model->Getconfig();
+				$status=$this->input->post('stat');
+				    foreach($result as $value)
+	             	{
+							 $mail1=$value->level1;
+							 if($this->session->userdata('user_login_id')==$mail1)
+							 {
+							    $data=array(
+								    'approve3'=>$status,
+									'reject_remark3'=>$this->input->post('remark'),
+								);
+							 }
+		                    $this->Security_model->Update_cabapprove($id,$data);
+							 
+					}
+				
+	}
+		public function exp_approval3()
+	{
+	       	    $id=$this->input->post('id');
+				
+			    $result=$this->Security_model->Getconfig();
+				$status=$this->input->post('stat');
+				    foreach($result as $value)
+	             	{
+							 $mail1=$value->level1;
+							 if($this->session->userdata('user_login_id')==$mail1)
+							 {
+							    $data=array(
+								    'approve3'=>$status,
+									'reject_remark3'=>$this->input->post('remark'),
+								);
+							 }
+		                    $this->Security_model->Update_expapprove($id,$data);
+							 
+					}
+				
+	}
+		public function exp_approval2()
+	{
+	       	    $id=$this->input->post('id');
+				
+			    $result=$this->Security_model->Getconfig();
+				$status=$this->input->post('stat');
+				    foreach($result as $value)
+	             	{
+							 $mail1=$value->level1;
+							 if($this->session->userdata('user_login_id')==$mail1)
+							 {
+							    $data=array(
+								    'approve2'=>$status,
+									'reject_remark2'=>$this->input->post('remark'),
+								);
+							 }
+		                    $this->Security_model->Update_expapprove($id,$data);
+							 
+					}
+				
+	}
+		public function exp_approval1()
+	{
+	       	    $id=$this->input->post('id');
+				
+			    $result=$this->Security_model->Getconfig();
+				$status=$this->input->post('stat');
+				    foreach($result as $value)
+	             	{
+							 $mail1=$value->level1;
+							 if($this->session->userdata('user_login_id')==$mail1)
+							 {
+							    $data=array(
+								    'approve1'=>$status,
+									'reject_remark1'=>$this->input->post('remark'),
+								);
+							 }
+		                    $this->Security_model->Update_expapprove($id,$data);
+							 
+					}
+				
+	}
 	public function stockout_approval1()
 	{
 	       	    $id=$this->input->post('id');
@@ -57,6 +183,7 @@ class Security extends CI_Controller
 							 {
 							    $data=array(
 								    'approve1'=>$status,
+									'reject_remark1'=>$this->input->post('remark'),
 								);
 							 }
 		                    $this->Security_model->Update_stockoutapprove($id,$data);
@@ -76,6 +203,7 @@ class Security extends CI_Controller
 							 {
 							    $data=array(
 								    'approve2'=>$status,
+									'reject_remark2'=>$this->input->post('remark'),
 								);
 							 }
 							 $this->Security_model->Update_stockoutapprove($id,$data);
@@ -86,6 +214,7 @@ class Security extends CI_Controller
 		        $id=$this->input->post('id');
 			    $result=$this->Security_model->Getconfig();
 				$status=$this->input->post('stat');
+				
 			    foreach($result as $value)
 	             	{
 						       $mail2=$value->level3;
@@ -93,6 +222,7 @@ class Security extends CI_Controller
 							{
 							    $data=array(
 								    'approve3'=>$status,
+									'reject_remark3'=>$this->input->post('remark'),
 								);
 							}
 						$this->Security_model->Update_stockoutapprove($id,$data);
@@ -117,11 +247,12 @@ class Security extends CI_Controller
 	public function delete_cab()
 	{
 		$id=$this->input->post('delv');
-	    $this->Security_model->cab_del($id);
+	    $this->Security_model->cab_del($cabid);
 	}
     public function delete_expense()
 	{
 		$id=$this->input->post('delv');
+		 $this->Security_model->expense_del($id);
 	}
 	public function filter_in()
 	{
@@ -728,6 +859,46 @@ class Security extends CI_Controller
 		    $this->Security_model->insert_visitor($data1);
 			$this->session->set_flashdata('feedback','Successfully Added');
 					$this->load->view('backend/visitorpass',$data);
+	}
+	public function updateoutgatetime()
+	{
+		     $datetime=date('Y-m-d')." ".date('H:i:sa');
+		     $data=array(
+                       'gateout'=>$datetime,
+					   'vechicle_no'=>$this->input->post('vechNo'),
+					   'driver_name'=>$this->input->post('Dname'),
+					   'driver_phone'=>$this->input->post('Dphone'),
+                       'material_type'=>$this->input->post('Type'),
+                       'checkedby'=>$this->input->post('check'),
+                       'comp_name'=>$this->input->post('Cour'),
+					   'driver_identity'=>trim($this->input->post('imgname')," "),
+					   'vechicle_type'=>$this->input->post('Vtype'),
+                       'mode'=>$this->input->post('mode'),
+					   'id'=>$this->input->post('particuleid'),
+				   );
+				$this->security_model->gateout_out($data);
+		      $this->load->view('backend/stockout_view',$data);
+		
+	}
+	public function updateingatetime()
+	{
+		 $datetime=date('Y-m-d')." ".date('H:i:sa');
+	     $data=array(
+                       'gatein'=>$datetime,
+					   'vechicle_no'=>$this->input->post('vechNo'),
+					   'driver_name'=>$this->input->post('Dname'),
+					   'driver_phone'=>$this->input->post('Dphone'),
+                       'material_type'=>$this->input->post('Type'),
+                       'checkedby'=>$this->input->post('check'),
+                       'comp_name'=>$this->input->post('Cour'),
+					   'driver_identity'=>trim($this->input->post('imgname')," "),
+					   'vechicle_type'=>$this->input->post('Vtype'),
+                       'mode'=>$this->input->post('mode'),
+					   'id'=>$this->input->post('particuleid'),
+				   );
+				   $this->security_model->gatein_in($data);
+		           $this->load->view('backend/stockout_view',$data);
+		
 	}
 	public function stockin_insert()
 	{

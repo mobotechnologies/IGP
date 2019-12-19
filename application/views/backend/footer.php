@@ -126,6 +126,276 @@
 $('#designer').DataTable({
 		   "aaSorting": [[2,'desc']],
 		});
+			 		$(".cabapprove1").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="Yes";
+		bootbox.confirm("Are you sure ?", function(result){
+			console.log(result);
+           if(result)
+		   {
+			   
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/cab_approval1",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function(data)
+					{
+						console.log(data);
+						bootbox.alert("Approved");
+					}
+				});
+		   }
+        });
+	});
+	$(".cabreject1").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="No";
+		bootbox.confirm("Are You sure ?", function(result){
+           if(result)
+		   {
+			   bootbox.prompt("Enter reason for reject !", function(res){
+					$.ajax(
+					{
+						url:"<?php echo base_url(); ?>security/cab_approval1",
+						type:"Post",
+						data:{id:appid,stat:status,remark:res},
+						success:function()
+						{
+							bootbox.alert("Rejected");
+						}
+					});
+				});
+		   }
+        });
+	});
+				 		$(".cabapprove2").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="Yes";
+		bootbox.confirm("Are you sure ?", function(result){
+			console.log(result);
+           if(result)
+		   {
+			   
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/cab_approval",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function(data)
+					{
+						console.log(data);
+						bootbox.alert("Approved");
+					}
+				});
+		   }
+        });
+	});
+	$(".cabreject2").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="No";
+		bootbox.confirm("Are You sure ?", function(result){
+           if(result)
+		   {
+			   bootbox.prompt("Enter reason for reject !", function(res){
+					$.ajax(
+					{
+						url:"<?php echo base_url(); ?>security/cab_approval2",
+						type:"Post",
+						data:{id:appid,stat:status,remark:res},
+						success:function()
+						{
+							bootbox.alert("Rejected");
+						}
+					});
+				});
+		   }
+        });
+		});
+	$(".cabapprove3").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="Yes";
+		bootbox.confirm("Are you sure ?", function(result){
+			console.log(result);
+           if(result)
+		   {
+			   
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/cab_approval3",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function(data)
+					{
+						console.log(data);
+						bootbox.alert("Approved");
+					}
+				});
+		   }
+        });
+	});
+	$(".cabreject3").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="No";
+		bootbox.confirm("Are You sure ?", function(result){
+           if(result)
+		   {
+			   bootbox.prompt("Enter reason for reject !", function(res){
+					$.ajax(
+					{
+						url:"<?php echo base_url(); ?>security/cab_approval3",
+						type:"Post",
+						data:{id:appid,stat:status,remark:res},
+						success:function()
+						{
+							bootbox.alert("Rejected");
+						}
+					});
+				});
+		   }
+        });
+		});
+		$(".expapprove1").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="Yes";
+		bootbox.confirm("Are you sure ?", function(result){
+			console.log(result);
+           if(result)
+		   {
+			   
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/exp_approval1",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function(data)
+					{
+						console.log(data);
+						bootbox.alert("Approved");
+					}
+				});
+		   }
+        });
+	});
+	$(".expreject1").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="No";
+		bootbox.confirm("Are You sure ?", function(result){
+           if(result)
+		   {
+			   bootbox.prompt("Enter reason for reject !", function(res){
+					$.ajax(
+					{
+						url:"<?php echo base_url(); ?>security/exp_approval1",
+						type:"Post",
+						data:{id:appid,stat:status,remark:res},
+						success:function()
+						{
+							bootbox.alert("Rejected");
+						}
+					});
+				});
+		   }
+        });
+		});
+				$(".expapprove2").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="Yes";
+		bootbox.confirm("Are you sure ?", function(result){
+			console.log(result);
+           if(result)
+		   {
+			   
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/exp_approval2",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function(data)
+					{
+						console.log(data);
+						bootbox.alert("Approved");
+					}
+				});
+		   }
+        });
+	});
+	$(".expreject2").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="No";
+		bootbox.confirm("Are You sure ?", function(result){
+           if(result)
+		   {
+			   bootbox.prompt("Enter reason for reject !", function(res){
+					$.ajax(
+					{
+						url:"<?php echo base_url(); ?>security/exp_approval2",
+						type:"Post",
+						data:{id:appid,stat:status,remark:res},
+						success:function()
+						{
+							bootbox.alert("Rejected");
+						}
+					});
+				});
+		   }
+        });
+		});
+				$(".expapprove3").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="Yes";
+		bootbox.confirm("Are you sure ?", function(result){
+			console.log(result);
+           if(result)
+		   {
+			   
+			    $.ajax(
+				{
+					url:"<?php echo base_url(); ?>security/exp_approval3",
+					type:"Post",
+					data:{id:appid,stat:status},
+					success:function(data)
+					{
+						console.log(data);
+						bootbox.alert("Approved");
+					}
+				});
+		   }
+        });
+	});
+	$(".expreject3").on("click",function()
+	{
+		var appid=$(this).attr('data-value');
+		var  status="No";
+		bootbox.confirm("Are You sure ?", function(result){
+           if(result)
+		   {
+			   bootbox.prompt("Enter reason for reject !", function(res){
+					$.ajax(
+					{
+						url:"<?php echo base_url(); ?>security/exp_approval3",
+						type:"Post",
+						data:{id:appid,stat:status,remark:res},
+						success:function()
+						{
+							bootbox.alert("Rejected");
+						}
+					});
+				});
+		   }
+        });
+		});
 		});
     </script>
 	<script type="text/javascript">
@@ -167,6 +437,7 @@ $('#designer').DataTable({
 			console.log(result);
            if(result)
 		   {
+			   
 			    $.ajax(
 				{
 					url:"<?php echo base_url(); ?>security/stockout_approval3",
@@ -188,15 +459,17 @@ $('#designer').DataTable({
 		bootbox.confirm("Are You sure ?", function(result){
            if(result)
 		   {
-			    $.ajax(
-				{
-					url:"<?php echo base_url(); ?>security/stockout_approval3",
-					type:"Post",
-					data:{id:appid,stat:status},
-					success:function()
+			   bootbox.prompt("Enter reason for reject !", function(res){
+					$.ajax(
 					{
-						bootbox.alert("Rejected");
-					}
+						url:"<?php echo base_url(); ?>security/stockout_approval3",
+						type:"Post",
+						data:{id:appid,stat:status,remark:res},
+						success:function()
+						{
+							bootbox.alert("Rejected");
+						}
+					});
 				});
 		   }
         });
@@ -229,6 +502,28 @@ $('#designer').DataTable({
 	</script>
 <script>
 $(document).ready(function(){
+		$(".takesnap").on("click",function()
+   {
+       $("#results").show();
+       $(".savesnap").trigger("click");
+       $("#my_camera").hide();
+    });
+   $(".resetcam").on("click",function(){
+        $("#results").hide(); 
+        $("#my_camera").show();
+       $(".images").reset();
+   });
+	$(".takesnap2").on("click",function()
+   {
+       $("#results2").show();
+       $(".savesnap2").trigger("click");
+       $("#my_camera2").hide();
+    });
+   $(".resetcam2").on("click",function(){
+        $("#results2").hide(); 
+        $("#my_camera2").show();
+       $(".matimg").reset();
+   });
   $(".norestrict").keypress(function(e){
     var keyCode = e.which;
     /*
@@ -496,28 +791,7 @@ $(document).ready(function(){
           var val=$(".level3").val();
       alert(val); 
     });
-	$(".takesnap").on("click",function()
-   {
-       $("#results").show();
-       $(".savesnap").trigger("click");
-       $("#my_camera").hide();
-    });
-   $(".resetcam").on("click",function(){
-        $("#results").hide(); 
-        $("#my_camera").show();
-       $(".images").reset();
-   });
-	$(".takesnap2").on("click",function()
-   {
-       $("#results2").show();
-       $(".savesnap2").trigger("click");
-       $("#my_camera2").hide();
-    });
-   $(".resetcam2").on("click",function(){
-        $("#results2").hide(); 
-        $("#my_camera2").show();
-       $(".matimg").reset();
-   });
+
 	$(".delstockin").on("click",function()
 	{
 		var del=$(this).attr('data-value');
@@ -585,7 +859,7 @@ $(document).ready(function(){
 	$(".delexpense").on("click",function()
 	{
 	    var del=$(this).attr('data-value');
-		var id=$(this).parent().parent().attr('id');
+		var id=$(this).parent().attr('id');
 		bootbox.confirm("Do you want to remove this record ?", function(result){
            if(result)
 		   {
@@ -607,7 +881,8 @@ $(document).ready(function(){
 	$(".delcab").on("click",function()
 	{
 		var del=$(this).attr('data-value');
-		var id=$(this).parent().parent().attr('id');
+		var id=$(this).parent().attr('id');
+		//alert(id);
 		bootbox.confirm("Do you want to remove this record ?", function(result){
            if(result)
 		   {
@@ -654,15 +929,17 @@ $(document).ready(function(){
 		bootbox.confirm("Are You sure ?", function(result){
            if(result)
 		   {
+			    bootbox.prompt("Enter reason for reject !", function(res){
 			    $.ajax(
 				{
 					url:"<?php echo base_url(); ?>security/stockout_approval1",
 					type:"Post",
-					data:{id:appid,stat:status},
+					data:{id:appid,stat:status,remark:res},
 					success:function()
 					{
 						bootbox.alert("Rejected");
 					}
+				});
 				});
 		   }
         });
@@ -696,15 +973,17 @@ $(document).ready(function(){
 		bootbox.confirm("Are You sure ?", function(result){
            if(result)
 		   {
+			    bootbox.prompt("Enter reason for reject !", function(res){
 			    $.ajax(
 				{
 					url:"<?php echo base_url(); ?>security/stockout_approval2",
 					type:"Post",
-					data:{id:appid,stat:status},
+					data:{id:appid,stat:status,remark:res},
 					success:function()
 					{
 						bootbox.alert("Rejected");
 					}
+				});
 				});
 		   }
         });

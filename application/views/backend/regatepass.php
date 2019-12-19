@@ -81,7 +81,17 @@
     </nav>
     <!-- End Navbar -->
     <!-- Header -->
-    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">  
+    <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+         <?php 
+			   if($this->session->flashdata('feedback'))
+			   {
+				  ?>
+					<script>
+					   $.notify("<?php  echo $this->session->flashdata('feedback'); ?>","success");
+					</script>
+				 <?php
+				}
+	      ?>	
     </div>
     <div class="container-fluid mt--8" id="bgcontain">
 	   <h1>Materials List</h1>
@@ -114,7 +124,7 @@
 						<div> 
 						  <?php
                         $fid1 = $materialin[0]->to_em;
-                       $basicin1 = $this->employee_model->GetBasic2($fid); 					   
+                       $basicin1 = $this->employee_model->GetBasic2($fid1); 					   
 				    ?>
 							<p>To : <?php echo $basicin1->first_name; ?></p>
 						</div>
@@ -186,8 +196,21 @@
 							   <td><?php echo $value->particulars; ?></td>
 							   <td><?php echo $value->quantity; ?></td>
 							   <td>
-								   <button class="btn btn-success outgateout buttonsizing" data-toggle="modal" data-target="#gateoutdet" ><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
-							   </td>
+							       <?php
+                                        $particulesid=$this->security_model->getgateoutcount($value->pid);	
+                                        if($particulesid==0)		
+                                        {			
+								              ?>
+								             <button class="btn btn-success outgateout buttonsizing" data-toggle="modal" data-target="#gateoutdet" ><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
+                                              <?php 
+										}
+										else
+										{
+											 $particulestime=$this->security_model->getgateout($value->pid);
+											 echo $particulestime[0]->gateout;
+										}
+                                   ?>								   
+							  </td>
 					        
 		         <div class="modal fade" id="gateoutdet" role="dialog">
     <div class="modal-dialog">
@@ -199,9 +222,10 @@
             <h4 class="modal-title"><img src="../assets/img/icons/transportation.png" alt="material.png" id="material" style="margin-right: 19px;"/>Transportation Details</h4>
         </div>
         <div class="modal-body">
-            <form style="margin-left: 140px;" action="security/updateoutgatetime">
+            <form style="margin-left: 140px;" action="updateoutgatetime" method="post">
+			    <input type="text" name="materialid" value="<?php echo $materialin[0]->id; ?>" hidden />
+			    <input type="text" name="particuleid"  value="<?php echo $value->pid; ?>" hidden />
 				<div class="form-group">
-						
 						 	<input type="text" name="imgname" class="images" required />
 							<div id="my_camera3"></div>
 							<div id="results" ></div>
@@ -229,8 +253,8 @@
 							    <option name="Onhand">Onhand</option>
 							 </select>
 						 </div>
-						<div class="form-group vechicletypes">
-							<select name="Vtype" class="form-control selectsearch">
+						<div class="form-group vechicletypes"  style="width: 302.991422px;margin-left: 0px;">
+							<select name="Vtype" class="form-control">
 								<option>Vechicle type</option>
 								<option value="singleunit">Single unit</option>
 								<option value="singletraior">Single trailor</option>
@@ -284,9 +308,24 @@
   </div>
 		   </div>
 	<td>
-	     <button class="btn btn-success outgatein buttonsizing"  data-toggle="modal" data-target="#gateindet"><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
-	</td>
-							   <div class="modal fade" id="gateindet" role="dialog">
+	     <?php
+                 $particulesid=$this->security_model->getgateincount($value->pid);
+                   if($particulesid==0)		
+                   {
+					   	
+    									 
+					  ?>
+						<button class="btn btn-success outgatein buttonsizing"  data-toggle="modal" data-target="#gateindet"><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
+					 <?php
+				   }
+                    else
+					{
+						     $particulestime=$this->security_model->getgatein($value->pid);	
+							 echo $particulestime[0]->gatein;
+					}						
+		 ?>
+   </td>
+  <div class="modal fade" id="gateindet" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -296,9 +335,10 @@
             <h4 class="modal-title"><img src="../assets/img/icons/transportation.png" alt="material.png" id="material" style="margin-right: 19px;"/>Transportation Details</h4>
         </div>
         <div class="modal-body">
-            <form style="margin-left: 120px;" action="security/updateingatetime">
+            <form style="margin-left: 120px;" action="updateingatetime" method="post">
+			    <input type="text" name="materialid" value="<?php echo $materialin[0]->id; ?>" hidden />
+			    <input type="text" name="particuleid"  value="<?php echo $value->pid; ?>" hidden />
 				<div class="form-group">
-						
 						 	<input type="text" name="imgname" class="images" required />
 							<div id="my_camera"></div>
 							<div id="results" ></div>
@@ -314,8 +354,8 @@
 							    <option name="Onhand">Onhand</option>
 							 </select>
 						 </div>
-						<div class="form-group vechicletypes">
-							<select name="Vtype" class="form-control selectsearch">
+						<div class="form-group vechicletypes"  style="width: 302.991422px;margin-left: 0px;">
+							<select name="Vtype" class="form-control">
 								<option>Vechicle type</option>
 								<option value="singleunit">Single unit</option>
 								<option value="singletraior">Single trailor</option>
@@ -411,18 +451,12 @@
 								 </tr>
 							</table> 
 						</div>
-                                                        			<div class="form-group" style="
-    margin-left: 115px;
-">
-					    <p style="
-    margin-left: 72px;
-">Material list  capture</p>
+                        <div class="form-group" style="margin-left: 115px;">
+					    <p style="margin-left: 72px;">Material list  capture</p>
 						<input type="text" name="matimg" class="matimg" />
 						<div id="my_camera2"></div>
 						<div id="results2" ></div>
-						<div class="cambut" style="
-    margin-left: 91px;
-">
+						<div class="cambut" style="margin-left: 91px;">
 							<button class="btn btn-primary takesnap2"   onClick="take_snapshot2()"><i class="fas fa-camera"></i></button>
 							<button class="btn btn-danger resetcam2"><i class="fas fa-undo"></i></button>
 							<input type=button class="btn btn-primary savesnap2"  value="Save Snapshot" onClick="saveSnap2()" hidden >
@@ -469,6 +503,7 @@ function saveSnap2(){
  });
 
 }
+
 </script>
                                                          <div class="form-group"> 
                                                             <input type="submit" name="submit" class="btn btn-primary" value="Submit" style="width: 95.991422px;margin-left: 165px;"/>                                                  
@@ -527,12 +562,6 @@ function saveSnap2(){
 			?></p>
 				<hr>
             <?php
-			if(($materialin[0]->approve1=="Yes" || $materialin[0]->approve1=="No")   && ($materialin[0]->approve2=="Yes" || $materialin[0]->approve2=="No" ) && ($materialin[0]->approve3=="Yes" || $materialin[0]->approve3=="No") )
-			{
-			      
-			}
-			else
-			{
             $config=$this->Security_model->selectconfig();    
 			foreach($config as $vales)
 			{	
@@ -560,16 +589,19 @@ function saveSnap2(){
 				}
 				
 		    }
-			}
+			
            ?>
       <?php
         if(($materialin[0]->approve1=="Yes" || $materialin[0]->approve1=="No")   && ($materialin[0]->approve2=="Yes" || $materialin[0]->approve2=="No" ) && ($materialin[0]->approve3=="Yes" || $materialin[0]->approve3=="No") )
+			{
+				 if($materialin[0]->approve1 =="Yes" && $materialin[0]->approve2=="Yes" && $materialin[0]->approve3=="Yes")
 			{
 			?>	
 			
 		    <input type="submit" value="Generate Pass" class="btn btn-primary" name="submit" style="width: 204.977496px;margin-bottom: 10px;"/>				
 		<?php
-	       }
+			}
+		  }
 		   else
 		   {
 			    echo "";
@@ -641,11 +673,14 @@ function saveSnap(){
 	        <?php
             if(($materialin[0]->approve1=="Yes" || $materialin[0]->approve1=="No")   && ($materialin[0]->approve2=="Yes" || $materialin[0]->approve2=="No" ) && ($materialin[0]->approve3=="Yes" || $materialin[0]->approve3=="No") )
 			{
-				?>
-				<button class="print-link no-print btn btn-success" onclick="jQuery('.ele1').print()">
-                                        Print
-                </button>
-	       <?php
+				 if($materialin[0]->approve1 =="Yes" && $materialin[0]->approve2=="Yes" && $materialin[0]->approve3=="Yes")
+			     {
+					?>
+					<button class="print-link no-print btn btn-success" onclick="jQuery('.ele1').print()">
+											Print
+					</button>
+					<?php
+				 }
 			}
 			else
 		    {

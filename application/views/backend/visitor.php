@@ -113,7 +113,7 @@
 				       <td class="visitort" role="cell"><?php echo $value->intime;	?></td>
 				       <td class="visitort" role="cell" id="<?php echo $value->id; ?>">
 					      	<?php 
-								if($value->out=="00:00:00") 
+								if($value->out=="") 
 								{ 
 								  ?>
 					              <button class="btn btn-success visitgateout buttonsizing" ><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>

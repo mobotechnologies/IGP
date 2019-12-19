@@ -6,10 +6,58 @@
 		$this->db->where('id', $id);
 		$this->db->update('stock_inward',$data);        
      }
-	 public function Update_stockoutapprove($id,$data){
+	 public function Update_cabapprove($id,$data){
+		$this->db->where('cabid', $id);
+		$this->db->update('cab',$data);        
+     }
+	  public function Update_expapprove($id,$data){
+		$this->db->where('yid', $id);
+		$this->db->update('expenses',$data);        
+     }
+	  public function Update_stockoutapprove($id,$data){
 		$this->db->where('id', $id);
 		$this->db->update('stock_outward',$data);        
      }
+	  public function outward_gatein($data)
+	  {
+		   $this->db->insert("outward_gatein", $data);
+	  }
+	  public function getgateincount($id)
+	  {
+		  $query = $this->db->query('SELECT * FROM outward_gatein where id='.$id);
+          return $query->num_rows();
+	  }
+	  public function getgateoutcount($id)
+	  {
+		  $query = $this->db->query('SELECT * FROM outward_gateout where id='.$id);
+          return $query->num_rows();
+	  }
+	   public function getgatein($id)
+       {
+            $sql ="SELECT * FROM outward_gatein where id=$id";
+			$query=$this->db->query($sql);
+            $result = $query->result(); 
+	        return $result;
+       }
+	    public function getgateout($id)
+       {
+            $sql ="SELECT * FROM outward_gateout where id=$id";
+			$query=$this->db->query($sql);
+            $result = $query->result(); 
+	        return $result;
+       }
+	     public function gateout_out($data)
+	  {
+		   $this->db->insert("outward_gateout", $data);
+	  }  
+	  public function gatein_in($data)
+	  {
+		   $this->db->insert("outward_gatein", $data);
+	  }
+	  public function outward_gateout($data)
+	  {
+		   $this->db->insert("outward_gateout", $data);
+	  }
 		public function insert_materialin($data)
 		{
 			 $this->db->insert("stock_inward", $data);
@@ -78,6 +126,12 @@
              $result = $query->result();
              return $result;
 		}
+		public function selectcabmails()
+		{
+			 $query = $this->db->get('config2');
+             $result = $query->result();
+             return $result;
+		} 
 		public function selectconfig()
 		{
 			 $query = $this->db->get('configuration');
@@ -467,10 +521,10 @@
 		}
 		public function cab_del($id)
 		{
-			 $this->db->delete('cab',array('id'=> $id));
+			 $this->db->delete('cab',array('cabid'=> $id));
 		}
 		public function expense_del($id)
 		{
-			 $this->db->delete('expenses',array('id'=> $id));
+			 $this->db->delete('expenses',array('yid'=> $id));
 		}
 	}

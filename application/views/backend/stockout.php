@@ -71,8 +71,9 @@
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
               </a>
-<?php
-}?>
+             <?php
+             }
+			 ?>
               <div class="dropdown-divider"></div>
               <a href="<?php echo base_url(); ?>login/logout" class="dropdown-item">
                 <i class="ni ni-user-run"></i>
@@ -131,8 +132,22 @@
                     <td class="stockouttab"><?php echo ucfirst($value->category);	?></td>
 				    <td class="stockouttab"><?php echo ucfirst($value->subcategory);	?></td>
 					<td class="stockouttab"><?php echo ucfirst($value->type);	?></td>
-				    <td class="stockouttab"><?php echo ucfirst($value->from_em);	?></td>
-				    <td class="stockouttab"><?php echo ucfirst($value->to_em);	?></td>
+				    <td class="stockouttab">
+					    <?php 
+						
+                            $fid = $value->from_em;
+                            $basicin = $this->employee_model->GetBasic2($fid); 					  
+						    echo ucfirst($basicin->first_name)."-".ucfirst($basicin->dep_name);	
+					    ?>
+					</td>
+				    <td class="stockouttab">
+					      <?php 
+						
+                            $fid1 = $value->to_em;
+                            $basicin1 = $this->employee_model->GetBasic2($fid1); 					  
+						    echo ucfirst($basicin1->first_name)."-".ucfirst($basicin1->dep_name);	
+					    ?>
+					</td>
 					<td class="stockouttab">
 					<?php
 						  if($value->remark==" ")

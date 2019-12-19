@@ -6,7 +6,7 @@
 		
 		 public function emexpenseByID($emid)
 		 {
-			   $sql = "SELECT * FROM expenses left join employee on employee.id=expenses.id
+			   $sql = "SELECT * FROM expenses left join employee on employee.em_id=expenses.id
 			   WHERE employee.em_id='$emid'";
 			   $query=$this->db->query($sql);
 			   $result = $query->result();
@@ -14,14 +14,14 @@
 	    }
 		public function singlexpense($id)
 		{
-		   $sql = "SELECT * FROM expenses left join employee on employee.id=expenses.id WHERE expenses.yid='$id'";
+		   $sql = "SELECT * FROM expenses left join employee on employee.em_id=expenses.id WHERE expenses.yid='$id'";
 		   $query=$this->db->query($sql);
 		   $result = $query->result();
 		   return $result;
 		}
 		public function singlexpensebyid($emid,$id)
 		{
-		   $sql = "SELECT * FROM expenses right join employee on employee.id=expenses.id WHERE expenses.yid='$id' AND  employee.id='$emid'";
+		   $sql = "SELECT * FROM expenses right join employee on employee.em_id=expenses.id WHERE expenses.yid='$id' AND  employee.em_id='$emid'";
 		   
 		   $query=$this->db->query($sql);
 		   $result = $query->result();
@@ -56,7 +56,7 @@
 		}
 		public function emexp()
 		{
-		   $sql = "SELECT * FROM expenses left join employee on employee.id=expenses.id";
+		   $sql = "SELECT * FROM expenses left join employee on employee.em_id=expenses.id";
 		   $query=$this->db->query($sql);
 		   $result = $query->result();
 		   return $result;
@@ -81,11 +81,7 @@
       }
 		public function selectexpdail($data)
 		{
-			  $sql = "SELECT * FROM expenses left join employee  on employee.id=expenses.id  WHERE expenses.yid>0";
-			  if($data["date"]!="")
-			  {
-				$sql.=" AND expenses.date='".$data["date"]."'";
-			  }
+			  $sql = "SELECT * FROM expenses left join employee  on employee.em_id=expenses.id  WHERE expenses.yid>0";
 			  if($data["date1"]!="")
 			  {
 				    $sql.=" AND expenses.date>='".$data["date1"]."'";
@@ -94,22 +90,14 @@
 			  {
 				 $sql.=" AND expenses.date<='".$data["date2"]."'";
 			  }
-			  if($data["pay"]!="")
-			  {
-				 $sql.=" AND expenses.exp_status<='".$data["pay"]."'";
-			  }
-			   if($data["status"]!="")
-			  {
-				 $sql.=" AND expenses.t_status<='".$data["status"]."'";
-			  }
-			    $query=$this->db->query($sql);
+			  $query=$this->db->query($sql);
 	          $result = $query->result();
 	          return $result;
 			 
 		}
 		public function selectcabdail($data)
 		{
-			  $sql = "SELECT * FROM cab left join employee  on employee.id=cab.id  WHERE cab.cabid>0";
+			  $sql = "SELECT * FROM cab left join employee  on employee.em_id=cab.id  WHERE cab.cabid>0";
 			  if($data["date1"]!="")
 			  {
 				    $sql.=" AND cab.date>='".$data["date1"]."'";
