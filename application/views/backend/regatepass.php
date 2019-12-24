@@ -193,7 +193,8 @@
 					  
 						   <tr>
 						       <td><?php echo $count; ?></td>
-							   <td><?php echo $value->particulars; ?></td>
+							   <td><?php 
+							   echo $value->particulars; ?></td>
 							   <td><?php echo $value->quantity; ?></td>
 							   <td>
 							       <?php
@@ -201,7 +202,7 @@
                                         if($particulesid==0)		
                                         {			
 								              ?>
-								             <button class="btn btn-success outgateout buttonsizing" data-toggle="modal" data-target="#gateoutdet" ><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
+								             <button class="btn btn-success outgateout buttonsizing" data-toggle="modal" data-target="#gateoutdet<?php echo $value->pid; ?>" ><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
                                               <?php 
 										}
 										else
@@ -212,7 +213,7 @@
                                    ?>								   
 							  </td>
 					        
-		         <div class="modal fade" id="gateoutdet" role="dialog">
+		         <div class="modal fade" id="gateoutdet<?php echo $value->pid; ?>" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -315,7 +316,7 @@
 					   	
     									 
 					  ?>
-						<button class="btn btn-success outgatein buttonsizing"  data-toggle="modal" data-target="#gateindet"><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
+						<button class="btn btn-success outgatein buttonsizing"  data-toggle="modal" data-target="#gateindet<?php echo $value->pid; ?>"><img src="<?php echo base_url(); ?>assets/img/icons/forbidden.png" alt="forbidden.png" id="forbidden"/></button>
 					 <?php
 				   }
                     else
@@ -325,7 +326,7 @@
 					}						
 		 ?>
    </td>
-  <div class="modal fade" id="gateindet" role="dialog">
+  <div class="modal fade" id="gateindet<?php echo $value->pid; ?>" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -676,6 +677,7 @@ function saveSnap(){
 				 if($materialin[0]->approve1 =="Yes" && $materialin[0]->approve2=="Yes" && $materialin[0]->approve3=="Yes")
 			     {
 					?>
+					 <a href="<?php echo base_url(); ?>security/stockoutgenerate?I=<?php echo base64_encode($value->id); ?>" class="btn btn-primary">Generate</a>
 					<button class="print-link no-print btn btn-success" onclick="jQuery('.ele1').print()">
 											Print
 					</button>
@@ -685,6 +687,68 @@ function saveSnap(){
 			else
 		    {
 			?>
+			  <div class="approvestages" style="display: flex;margin-bottom: 19px;">
+			       <div class="appclass1" style="margin-right: 30%;">
+				        <p>Level 1 </p>
+						<?php
+                            if($materialin[0]->approve1=="Yes")
+							{
+								?>
+							     <input type="checkbox" class="check" checked ><br>
+								<?php
+							}
+                            elseif($materialin[0]->approve1==NULL)
+							{
+								echo "Pending";
+							}
+                            else
+                            {
+								echo "Rejected";
+								echo "Remark".$material[0]->reject_remark1;
+							}								
+						?>
+				   </div>
+				   <div class="appclass2" style="margin-right: 30%;">
+				        <p>Level 2 </p>
+						<?php
+                            if($materialin[0]->approve2=="Yes")
+							{
+								?>
+							     <input type="checkbox" class="check" checked ><br>
+								<?php
+							}
+                            elseif($materialin[0]->approve2==NULL)
+							{
+								echo "Pending";
+							}
+                            else
+                            {
+								echo "Rejected";
+								echo "Remark".$material[0]->reject_remark2;
+							}								
+						?>
+				   </div>
+				   <div class="appclass3" >
+				        <p>Level 3 </p>
+						<?php
+                            if($materialin[0]->approve3=="Yes")
+							{
+								?>
+							     <input type="checkbox" class="check" checked ><br>
+								<?php
+							}
+                            elseif($materialin[0]->approve3==NULL)
+							{
+								echo "Pending";
+							}
+                            else
+                            {
+								echo "Rejected";
+								echo "Remark".$material[0]->reject_remark3;
+							}								
+						?>
+				   </div>
+			  </div>
 			  <div>
 			    <span style="color:red;font-weight:500">Note : You are unable to generate or print the pass until </span>
 			 </div>

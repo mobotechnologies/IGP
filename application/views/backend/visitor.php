@@ -139,7 +139,11 @@
         </div>
         <div class="modal-body">
 		   <form method="post" action="<?php echo base_url(); ?>Security/visitgatepass">
-		      <img src="<?php echo base_url(); ?>assets/upload/<?php echo $value->identity_proof; ?>"  style="width: 154px;margin-left: 144px;margin-bottom: 20px;"/>
+		      <input type="text" name="date" value="<?php echo $value->date; ?>" hidden />
+		      <input type="text" name="passno" value="<?php echo $value->passno; ?>" hidden />
+		      <input type="text" name="visitorid" value="<?php echo $value->id; ?>" hidden />
+		      <input type="text" name="imgname"  class="images" value=<?php  echo trim($value->identity_proof," ");  ?> hidden />
+		      <img src="<?php echo base_url(); ?>assets/upload/<?php echo trim($value->identity_proof," "); ?>"  style="width: 154px;margin-left: 144px;margin-bottom: 20px;"/>
 		    <div class="row">
 			    <div class="col">
 				     <label>Name</label>
@@ -189,11 +193,11 @@
 					   <label>Accompanied</label>
 					    <select name="accompanied" class="form-control" >
 							  <option>Accompanied</option>
-							  <option selected>1</option>
-							  <option>2</option>
-							  <option>3</option>
-							  <option>4</option>
-							  <option>5</option>
+							  <option  <?php if($value->accompanied_by=="1"){ echo "selected";  } ?>>1</option>
+							  <option  <?php if($value->accompanied_by=="2"){ echo "selected";  } ?>>2</option>
+							  <option  <?php if($value->accompanied_by=="3"){ echo "selected";  } ?>>3</option>
+							  <option  <?php if($value->accompanied_by=="4"){ echo "selected";  } ?>>4</option>
+							  <option  <?php if($value->accompanied_by=="5"){ echo "selected";  } ?>>5</option>
 						</select>
 					</div>
 					</div>
@@ -203,9 +207,9 @@
 				    <div class="form-group">
 					   <p>Item Carried</p>
 						<select class="form-control" name="Item_car" >
-							<option selected>Mobile</option>
-							<option>Laptop</option>
-							<option>Others</option>
+							<option  <?php if($value->item_carried=="Mobile"){ echo "selected";  } ?>>Mobile</option>
+							<option  <?php if($value->item_carried=="Laptop"){ echo "selected";  } ?>>Laptop</option>
+							<option  <?php if($value->item_carried=="Others"){ echo "selected";  } ?>>Others</option>
 						</select>
 					</div>
 					</div>
@@ -213,9 +217,9 @@
 					<div class="form-group">
 					    <p>Item Deposited</p>
 					    <select class="form-control" name="Item_deposit" >
-							<option selected>Mobile</option>
-							<option>Laptop</option>
-							<option>Others</option>
+							<option  <?php if($value->item_carried=="Mobile"){ echo "selected";  } ?>>Mobile</option>
+							<option  <?php if($value->item_carried=="Laptop"){ echo "selected";  } ?>>Laptop</option>
+							<option  <?php if($value->item_carried=="Others"){ echo "selected";  } ?>>Others</option>
 						</select>
 					</div>
 					</div>
@@ -223,9 +227,9 @@
 					<div class="form-group">
                         <p>Item Carried</p>
 					    <select class="form-control" name="Item_issue" >
-							<option selected>Mobile</option>
-							<option>Laptop</option>
-							<option>Others</option>
+							<option  <?php if($value->item_carried=="Mobile"){ echo "selected";  } ?>>Mobile</option>
+							<option  <?php if($value->item_carried=="Laptop"){ echo "selected";  } ?>>Laptop</option>
+							<option  <?php if($value->item_carried=="Others"){ echo "selected";  } ?>>Others</option>
 						</select>
 					</div>
 					</div>

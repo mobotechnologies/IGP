@@ -182,8 +182,8 @@ $('#designer').DataTable({
 			   
 			    $.ajax(
 				{
-					url:"<?php echo base_url(); ?>security/cab_approval",
-					type:"Post",
+					url:"<?php echo base_url(); ?>security/cab_approval2",
+					type:"post",
 					data:{id:appid,stat:status},
 					success:function(data)
 					{

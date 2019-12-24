@@ -47,6 +47,11 @@
              $result = $query->result();
              return $result;
 		}
+		 public function Update_payment($id,$data)
+	    {
+		   $this->db->where('yid', $id);
+		   $this->db->update('expenses',$data);        
+        }
 		public function selectdistrict($state)
 		{
 		   $sql = "SELECT * FROM district WHERE StCode = '" . $_POST["state_id"] . "'";
@@ -90,6 +95,7 @@
 			  {
 				 $sql.=" AND expenses.date<='".$data["date2"]."'";
 			  }
+			
 			  $query=$this->db->query($sql);
 	          $result = $query->result();
 	          return $result;

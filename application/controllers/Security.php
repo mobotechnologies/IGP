@@ -48,7 +48,7 @@ class Security extends CI_Controller
 	{
 	       	    $id=$this->input->post('id');
 				
-			    $result=$this->Security_model->Getconfig();
+			    $result=$this->Security_model->Getconfig2();
 				$status=$this->input->post('stat');
 				    foreach($result as $value)
 	             	{
@@ -69,11 +69,11 @@ class Security extends CI_Controller
 	{
 	       	    $id=$this->input->post('id');
 				
-			    $result=$this->Security_model->Getconfig();
+			    $result=$this->Security_model->Getconfig2();
 				$status=$this->input->post('stat');
 				    foreach($result as $value)
 	             	{
-							 $mail1=$value->level1;
+							 $mail1=$value->level2;
 							 if($this->session->userdata('user_login_id')==$mail1)
 							 {
 							    $data=array(
@@ -90,11 +90,11 @@ class Security extends CI_Controller
 	{
 	       	    $id=$this->input->post('id');
 				
-			    $result=$this->Security_model->Getconfig();
+			    $result=$this->Security_model->Getconfig2();
 				$status=$this->input->post('stat');
 				    foreach($result as $value)
 	             	{
-							 $mail1=$value->level1;
+							 $mail1=$value->level3;
 							 if($this->session->userdata('user_login_id')==$mail1)
 							 {
 							    $data=array(
@@ -111,11 +111,11 @@ class Security extends CI_Controller
 	{
 	       	    $id=$this->input->post('id');
 				
-			    $result=$this->Security_model->Getconfig();
+			    $result=$this->Security_model->Getconfig2();
 				$status=$this->input->post('stat');
 				    foreach($result as $value)
 	             	{
-							 $mail1=$value->level1;
+							 $mail1=$value->level3;
 							 if($this->session->userdata('user_login_id')==$mail1)
 							 {
 							    $data=array(
@@ -132,11 +132,11 @@ class Security extends CI_Controller
 	{
 	       	    $id=$this->input->post('id');
 				
-			    $result=$this->Security_model->Getconfig();
+			    $result=$this->Security_model->Getconfig2();
 				$status=$this->input->post('stat');
 				    foreach($result as $value)
 	             	{
-							 $mail1=$value->level1;
+							 $mail1=$value->level2;
 							 if($this->session->userdata('user_login_id')==$mail1)
 							 {
 							    $data=array(
@@ -152,18 +152,20 @@ class Security extends CI_Controller
 		public function exp_approval1()
 	{
 	       	    $id=$this->input->post('id');
-				
-			    $result=$this->Security_model->Getconfig();
+			    $result=$this->Security_model->Getconfig2();
 				$status=$this->input->post('stat');
 				    foreach($result as $value)
 	             	{
 							 $mail1=$value->level1;
 							 if($this->session->userdata('user_login_id')==$mail1)
-							 {
-							    $data=array(
-								    'approve1'=>$status,
-									'reject_remark1'=>$this->input->post('remark'),
-								);
+							 { 
+						      
+									$data=array(
+										'approve1'=>$status,
+										'reject_remark1'=>$this->input->post('remark'),
+									);
+							   
+							   
 							 }
 		                    $this->Security_model->Update_expapprove($id,$data);
 							 
@@ -469,7 +471,7 @@ class Security extends CI_Controller
 	} 
 	public function update_inmaterials()
 	{
-           $datetime=date('Y-m-d')." ".date('H:i:sa');
+           $datetime=date('Y-m-d')." ".date('g:i:sa', strtotime("1:30 PM"));
            $part=trim($this->input->post('matimg')," ");
 		    $particular=$this->input->post('particules');
 					 $quantity=$this->input->post('quantity');
@@ -547,6 +549,7 @@ class Security extends CI_Controller
 	}
 	public function outrepass()
 	{
+		
 		$id = base64_decode($this->input->get('I'));
 		$data['materialin'] = $this->Security_model->singlestockover($id);
 	
@@ -731,6 +734,24 @@ class Security extends CI_Controller
 	}
 	public function visitgatepass()
 	{
+		     $id=$this->input->post('visitorid');
+			  $data=  array(
+						'name' => $this->input->post('name'),
+						'address' => $this->input->post('address'),
+						'phone' => $this->input->post('phone'),
+						'email'=>$this->input->post('email'),
+						'purpose'=>$this->input->post('purpose'),
+						'meeting_to' => $this->input->post('meet_to'),
+						'accompanied_by' => $this->input->post('accompanied'),
+						'identity_proof' => $this->input->post('imgname'),
+						'item_carried' => $this->input->post('Item_car'),
+						'item_issued' => $this->input->post('Item_issue'),
+						'item_deposited' => $this->input->post('Item_deposit'),
+						'organization'=>$this->input->post('organization'),
+						'companyphone'=>$this->input->post('organphone'),
+						'companyaddress'=>$this->input->post('organaddress'),
+			        );
+			 $this->security_model->Update_visitor($id,$data);
 			 $data['visitor']=  array(
 						'name' => $this->input->post('name'),
 						'address' => $this->input->post('address'),
@@ -746,9 +767,8 @@ class Security extends CI_Controller
 						'organization'=>$this->input->post('organization'),
 						'companyphone'=>$this->input->post('organphone'),
 						'companyaddress'=>$this->input->post('organaddress'),
-						'passno'=>$this->input->post('receipt'),
-						'in' =>date('h:i:s A'),
-						'date'=>date('Y-m-d'),
+						'passno'=>$this->input->post('passno'),
+						'date'=>$this->input->post('date'),
 			        );
 		$this->load->view('backend/visitorpass',$data);
 	}
@@ -790,7 +810,7 @@ class Security extends CI_Controller
 						'companyphone'=>$this->input->post('organphone'),
 						'companyaddress'=>$this->input->post('organaddress'),
 						'passno'=>$receipt,
-						'intime' =>date('h:i:s A'),
+						'intime' =>date('g:i:sa', strtotime("1:30 PM")),
 						'date'=>date('Y-m-d'),
 			        );
 				   $sub="Visitor Notification";
@@ -862,7 +882,7 @@ class Security extends CI_Controller
 	}
 	public function updateoutgatetime()
 	{
-		     $datetime=date('Y-m-d')." ".date('H:i:sa');
+		     $datetime=date('Y-m-d')." ".date('g:i:sa', strtotime("1:30 PM"));
 		     $data=array(
                        'gateout'=>$datetime,
 					   'vechicle_no'=>$this->input->post('vechNo'),
@@ -877,12 +897,13 @@ class Security extends CI_Controller
 					   'id'=>$this->input->post('particuleid'),
 				   );
 				$this->security_model->gateout_out($data);
-		      $this->load->view('backend/stockout_view',$data);
+			
+		      redirect('security/stockout_view');
 		
 	}
 	public function updateingatetime()
 	{
-		 $datetime=date('Y-m-d')." ".date('H:i:sa');
+		 $datetime=date('Y-m-d')." ".date('h:i:sa');
 	     $data=array(
                        'gatein'=>$datetime,
 					   'vechicle_no'=>$this->input->post('vechNo'),
@@ -905,17 +926,12 @@ class Security extends CI_Controller
 		   
 		   $rid=$this->Security_model->getmaxid2();
 		  
-		   $datetime=date('Y-m-d')." ".date('H:i:sa');
+		   $datetime=date('Y-m-d')." ".date('h:i:sa');
 
 	
-		    if($rid=="")
-		    {
-		       $gatepass="PHM01";
-		    }
-			else
-			{
-				$gatepass="PHM".$rid;
-			}
+		       $lname="PHM";
+				$gatepass= substr($lname,0,3).rand(1000,2000);
+			
 		$data1= array(
 					   'invoice_no' => $this->input->post('invoiceno'),
 						'invoice_date' => $this->input->post('invoicedate'),
@@ -977,7 +993,7 @@ class Security extends CI_Controller
 					}
 						
                   
-					$comment="Material has been Arrived on".date('H:i:s');
+					$comment="Material has been Arrived on".date('h:i:s');
 					$status=0;
 					$subject="Material inward Notify";
 					$dc=array(
@@ -1220,7 +1236,7 @@ public function email3update()
 	    $id=$this->input->post('id');
 		$data=array(
 
-		    'gateout'=>date('H:i:s'), 
+		    'gateout'=>date('g:i:sa', strtotime("1:30 PM")), 
 		);
 		$this->Security_model->update_outgat($id,$data);
 	}
@@ -1229,21 +1245,17 @@ public function email3update()
 	    $id=$this->input->post('id');
 		$data=array(
 
-		    'out'=>date('H:i:s'), 
+		    'out'=>date('g:i:sa', strtotime("1:30 PM")), 
 		);
 		$this->Security_model->update_visitgat($id,$data);
 	}
 	public function stockout_insert()
 	{
 		    $rid=$this->Security_model->getmaxid();
-		    if($rid=="")
-		    {
-		       $gatepass="PH01";
-		    }
-			else
-			{
-				$gatepass="PH".$rid;
-			}
+		
+		       $lname="PHO";
+				$gatepass=substr($lname,0,3).rand(1000,2000);
+			
 			
 		
 			$data1= array(
@@ -1293,7 +1305,6 @@ public function email3update()
 					);
 					$this->Security_model->insert_comment($dc);
 					$result=$this->Security_model->Getconfig();
-					//$level=1;
 				    foreach($result as $value)
 	             	{
 						     $mail1=$value->level1;
@@ -1372,7 +1383,7 @@ public function update_stockinward()
         
 		  
 		  
-		   $datetime=date('Y-m-d')." ".date('H:i:sa');
+		   $datetime=date('Y-m-d')." ".date('g:i:sa', strtotime("1:30 PM"));
            $default="unknown";
 		
 		$data1= array(

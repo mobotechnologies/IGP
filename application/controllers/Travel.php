@@ -26,10 +26,8 @@ class Travel extends CI_Controller
 		
 		$data["date1"]=$this->input->post('From');
 		$data["date2"]=$this->input->post('To');
-		
 	    $data["expreport"]=$this->travel_model->selectexpdail($data);
-		
-		$this->load->view('backend/expensereportdown',$data);
+		$this->load->view('backend/expense_excel.php',$data);
 	}
 	public function expense_insert()
 	{ 
@@ -38,50 +36,108 @@ class Travel extends CI_Controller
 	  $cpt = count($_FILES['bill']['name']);
     for($i=0; $i<$cpt; $i++)
     {     		
-	        $lname = "expense"; 
+	          $lname = "expense"; 
 	        $emrand = substr($lname,0,3).rand(1000,2000);
 		    $file_name = $_FILES['bill']['name'][$i];
 		    $fileSize = $_FILES["bill"]["size"][$i]/1024;
 			$fileType = $_FILES["bill"]["type"][$i];
             $str=explode("/",$fileType);
-			$new_file_name='';
-            $new_file_name .= $emrand;
-			echo $new_file_name;
-           
-            $config = array(
-                'file_name' => $new_file_name,
-                'upload_path' => "./assets/images/users/expense",
-                'allowed_types' => "gif|jpg|png|jpeg|pdf|doc|docx|txt",
-                'overwrite' => False,
-                'max_size' => "50720000"
-            );
-            $this->load->library('Upload', $config);
-			$this->upload->initialize($config);      
-	     
-           
-			print_r($this->upload->do_upload());
-            if (!$this->upload->do_upload('bill')) {
-                echo $this->upload->display_errors();
-				//die;
-			}
-   
-			else {
-                $path = $this->upload->data();
-                $img_url = $path['file_name'];
-			}	
- //array_push($filearray,$emrand.".".$str[1]);			
+		//	$new_file_name='';
+            $new_file_name = $emrand.'.'.$str[1];
+			 move_uploaded_file($_FILES['bill']['tmp_name'][$i],'./assets/expense/'.$new_file_name);
+			 array_push($filearray,$new_file_name);			
 
 	}
-	die;
+	$myJSON = json_encode($filearray);
+
+
 					 $data = array(
 						'id' => $this->input->post('emid'),
 						'exp_category'=>$this->input->post('category'),
 						'currency'=>$this->input->post('currency'),
 						'purpose' => $this->input->post('purpose'),
 						'amount' => $this->input->post('amount'),
-						'Bill_document'=>$filearray(),
+						'date' =>date('Y-m-d'),
+						'Bill_document'=>$myJSON,
 						
 			        );
+										     $msg="<html>
+						    <head>
+							     <head>
+									<style>
+									#customers {
+									  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+									  border-collapse: collapse;
+									  width: 100%;
+									}
+
+									#customers td, #customers th {
+									  border: 1px solid #ddd;
+									  padding: 8px;
+									}
+
+									#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+									#customers tr:hover {background-color: #ddd;}
+
+									#customers th {
+									  padding-top: 12px;
+									  padding-bottom: 12px;
+									  text-align: left;
+									  background-color: #f2f2f2 ;
+									  color: white;
+									}
+									</style>
+                            </head>
+                            <body>
+							          <div class='card shadow ele1'>
+         
+            <div class='table-responsive'>
+              <table border='1' id='customers'> 
+			  	       <tr>
+				       <td><img src='./assets/images/poc.jpg'  id='printTable' /></td>
+					   <td>
+   					         <p style=' font-size: 12px;font-weight: 900;margin-top: 11px;margin-left: 25px;'>
+								<span style='color:blue'>POCLAIN HYDRAULICS PVT LTD</span></br>
+								No: 131 / 2, Kothapurinatham Road
+								Mannadipet Commune Panchayat
+								Thiruvandarkoil
+								PONDICHERRY -  605 102
+								INDIA
+
+								Tel.: +91 413 2641455
+							 </p>
+				      </td>
+				   </tr>
+				   <tr>
+				       <td colspan='2'>Expense Request</td>
+				   </tr>
+			       <tr>
+				       <td>Exp_category</td>
+					   <td>".$this->input->post('category')."</td>
+				   </tr>
+				   <tr>
+				       <td>Currency</td>
+					   <td>".$this->input->post('currency')."</td>
+				   </tr>
+				   <tr>
+				       <td>Purpose</td>
+					   <td>". $this->input->post('purpose')."</td>
+				   </tr>
+				    <tr>
+				       <td>Amount</td>
+					   <td>".$this->input->post('amount')."</td>
+				    </tr>
+					<tr>
+				       <td>Date</td>
+					   <td>".date("Y-m-d")."</td>
+				    </tr>
+			    </table>
+            </div>
+           
+          </div>
+                            </body>							
+						</html>";
 			$this->travel_model->Add_expense($data);
 			redirect('travel/expense_view');
 	}
@@ -195,7 +251,87 @@ class Travel extends CI_Controller
 			        );
 						 $this->travel_model->Add_cab($data);
 						 $sub="Cab Request Notification";
-					     $msg="<br>Hi,employee has  requested  for cab</br>";
+					     $msg="<html>
+						    <head>
+							     <head>
+									<style>
+									#customers {
+									  font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+									  border-collapse: collapse;
+									  width: 100%;
+									}
+
+									#customers td, #customers th {
+									  border: 1px solid #ddd;
+									  padding: 8px;
+									}
+
+									#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+									#customers tr:hover {background-color: #ddd;}
+
+									#customers th {
+									  padding-top: 12px;
+									  padding-bottom: 12px;
+									  text-align: left;
+									  background-color: #f2f2f2 ;
+									  color: white;
+									}
+									</style>
+                            </head>
+                            <body>
+							          <div class='card shadow ele1'>
+         
+            <div class='table-responsive'>
+              <table border='1' id='customers'> 
+			       <tr>
+				       <td><img src='./assets/images/poc.jpg'  id='printTable' /></td>
+					   <td>
+   					         <p style=' font-size: 12px;font-weight: 900;margin-top: 11px;margin-left: 25px;'>
+								<span style='color:blue'>POCLAIN HYDRAULICS PVT LTD</span></br>
+								No: 131 / 2, Kothapurinatham Road
+								Mannadipet Commune Panchayat
+								Thiruvandarkoil
+								PONDICHERRY -  605 102
+								INDIA
+
+								Tel.: +91 413 2641455
+							 </p>
+				      </td>
+				   </tr>
+				   <tr>
+				       <td colspan='2'>Cab Request</td>
+				   </tr>
+			       <tr>
+				       <td>Emreference</td>
+					   <td>".$this->input->post('emid')."</td>
+				   </tr>
+				   <tr>
+				       <td>Purpose</td>
+					   <td>".$this->input->post('purpose')."</td>
+				   </tr>
+				   <tr>
+				       <td>Travel From</td>
+					   <td>".$this->input->post('from')."</td>
+				   </tr>
+				    <tr>
+				       <td>Travel To</td>
+					   <td>".$this->input->post('to')."</td>
+				    </tr>
+					<tr>
+				       <td>Location</td>
+					   <td>".$this->input->post('location')."</td>
+				    </tr>
+					<tr>
+				       <td>Date</td>
+					   <td>".$this->input->post('travel_date')."</td>
+				    </tr>
+			    </table>
+            </div>
+           
+          </div>
+                            </body>							
+						</html>";
 				         $this->mail($sub,$msg);
 						 $this->session->set_flashdata('feedback','Request successfully');
                         redirect('Travel/Cab_view');
@@ -207,7 +343,6 @@ class Travel extends CI_Controller
 		$emid= $this->session->userdata('user_id');
         $data['employee']=$this->employee_model->emselectByID($emid1);
         $data['cab']=$this->travel_model->emcabByID($emid);
-		//print_r($data);
 	    $this->load->view('backend/cab',$data);
 		}
 		else
@@ -216,6 +351,20 @@ class Travel extends CI_Controller
 			$data['cab']=$this->travel_model->emcab();
 		    $this->load->view('backend/cab',$data);
 		}
+	}
+	public function Expense_pay()
+	{
+		$id=$this->input->post('Expcode');
+		$data=array(
+		              'payment_method'=>$this->input->post('pmethod'),
+					  'payee'=>$this->input->post('payee'),
+					  'payment_method'=>$this->input->post('amount'),
+					  'payment_date'=>date('Y-m-d'),
+					  'exp_status'=>"unpaid",
+		            );
+	   $this->travel_model->update_payment($id,$data);
+       $this->session->set_flashdata('feedback','Payed successfully');
+	   redirect('travel/expense_view');
 	}
 	public function expsingleview()
 	{

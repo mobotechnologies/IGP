@@ -123,19 +123,48 @@
                 <tbody role="rowgroup">
                                                <?php 
 								 
-											foreach($employee as $key=>$value) { ?>
+											foreach($employee as $key=>$value) {
+												    $yid=$employee[$key]->yid;
+                                                    $app1=$employee[$key]->approve1;
+													$app2=$employee[$key]->approve2;
+													$app3=$employee[$key]->approve3;
+													$exp_status=$employee[$key]->exp_status;
+   													?>
                                             <tr id="<?php echo $employee[$key]->yid; ?>" role="row">
                                                 <td class="expensetable" role="cell"><?php echo ucfirst($employee[$key]->first_name); ?></td>
                                                 <td class="expensetable" role="cell"><?php echo ucfirst($employee[$key]->exp_category); ?></td>
 												<td class="expensetable" role="cell"><?php echo ucfirst($employee[$key]->purpose); ?></td>
-                                                <td class="expensetable" role="cell"><a href="<?php echo base_url(); ?>assets/images/users/expense/<?php echo $employee[$key]->Bill_document; ?>" ><?php echo $employee[$key]->Bill_document; ?></a></td>
+                                                <td class="expensetable" role="cell">
+												  <?php 
+												 
+												  $dec=json_decode($employee[$key]->Bill_document);
+												if(is_array($dec))
+												{
+												  foreach($dec as $key => $val)
+												  {
+												  ?>
+												     <a href="<?php echo base_url(); ?>assets/expense/<?php echo $val; ?>" ><?php echo $val; ?></a>
+											     <?php
+												  }
+												}
+												else
+												{
+													?>
+													
+												     <a href="<?php echo base_url(); ?>assets/expense/<?php echo $employee[$key]->Bill_document; ?>" ><?php echo $employee[$key]->Bill_document; ?></a>
+													<?php
+												}
+												 ?>
+											</td>
 												<td id="text" class="expensetable" role="cell">
 												    <?php 
-                                                    if(($employee[$key]->approve1=="Yes" || $employee[$key]->approve1=="No")   && ($employee[$key]->approve2=="Yes" ||$employee[$key]->approve2=="No" ) && ($employee[$key]->approve3=="Yes" || $employee[$key]->approve3=="No") )
+													
+                                                    if(($app1=="Yes" || $app1=="No")   && (($app2=="Yes" ||$app2=="No" ) || ($app3=="Yes" || $app3=="No")) )
 			                                         {
-													 if($employee[$key]->approve1 =="Yes" && ($employee[$key]->approve2=="Yes" || $employee[$key]->approve3=="Yes"))
+													 if($app1 =="Yes" && ($app2=="Yes" || $app3=="Yes"))
 			                                          {
-                                                         if($employee[$key]->exp_status=="")
+														
+                                                         if($exp_status=="")
 														 {
 															 if($this->session->userdata('user_type')=='EMPLOYEE')
 															{
@@ -152,11 +181,12 @@
                                         <h4 class="modal-title" id="exampleModalLabel1"><img src="../assets/img/icons/payee.png" alt="material.png" style="width: 41px;margin-right: 15px;"/>Payment details</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                     </div>
-                                    <form method="post" action="<?php echo base_url();?>employee/Expense_pay" id="holidayform" enctype="multipart/form-data" style="width: 362px;margin-left: 119px;">
+                                    <form method="post" action="<?php echo base_url();?>travel/Expense_pay" id="holidayform" enctype="multipart/form-data" style="width: 362px;margin-left: 119px;">
                                     <div class="modal-body">
+									     
                                             <div  class="form-group">
 											     <label class="control-label">ExpenseCode</label>
-												 <input type="text" name="Expcode" id="excode" class="form-control " id="recipient-name1" >
+												 <input type="text" name="Expcode" id="excode" class="form-control " value="<?php echo $yid; ?>" >
                                             </div>
 											<div class="form-group">
                                                 <label class="control-label">Payment_method</label>
@@ -208,9 +238,9 @@
 											    </td>
 											<td>
 											<?php
-											    if(($employee[$key]->approve1=="Yes" || $employee[$key]->approve1=="No")   && ($employee[$key]->approve2=="Yes" ||$employee[$key]->approve2=="No" ) && ($employee[$key]->approve3=="Yes" || $employee[$key]->approve3=="No") )
+											    if(($app1=="Yes" || $app1=="No")   && (($app2=="Yes" ||$app2=="No" ) || ($app3=="Yes" || $app3=="No")) )
 			                                    {
-													 if($employee[$key]->approve1 =="Yes" && ($employee[$key]->approve2=="Yes" || $employee[$key]->approve3=="Yes"))
+													 if($app1 =="Yes" && ($app2=="Yes" || $app3=="Yes"))
 			                                          {
 														  echo "Approved";
 													  }
@@ -238,14 +268,18 @@
 													{														
 												       ?>
 														<td class="expensetable"  id="<?php echo $value->yid; ?>" role="cell">
-														        <a href="<?php echo base_url(); ?>travel/expsingleview?I=<?php echo base64_encode($employee[$key]->yid); ?>" class="btn btn-primary buttonsizing" id="view"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
-																<a href="#" class="btn btn-danger buttonsizing delexpense" id="view" value="<?php echo $employee[$key]->yid; ?>"><i class="fa fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
+														        <a href="<?php echo base_url(); ?>travel/expsingleview?I=<?php echo base64_encode($yid); ?>" class="btn btn-primary buttonsizing" id="view"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
+																<a href="#" class="btn btn-danger buttonsizing delexpense" id="view" value="<?php echo $yid; ?>"><i class="fa fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
 														         <?php
 																	  $config=$this->Security_model->selectcabmails();  
+															
 																	  foreach($config as $vales)
 																	  {	
+																	  		//echo $vales->level1;
+
 																		if($this->session->userdata('user_login_id')==$vales->level1 )
 																		{	
+																	   
 																	?>
 															    <button class="btn btn-primary buttonsizing expapprove1" data-value="<?php echo  $value->yid; ?>"><i class="fa fa-check" aria-hidden="true"></i></button>
 															    <button class="btn btn-danger buttonsizing expreject1"   data-value="<?php echo  $value->yid; ?>"><i class="fa fa-ban" aria-hidden="true"></i></button>

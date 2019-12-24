@@ -18,6 +18,11 @@
 		$this->db->where('id', $id);
 		$this->db->update('stock_outward',$data);        
      }
+	  public function Update_visitor($id,$data)
+	  {
+		$this->db->where('id', $id);
+		$this->db->update('visitor_management',$data);        
+      }
 	  public function outward_gatein($data)
 	  {
 		   $this->db->insert("outward_gatein", $data);
@@ -48,7 +53,7 @@
        }
 	     public function gateout_out($data)
 	  {
-		   $this->db->insert("outward_gateout", $data);
+          $this->db->insert("outward_gateout", $data);
 	  }  
 	  public function gatein_in($data)
 	  {
@@ -104,7 +109,14 @@
 		{
 			$this->db->insert("comments",$dc);
 		}
-        public function getconfig()
+        public function getconfig2()
+       {
+            $sql ="SELECT * FROM config2";
+			$query=$this->db->query($sql);
+            $result = $query->result(); 
+	        return $result;
+        }
+		public function getconfig()
        {
             $sql ="SELECT * FROM configuration";
 			$query=$this->db->query($sql);
@@ -330,6 +342,27 @@
         public function inmateriallist($id)
 		{
 			  $sql = "SELECT * FROM inward_particules   WHERE id='$id'";
+              $query=$this->db->query($sql);
+	          $result = $query->result();
+	          return $result;
+		}
+		public function outmaterialin($id)
+		{
+			  $sql = "SELECT * FROM outward_gatein  WHERE id='$id'";
+              $query=$this->db->query($sql);
+	          $result = $query->result();
+	          return $result;
+		}
+		public function outmaterialout($id)
+		{
+			  $sql = "SELECT * FROM outward_gateout   WHERE id='$id'";
+              $query=$this->db->query($sql);
+	          $result = $query->result();
+	          return $result;
+		}
+		 public function outmateriallist($id)
+		{
+			  $sql = "SELECT * FROM outward_particules   WHERE id='$id'";
               $query=$this->db->query($sql);
 	          $result = $query->result();
 	          return $result;

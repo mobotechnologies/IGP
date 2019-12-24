@@ -177,9 +177,18 @@
 							   ?>
 					</td>
 					<td>
+						<?php
+							
+							 if($value->status!="Closed")
+							 {
+							    
+						?>
 					    <a href="<?php echo base_url(); ?>security/stockoutover?I=<?php echo base64_encode($value->id); ?>" id="view"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
 					    <a href="#" class="delstockout" id="view"><i class="fa fa-lg fa-trash" aria-hidden="true" style="padding-left: 6px;"></i></a>
 					    <i class="fas  fa-lg fa-envelope" data-toggle="modal" data-target="#addemail"></i>
+					<?php
+					  }
+					?>
 						  <div class="modal fade" id="addemail" role="dialog">
     <div class="modal-dialog">
     
@@ -287,7 +296,7 @@
                                                          
                                                         	<select   class=" form-control"  tabindex="1" name="status" required>
 																<option value="Opened" <?php if($value->status=="Opened"){ echo "selected"; } ?>>Opened</option>
-																<option value="Closed" <?php if($value->status=="Closeds"){ echo "selected"; } ?>>Closed </option>
+																<option value="Closed" <?php if($value->status=="Closed"){ echo "selected"; } ?>>Closed </option>
 															</select> 
                                                          </div> 
                                                          <div class="form-group"> 

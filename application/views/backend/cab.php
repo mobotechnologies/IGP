@@ -148,9 +148,9 @@
 					   <td class="cabtable" role="cell"><?php echo $value->Travel_date; ?></td>
 					   <td class="cabtable" role="cell">
 					       <?php
-											    if(($value->approve1=="Yes" || $value->approve1=="No")   && ($value->approve2=="Yes" ||$value->approve2=="No" ) && ($value->approve3=="Yes" || $value->approve3=="No") )
+											    if($value->approve1 !="" && ($value->approve2!="" || $value->approve3!=""))
 			                                    {
-													 if($value->approve1 =="Yes" && ($value->approve2=="Yes" || $value->approve3=="Yes"))
+													 if(trim($value->approve1," ") =="Yes" && (trim($value->approve2," ")=="Yes" || trim($value->approve3," ")=="Yes"))
 			                                          {
 														  echo "Approved";
 													  }

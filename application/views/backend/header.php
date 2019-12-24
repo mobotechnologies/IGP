@@ -181,10 +181,10 @@
             </a>
           </li>
 		
-	    <?php
-		    if($this->session->userdata('user_type')=="SECURITY"  || $this->session->userdata('designation')=="15" || $this->session->userdata('designation')=="16" || $this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+  <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN" || $this->session->userdata('user_type')=="SECURITY")
 			{
-		    ?>
+		    ?>  
           <li class="nav-item navsalign">
             <a class="nav-link <?php if($this->uri->segment(2)=="stockin_view" ||  $this->uri->segment(2)=="stockin_form" ||  $this->uri->segment(2)=="stockin_report"){ echo "active"; } ?> hmenu mobilehide menuhide" href="<?php echo base_url(); ?>security/stockin_view " >
 			
@@ -193,39 +193,29 @@
 			 <div class="nav-link <?php if($this->uri->segment(2)=="stockin_view" ||  $this->uri->segment(2)=="stockin_form" ||  $this->uri->segment(2)=="stockin_report"){ echo "active"; } ?> hmenu  dropdown hidedrop">
     <a class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/icons/material.png"  alt="material.png" id="material"/>Inward
     <span class="caret"></span></a>
-    <ul class="dropdown-menu" style="
-    width: 142px;
-">
-      <li style="
-    font-size: 13px;
-"> <a   href="<?php echo base_url(); ?>Security/stockin_view"><i class="fas fa-home fa-lg iconcss" style="
-    /* font-size: 20px; */
-    margin-left: 20px;
-    margin-right: 5px;
-"></i>Home</a></li>
-      <li style="
-    font-size: 13px;
-"><a href="<?php echo base_url(); ?>Security/stockin_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 12px;
-"></i>Add</a></li>
-      <li style="
-    font-size: 13px;
-"><a   href="<?php echo base_url(); ?>Security/stockin_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 13px;
-"></i>Report</a></li>
-	  <li style="
-    font-size: 13px;
-">
-        <a href="<?php echo base_url(); ?>Security/anonymous"><i class="fa fa-question-circle iconcss2" aria-hidden="true" style="
-    margin-left: 20px;
-    margin-right: 12px;
-"></i>Anonymous</a>	</li>
+    <ul class="dropdown-menu" style="width: 142px;">
+      <li style="font-size: 13px;"> <a   href="<?php echo base_url(); ?>Security/stockin_view"><i class="fas fa-home fa-lg iconcss" style="margin-left: 20px;margin-right: 5px;"></i>Home</a></li>
+      <li style="font-size: 13px;"><a href="<?php echo base_url(); ?>Security/stockin_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 12px;"></i>Add</a></li>
+       <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+			{
+		    ?>
+	 <li style="font-size: 13px;"><a   href="<?php echo base_url(); ?>Security/stockin_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 13px;"></i>Report</a></li>
+		<?PHP
+			}
+			?>
+	<li style="font-size: 13px;"><a href="<?php echo base_url(); ?>Security/anonymous"><i class="fa fa-question-circle iconcss2" aria-hidden="true" style="margin-left: 20px;margin-right: 12px;"></i>Anonymous</a>	</li>
     </ul>
   </div>
 			
           </li>
+		  <?php
+			}
+			?>
+			 <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN" || $this->session->userdata('user_type')=="EMPLOYEE" || $this->session->userdata('user_type')=="SECURITY")
+			{
+		    ?> 
           <li class="nav-item navsalign">
             <a class="nav-link <?php if($this->uri->segment(2)=="stockout_view" ||  $this->uri->segment(2)=="stockout_form" ||  $this->uri->segment(2)=="stockout_report"){ echo "active"; } ?> hmenu  mobilehide menuhide" href="<?php echo base_url(); ?>security/stockout_view">
 			
@@ -234,72 +224,59 @@
 			<div class="nav-link <?php if($this->uri->segment(2)=="stockout_view" ||  $this->uri->segment(2)=="stockout_form" ||  $this->uri->segment(2)=="stockout_report"){ echo "active"; } ?> hmenu  dropdown hidedrop">
     <a class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/icons/material2.png" alt="material.png" id="material"/>Outward
     <span class="caret"></span></a>
-    <ul class="dropdown-menu" style="
-    width: 142px;
-">
-      <li style="
-    font-size: 13px;
-"> <a   href="<?php echo base_url(); ?>Security/stockout_view"><i class="fas fa-home fa-lg iconcss" style="
-    /* font-size: 20px; */
-    margin-left: 20px;
-    margin-right: 5px;
-"></i>Home</a></li>
-      <li style="
-    font-size: 13px;
-"><a href="<?php echo base_url(); ?>Security/stockout_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 12px;
-"></i>Add</a></li>
-      <li style="
-    font-size: 13px;
-"><a   href="<?php echo base_url(); ?>Security/stockout_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 13px;
-"></i>Report</a></li>
-	  </ul>
+    <ul class="dropdown-menu" style="width: 142px;">
+      <li style="font-size: 13px;"> <a href="<?php echo base_url(); ?>Security/stockout_view"><i class="fas fa-home fa-lg iconcss" style="margin-left: 20px;margin-right: 5px;"></i>Home</a></li>
+      <li style="font-size: 13px;"><a href="<?php echo base_url(); ?>Security/stockout_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 12px;"></i>Add</a></li>
+	
+	        <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+			{
+		    ?>
+	 <li style="font-size: 13px;"><a   href="<?php echo base_url(); ?>Security/stockout_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 13px;"></i>Report</a></li>
+  		<?PHP
+			}
+			?>
+	</ul>
   </div>
           </li>
-		 
+		 <?PHP
+			}
+			?>
+			 <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN" || $this->session->userdata('user_type')=="EMPLOYEE" ||  $this->session->userdata('user_type')=="SECURITY")
+			{
+		    ?> 
           <li class="nav-item navsalign">
             <a class="nav-link <?php if($this->uri->segment(2)=="visitor_view" ||  $this->uri->segment(2)=="visitor_form" ||  $this->uri->segment(2)=="visitor_report"){ echo "active"; } ?> hmenu  mobilehide menuhide" href="<?php echo base_url(); ?>security/visitor_view">
 		
               <img src="../assets/img/icons/visit.png" alt="material.png" id="material"/> Visitor
             </a>
 			<div class="nav-link <?php if($this->uri->segment(2)=="visitor_view" ||  $this->uri->segment(2)=="visitor_form" ||  $this->uri->segment(2)=="visitor_report"){ echo "active"; } ?> hmenu  dropdown hidedrop">
-    <a class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/icons/visit.png" alt="material.png" id="material"/>Visitor</a>
-    <span class="caret"></span></a>
-    <ul class="dropdown-menu" style="
-    width: 142px;
-">
-      <li style="
-    font-size: 13px;
-"> <a   href="<?php echo base_url(); ?>Security/visitor_view"><i class="fas fa-home fa-lg iconcss" style="
-    /* font-size: 20px; */
-    margin-left: 20px;
-    margin-right: 5px;
-"></i>Home</a></li>
-      <li style="
-    font-size: 13px;
-"><a href="<?php echo base_url(); ?>Security/visitor_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 12px;
-"></i>Add</a></li>
-      <li style="
-    font-size: 13px;
-"><a   href="<?php echo base_url(); ?>Security/visitor_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 13px;
-"></i>Report</a></li>
-	  </ul>
+			<a class="dropdown-toggle" data-toggle="dropdown"><img src="../assets/img/icons/visit.png" alt="material.png" id="material"/>Visitor</a>
+			<span class="caret"></span></a>
+			<ul class="dropdown-menu" style="width: 142px;">
+			  <li style="font-size: 13px;"> <a   href="<?php echo base_url(); ?>Security/visitor_view"><i class="fas fa-home fa-lg iconcss" style="margin-left: 20px;margin-right: 5px;"></i>Home</a></li>
+			  <li style="font-size: 13px;"><a href="<?php echo base_url(); ?>Security/visitor_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 12px;"></i>Add</a></li>
+              <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+			{
+		    ?>			 
+			 <li style="font-size: 13px;"><a   href="<?php echo base_url(); ?>Security/visitor_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 13px;"></i>Report</a></li>
+			<?PHP
+			}
+			?>
+			  </ul>
   </div>
           </li>
-        <?php
-		   }
-		  ?>
-		    <?php
-		    if($this->session->userdata('designation')=="14"  || $this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
-            {
-              ?>
+		
+		  <?PHP
+			}
+			?>
+			 <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN" || $this->session->userdata('user_type')=="EMPLOYEE")
+			{
+		    ?> 
+       
 			   <li class="nav-item navsalign">
 				<a class="nav-link <?php if($this->uri->segment(2)=="cab_view" ||  $this->uri->segment(2)=="cab_form" ||  $this->uri->segment(2)=="cab_report"){ echo "active"; } ?> hmenu  mobilehide menuhide" href="<?php  echo base_url(); ?>Travel/cab_view" >
 				  <img src="<?php echo base_url(); ?>/assets/img/icons/cab.png" alt="material.png" id="material" /> Cab
@@ -307,63 +284,55 @@
 			   <div class="nav-link <?php if($this->uri->segment(2)=="cab_view" ||  $this->uri->segment(2)=="cab_form" ||  $this->uri->segment(2)=="cab_report"){ echo "active"; } ?> hmenu dropdown hidedrop">
     <a class="dropdown-toggle" data-toggle="dropdown">  <img src="<?php echo base_url(); ?>/assets/img/icons/cab.png" alt="material.png" id="material" /> Cab</a>
     <span class="caret"></span></a>
-    <ul class="dropdown-menu" style="
-    width: 142px;
-">
-      <li style="
-    font-size: 13px;
-"> <a   href="<?php echo base_url(); ?>Security/cab_view"><i class="fas fa-home fa-lg iconcss" style="
-    /* font-size: 20px; */
-    margin-left: 20px;
-    margin-right: 5px;
-"></i>Home</a></li>
-      <li style="
-    font-size: 13px;
-"><a href="<?php echo base_url(); ?>Security/cab_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 12px;
-"></i>Add</a></li>
-      <li style="
-    font-size: 13px;
-"><a   href="<?php echo base_url(); ?>Security/cab_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 13px;
-"></i>Report</a></li>
-	  </ul>
+    <ul class="dropdown-menu" style="width: 142px;">
+      <li style="font-size: 13px;"> <a   href="<?php echo base_url(); ?>Security/cab_view"><i class="fas fa-home fa-lg iconcss" style="margin-left: 20px;margin-right: 5px;"></i>Home</a></li>
+      <li style="font-size: 13px;"><a href="<?php echo base_url(); ?>Security/cab_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 12px;"></i>Add</a></li>
+       <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+			{
+		    ?>
+	  <li style="font-size: 13px;"><a   href="<?php echo base_url(); ?>Security/cab_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 13px;"></i>Report</a></li>
+	  <?PHP
+			}
+			?>
+</ul>
   </div>
 			  </li>
+			  <?PHP
+			}
+			?>
+			 <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN" || $this->session->userdata('user_type')=="EMPLOYEE")
+			{
+		    ?> 
 			   <li class="nav-item navsalign">
 				<a class="nav-link <?php if($this->uri->segment(2)=="expense_view" ||  $this->uri->segment(2)=="expense_form" ||  $this->uri->segment(2)=="expense_report"){ echo "active"; } ?> hmenu  mobilehide menuhide" href="<?php  echo base_url(); ?>Travel/expense_view">
 				  <img src="<?php echo base_url(); ?>/assets/img/icons/expense.png" alt="material.png" id="material"/> Reimburse
-				</a>
-						   <div class="nav-link <?php if($this->uri->segment(2)=="expense_view" ||  $this->uri->segment(2)=="expense_form" ||  $this->uri->segment(2)=="expense_report"){ echo "active"; } ?> hmenu dropdown hidedrop">
-    <a class="dropdown-toggle" data-toggle="dropdown"> <img src="<?php echo base_url(); ?>/assets/img/icons/expense.png" alt="material.png" id="material"/> Reimburse</a>
-    <span class="caret"></span></a>
-    <ul class="dropdown-menu" style="
-    width: 142px;
-">
-      <li style="
-    font-size: 13px;
-"> <a   href="<?php echo base_url(); ?>Travel/expense_view"><i class="fas fa-home fa-lg iconcss" style="
-    /* font-size: 20px; */
-    margin-left: 20px;
-    margin-right: 5px;
-"></i>Home</a></li>
-      <li style="
-    font-size: 13px;
-"><a href="<?php echo base_url(); ?>Travel/expense_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 12px;
-"></i>Add</a></li>
-      <li style="
-    font-size: 13px;
-"><a   href="<?php echo base_url(); ?>Travel/expense_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="
-    margin-left: 21px;
-    margin-right: 13px;
-"></i>Report</a></li>
-	  </ul>
-  </div>
+									</a>
+					<div class="nav-link <?php if($this->uri->segment(2)=="expense_view" ||  $this->uri->segment(2)=="expense_form" ||  $this->uri->segment(2)=="expense_report"){ echo "active"; } ?> hmenu dropdown hidedrop">
+						<a class="dropdown-toggle" data-toggle="dropdown"> <img src="<?php echo base_url(); ?>/assets/img/icons/expense.png" alt="material.png" id="material"/> Reimburse</a>
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu" style="width: 142px;">
+						  <li style="font-size: 13px;"><a href="<?php echo base_url(); ?>Travel/expense_view"><i class="fas fa-home fa-lg iconcss" style="margin-left: 20px;margin-right: 5px;"></i>Home</a></li>
+						  <li style="font-size: 13px;"><a href="<?php echo base_url(); ?>Travel/expense_form" ><i class="fa fa-plus iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 12px;"></i>Add</a></li>
+            <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+			{
+		    ?>				
+				<li style="font-size: 13px;"><a  href="<?php echo base_url(); ?>Travel/expense_report"><i class="fa fa-file iconcss1" aria-hidden="true" style="margin-left: 21px;margin-right: 13px;"></i>Report</a></li>
+            <?PHP
+			}
+            ?>			
+				</ul>
+					  </div>
 			  </li>
+			  <?PHP
+			}
+			?>
+			 <?php
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+			{
+		    ?> 
 			  <li class="nav-item">
 				<a class="nav-link <?php if($this->uri->segment(2)=="Department"){ echo "active"; } ?> hmenu" href="<?php echo base_url(); ?>organization/Department" style=' color: #8898aa !important;'>
 				  <img src="<?php echo base_url(); ?>/assets/img/icons/department.png" alt="material.png" style="width: 32px;margin-right: 10px;"/> Department
@@ -374,9 +343,9 @@
 				  <img src="<?php echo base_url(); ?>/assets/img/icons/designation.png" alt="material.png" style="width: 32px;margin-right: 10px;"/> Designation
 				</a>
 			  </li>
-              <?php
-              }
-            ?>
+             <?PHP
+			}
+			?>
         </ul>
       </div>
     </div>

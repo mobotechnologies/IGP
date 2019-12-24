@@ -85,15 +85,14 @@
 	
 		   
     </div>
-    <div class="container-fluid mt--7" id="bgcontain">
+    <div class="container-fluid mt--7" id="bgcontain" style="padding-left: 69px;margin-left: 252px;">
 			<div class="modal fade" id="adddepartment" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-      
-  <h4 style="padding-left: 25%;"><img src="<?php echo base_url(); ?>/assets/img/icons/department.png" alt="material.png" style="width: 32px;margin-right: 10px;"/>Add Department</h4>
+                <h4 style="padding-left: 25%;"><img src="<?php echo base_url(); ?>/assets/img/icons/department.png" alt="material.png" style="width: 32px;margin-right: 10px;"/>Add Department</h4>
         </div>
         <div class="modal-body">
 		          <form method="post" action="Save_dep" enctype="multipart/form-data">
@@ -123,8 +122,8 @@
 	       
                      <div class="row">
         <div class="col">
-          <div class="card shadow">
-            <div class="card-header border-0">
+          <div class="card shadow" style="width: 461.991422px;">
+            <div class="card-header border-0" style="margin-left: 72px;">
                                 <h4><img src="<?php echo base_url(); ?>/assets/img/icons/department.png" alt="material.png" style="width: 32px;margin-right: 10px;" />Department List<i class="fa fa-plus" aria-hidden="true" style="margin-left: 102px;"  data-toggle="modal" data-target="#adddepartment"></i></h4>
                             </div>
                             <?php echo $this->session->flashdata('delsuccess'); ?>

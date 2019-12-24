@@ -89,7 +89,7 @@
           <div class="row">
 
 	    <?php
-		    if($this->session->userdata('user_type')=="SECURITY"  || $this->session->userdata('designation')=="15" || $this->session->userdata('designation')=="16" || $this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+		    if($this->session->userdata('user_type')=="SECURITY"  || $this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
 			{
 		    ?>
 			<div class="col-xl-3 col-lg-6">
@@ -208,6 +208,13 @@
                 </div>
               </div>
             </div>
+	<?PHP
+			}
+			?>
+			 <?php
+		    if($this->session->userdata('user_type')=="SECURITY"  || $this->session->userdata('user_type')=="	EMPLOYEE"  ||  $this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+			{
+		    ?>
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
@@ -231,11 +238,11 @@
                 </div>
               </div>
             </div>
-<?php
-}
-?>
+     <?PHP
+			}
+			?>
             <?php
-		    if($this->session->userdata('designation')=="14"  || $this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+		    if($this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN" || $this->session->userdata('user_type')=="EMPLOYEE" )
             {
             ?>
 			            <div class="col-xl-3 col-lg-6">
@@ -285,7 +292,8 @@
               </div>
             </div>
 <?php
-}?>
+}
+?>
           </div>
         </div>
       </div>
@@ -297,10 +305,10 @@
     margin-bottom: 10px;
 ">
  <?php
-		    if($this->session->userdata('user_type')=="SECURITY"  || $this->session->userdata('designation')=="15" || $this->session->userdata('designation')=="16" || $this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
+		    if($this->session->userdata('user_type')=="SECURITY"  || $this->session->userdata('user_type')=="EMPLOYEE" || $this->session->userdata('user_type')=="ADMIN"  || $this->session->userdata('user_type')=="SUPER ADMIN")
 			{
 		    ?>
-        <div class="col-md-12">
+        <div class="col-md-12" style="margin-top: 16px;">
 			<div class="card">
 				<div class="card-body">
 					<div class="chart " >
@@ -386,12 +394,10 @@
 
 	  <div class="row ">
         <?php
-		    if($this->session->userdata('designation')=="14"  || $this->session->userdata('user_type')=="ADMIN" || $this->session->userdata('user_type')=="SUPER ADMIN")
+		    if($this->session->userdata('user_type')=="EMPLOYEE" || $this->session->userdata('user_type')=="ADMIN" || $this->session->userdata('user_type')=="SUPER ADMIN")
             {
             ?>
-	   <div class="col-md-12" style="
-    margin-bottom: 10px;
-">
+	   <div class="col-md-12" style="margin-bottom: 10px;">
 		   <div class="card " >
 				<div class="card-body">
 					<div class="chart">
@@ -454,9 +460,7 @@
 			</div>
 		</div>
 		
-		<div class="col-md-12" style="
-    margin-bottom: 10px;
-">
+		<div class="col-md-12" style="margin-bottom: 10px;">
 		 <div class="card ">
 				<div class="card-body">
 					<div class="chart">

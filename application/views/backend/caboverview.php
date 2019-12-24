@@ -121,13 +121,13 @@
                     <?php echo $cabover[0]->first_name; ?>
                 </h3>
 				 <div class="h5 font-weight-300">
-                   <span style="font-size: 18px;font-weight: 900;"> Email :</span><span style="font-size: 18px;font-weight: 900;"><?php echo $cabover[0]->em_email; ?></span>
+                   <span style="font-size: 13px;font-weight: 900;"> Email :</span><span style="font-size: 13px;font-weight: 900;"><?php echo $cabover[0]->em_email; ?></span>
                 </div>
 				 <div class="h5 font-weight-300">
-                    <span style="font-size: 18px;font-weight: 900;">Phone :</span><span style="font-size: 18px;font-weight: 900;"><?php echo $cabover[0]->em_phone; ?></span>
+                    <span style="font-size: 13px;font-weight: 900;">Phone :</span><span style="font-size: 13px;font-weight: 900;"><?php echo $cabover[0]->em_phone; ?></span>
                 </div>
                  <div class="h5 font-weight-300">
-                    <span style="font-size: 18px;font-weight: 900;">Drop Type :</span><span style="font-size: 18px;font-weight: 900;"><?php echo $cabover[0]->drop_type; ?></span>
+                    <span style="font-size: 13px;font-weight: 900;">Drop Type :</span><span style="font-size: 13px;font-weight: 900;"><?php echo $cabover[0]->drop_type; ?></span>
                 </div>
                 <div>
                   <i class="ni education_hat mr-2"></i>
@@ -226,10 +226,75 @@
 								}
 								else
 								{
+										
 									echo "requested";
 								}
 							?>">
-                      </div>
+                  </div>
+				   <div class="row">
+				      <div class="col">
+							<p>Level 1 </p>
+							<?php
+						        $app1=$cabover[0]->approve1;
+								if(trim($cabover[0]->approve1," ")=="Yes")
+								{
+									?>
+									 <input type="checkbox" class="check" checked ><br>
+									<?php
+								}
+								elseif($cabover[0]->approve1==NULL)
+								{
+									echo "Pending";
+								}
+								else
+								{
+									echo "Rejected";
+									echo "Remark".$cabover[0]->reject_remark1;
+								}								
+							?>
+					  </div>
+					  <div class="col">
+					       <p>Level 2 </p>
+							<?php
+                                 $app2=trim($cabover[0]->approve2," ");
+								if($app2 == "Yes")
+								{  
+									?>
+									 <input type="checkbox" class="check" checked ><br>
+									<?php
+								}
+								elseif($app2==NULL)
+								{
+									echo "Pending";
+								}
+								else
+								{
+									echo "Rejected";
+									
+								}								
+							?>
+					  </div>
+					  <div class="col">
+					       <p>Level 3 </p>
+						   <?php
+                            if(trim($cabover[0]->approve3," ")=="Yes")
+							{
+								?>
+							     <input type="checkbox" class="check" checked ><br>
+								<?php
+							}
+                            elseif($cabover[0]->approve3==NULL)
+							{
+								echo "Pending";
+							}
+                            else
+                            {
+								echo "Rejected";
+								echo "Remark".$cabover[0]->reject_remark3;
+							}								
+						 ?>
+					  </div>
+					  </div>
 				 <?php
 				 if($this->session->userdata('user_type')=='ADMIN')
 															{
@@ -237,17 +302,11 @@
 				 ?>
 				<div class="form-group row">
 				    <div class="col">
-				     <input type="submit" name="Canel" class="form-control btn btn-danger"  value="Canel"/>
+				     <input type="submit" name="Canel" class="form-control btn btn-danger"  value="Canel" style="width: 101.991422px;margin-left: 216px;" />
 					</div>
 					<div class="col">
-					   <input type="submit" name="submit" class="form-control btn btn-success" value="Submit"/>
+					   <input type="submit" name="submit" class="form-control btn btn-success" value="Submit" style="width: 92.991422px;margin-left: 0px;" />
 					</div>
-					<div class="col">
-					 <button class="btn btn-primary approve" ><i class="fas fa-thumbs-up"></i></button>
-					 </div>
-					 <div class="col">
-					 <button class="btn btn-danger reject" ><i class="fas fa-thumbs-down"></i></button>
-					 </div>
 				</div>
 				<?php
 															}

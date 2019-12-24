@@ -177,7 +177,14 @@
 							   ?></th>
 							<td  id="<?php echo $value->id; ?>" class="stockintab">
 
+                               <?php
+							    if($value->status!="Closed")
+							    {
+									?>	
 						      <a href="<?php echo base_url(); ?>security/stockinover?I=<?php echo base64_encode($value->id); ?>"  id="view"><img src="<?php echo base_url(); ?>assets/img/icons/eye.jpg" alt="eye.png" id="forbidden"/></a>
+								   <?php
+								}
+								?>
 								<?php
 							    if($value->status!="Closed")
 							    {

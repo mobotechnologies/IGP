@@ -114,10 +114,10 @@
                     <?php echo $employee[0]->first_name; ?>
                 </h3>
 				 <div class="h5 font-weight-300">
-                   <span style="font-size: 18px;font-weight: 900;"> Email:</span><span style="font-size: 18px;font-weight: 900;"><?php echo $employee[0]->em_email; ?></span>
+                   <span style="font-size: 13px;font-weight: 900;"> Email:</span><span style="font-size: 13px;font-weight: 900;"><?php echo $employee[0]->em_email; ?></span>
                 </div>
 				 <div class="h5 font-weight-300">
-                    <span style="font-size: 18px;font-weight: 900;">Phone :</span><span style="font-size: 18px;font-weight: 900;"><?php echo $employee[0]->em_phone; ?></span>
+                    <span style="font-size: 13px;font-weight: 900;">Phone :</span><span style="font-size: 13px;font-weight: 900;"><?php echo $employee[0]->em_phone; ?></span>
                 </div>
                 <div>
                   <i class="ni education_hat mr-2"></i>
@@ -198,7 +198,7 @@
 						  <div class="form-group">
 							<label class="form-control-label" for="input-city">Payment_Date</label>
 							<input type="text" id="input-city" class="form-control form-control-alternative"  value="  <?php  
-												       if($employee[0]->payment_date=="0000-00-00" )
+												       if($employee[0]->payment_date=="" )
 												       {
 														   echo "Pending";
 													   }
@@ -258,26 +258,119 @@
 				      <div class="col">
                       <div class="form-group">
                         <label class="form-control-label" for="input-country">Attachment</label>
-                        <input type="text" id="input-postal-code" class="form-control form-control-alternative" value="<?php  echo $employee[0]->Bill_document;  ?>">
+						</br>
+                        			  <?php 
+												 
+												  $dec=json_decode($employee[0]->Bill_document);
+												if(is_array($dec))
+												{
+												  foreach($dec as $key => $val)
+												  {
+												  ?>
+												     <a href="<?php echo base_url(); ?>assets/expense/<?php echo $val; ?>" ><?php echo $val; ?></a>
+											     <?php
+												  }
+												}
+												else
+												{
+													?>
+													
+												     <a href="<?php echo base_url(); ?>assets/expense/<?php echo $employee[$key]->Bill_document; ?>" ><?php echo $employee[$key]->Bill_document; ?></a>
+													<?php
+												}
+												 ?>
                       </div>
                     </div>
 					 <div class="col">
                       <div class="form-group">
                         <label class="form-control-label" for="input-country">Status</label>
-                        <input type="text" id="input-postal-code" class="form-control form-control-alternative" value=" <?php
-												      if($employee[0]->t_status=="")
-														 {
-															echo "requested";
-														 }
-														 else
-														 {
-															 echo $employee[0]->t_status;
-														 }
-												   ?>">
+                        <input type="text" id="input-postal-code" class="form-control form-control-alternative" value="<?php
+											    if(($employee[0]->approve1=="Yes" || $employee[0]->approve1=="No")   && (($employee[0]->approve2=="Yes" ||$$employee[$key]->approve2=="No" ) || ($$employee[$key]->approve3=="Yes" || $$employee[$key]->approve3=="No")) )
+			                                    {
+													 if($employee[0]->approve1 =="Yes" && ($employee[0]->approve2=="Yes" || $employee[0]->approve3=="Yes"))
+			                                          {
+														  echo "Approved";
+													  }
+													  else
+												      {
+														  echo "Rejected";
+													  }
+												}
+                                                else
+												{
+													echo "Requested";
+												}													
+											?>"/>
                       </div>
                     </div>
+				
+				 </div>
+				 <div class="row">
+				      <div class="col">
+							<p>Level 1 </p>
+							<?php
+								if($employee[0]->approve1=="Yes")
+								{
+									?>
+									 <input type="checkbox" class="check" checked ><br>
+									<?php
+								}
+								elseif($employee[0]->approve1==NULL)
+								{
+									echo "Pending";
+								}
+								else
+								{
+									echo "Rejected";
+									echo "Remark".$employee[0]->reject_remark1;
+								}								
+							?>
+					  </div>
+					  <div class="col">
+					       <p>Level 2 </p>
+							<?php
+								if($employee[0]->approve2=="Yes")
+								{
+									?>
+									 <input type="checkbox" class="check" checked ><br>
+									<?php
+								}
+								elseif($employee[0]->approve2==NULL)
+								{
+									echo "Pending";
+								}
+								else
+								{
+									echo "Rejected";
+									echo "Remark".$employee[0]->reject_remark2;
+								}								
+							?>
+					  </div>
+					  <div class="col">
+					       <p>Level 3 </p>
+						   <?php
+                            if($employee[0]->approve3=="Yes")
+							{
+								?>
+							     <input type="checkbox" class="check" checked ><br>
+								<?php
+							}
+                            elseif($employee[0]->approve3==NULL)
+							{
+								echo "Pending";
+							}
+                            else
+                            {
+								echo "Rejected";
+								echo "Remark".$employee[0]->reject_remark3;
+							}								
+						 ?>
+					  </div>
+					  </div>
 				 </div>
 				 </div>
+				 <div>
+				  
 				 <?php
 				 if($this->session->userdata('user_type')=='ADMIN')
 															{
@@ -285,10 +378,10 @@
 				 ?>
 				<div class="form-group row">
 				    <div class="col">
-				     <input type="submit" name="Canel" class="form-control btn btn-danger"  value="Canel"/>
+				     <input type="submit" name="Canel" class="form-control btn btn-danger"  value="Canel" style="width: 101.991422px;margin-left: 216px;"/>
 					</div>
 					<div class="col">
-					   <input type="submit" name="submit" class="form-control btn btn-success" value="Submit"/>
+					   <input type="submit" name="submit" class="form-control btn btn-success " value="Submit" style="width: 92.991422px;margin-left: 0px;"/>
 					</div>
 				</div>
 				<?php
